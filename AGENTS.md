@@ -38,9 +38,17 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 - **Forms & Validation:** React Hook Form (RHF) + Zod
 - **Contact Channel:** Telegram Bot API (instant push notifications) + WhatsApp quick action
 
+### 3. Internationalization Rules
+
+- All user-facing strings are rendered with `useTranslations` (or `getTranslations`) from `next-intl`, never hardcoded in components.
+- Each message referenced should match an entry in `messages/en.json`, with the corresponding translation in `messages/ar.json`.
+- Use descriptive, yet short, key names like `title` and `description` instead of repeating the current source string.
+- Use ICU arguments instead of string concatenation to give translators the flexibility to change the order of words within a sentence.
+- Always use CSS logical properties (`start-`, `end-`, `ms-`, `me-`, `ps-`, `pe-`) to guarantee natural RTL and LTR support.
+
 ---
 
-### 3. Implementation Roadmap & Progress Tracker
+### 4. Implementation Roadmap & Progress Tracker
 
 - [ ] **Phase 1: i18n Foundation**
   - Setup `next-intl` routing (`/en` and `/ar`).
