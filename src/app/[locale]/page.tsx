@@ -6,6 +6,8 @@ export default async function HomePage() {
   const t = await getTranslations("HomePage");
   const otherLocale = locale === "ar" ? "en" : "ar";
 
+  const isAr = locale === "ar";
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 text-center">
       <div className="mx-auto max-w-xl">
@@ -14,11 +16,17 @@ export default async function HomePage() {
           {t("available")}
         </span>
 
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-foreground">
+        <h1
+          className={
+            isAr
+              ? "font-arabic text-4xl font-bold sm:text-6xl text-foreground"
+              : "font-display text-5xl uppercase sm:text-7xl text-foreground"
+          }
+        >
           {t("title")}
         </h1>
 
-        <h2 className="mt-3 text-2xl font-semibold text-muted-foreground sm:text-3xl">
+        <h2 className="mt-3 text-2xl font-medium text-muted-foreground sm:text-3xl">
           {t("role")}
         </h2>
 

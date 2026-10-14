@@ -46,16 +46,23 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 - Use ICU arguments instead of string concatenation to give translators the flexibility to change the order of words within a sentence.
 - Always use CSS logical properties (`start-`, `end-`, `ms-`, `me-`, `ps-`, `pe-`) to guarantee natural RTL and LTR support.
 
+### 4. Typography Rules
+
+- **English Headings:** Use `font-display` (`Bebas Neue`) for primary headings, section titles, and badges to give an editorial, high-impact aesthetic.
+- **English Body & UI:** Use `font-sans` (`Manrope`) for body text, subtitles, descriptions, navigation, and interactive buttons to keep the UI clean, balanced, and readable (avoid overusing `Bebas Neue`).
+- **Arabic Text:** Use `font-arabic` (`Cairo`) across headings, body, and UI elements with appropriate font weights (`font-semibold`, `font-bold`) for natural Arabic legibility.
+
 ---
 
-### 4. Implementation Roadmap & Progress Tracker
+### 5. Implementation Roadmap & Progress Tracker
 
 - [x] **Phase 1: i18n Foundation**
   - Setup `next-intl` routing (`/en` and `/ar`).
   - Setup dynamic `dir="ltr"` / `dir="rtl"` layout shell.
 
-- [ ] **Phase 2: Typography**
-  - Configure bilingual typography (`Cairo` for Arabic, `Manrope` / display fonts for English).
+- [x] **Phase 2: Typography**
+  - Configure bilingual typography (`Cairo` for Arabic, `Manrope` + `Bebas Neue` for English).
+  - Apply `font-display` for English headings, `font-sans` for English body, and `font-arabic` for Arabic.
 
 - [ ] **Phase 3: Design Tokens & Theme Engine**
   - Define dark (`#0a0a0a`) and light (`#fafafa`) CSS variables in `globals.css`.

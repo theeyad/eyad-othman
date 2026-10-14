@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Manrope, Bebas_Neue, Cairo } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
@@ -7,16 +7,20 @@ import { getMessages, getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-display",
+  weight: "400",
   subsets: ["latin"],
+});
+
+const cairo = Cairo({
+  variable: "--font-arabic",
+  subsets: ["arabic", "latin"],
 });
 
 export function generateStaticParams() {
@@ -57,13 +61,17 @@ export default async function LocaleLayout({
       className={cn(
         "h-full",
         "antialiased",
-        geistSans.variable,
-        geistMono.variable,
-        inter.variable,
-        "font-sans",
+        manrope.variable,
+        bebasNeue.variable,
+        cairo.variable
       )}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body
+        className={cn(
+          "min-h-full flex flex-col bg-background text-foreground",
+          locale === "ar" ? "font-arabic" : "font-sans"
+        )}
+      >
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
