@@ -1,9 +1,33 @@
 {
+  "Nav": {
+    "home": "HOME",
+    "projects": "PROJECTS",
+    "contact": "CONTACT",
+    "cv": "CV ↓",
+    "themeToggle": "Toggle theme",
+    "switchLang": "العربية",
+    "langBadge": "AR",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "email": "Email"
+  },
   "HomePage": {
     "title": "Eyad Othman",
     "role": "Frontend Developer",
     "tagline": "A man who learned, is learning, and will always learn...",
     "available": "Available for work & freelance",
     "switchLang": "العربية"
+  },
+  "ProjectsPage": {
+    "title": "Featured Projects",
+    "subtitle": "A showcase of recent frontend projects, web applications, and experiments.",
+    "comingSoon": "Projects showcase coming in Phase 8"
+  },
+  "ContactPage": {
+    "title": "Let's Work Together",
+    "subtitle": "Available for freelance projects, collaborations, and full-time roles.",
+    "comingSoon": "Contact form with Telegram integration coming in Phase 9"
   }
 }

@@ -48,13 +48,38 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 
 ### 4. Typography Rules
 
-- **English Headings:** Use `font-display` (`Bebas Neue`) for primary headings, section titles, and badges to give an editorial, high-impact aesthetic.
+- **English Headings:** Use `font-display` (`Bebas Neue`) for primary headings, section titles, and badges to give an editorial, high-impact aesthetic. Avoid `tracking-wider` on `Bebas Neue` to maintain tight, impactful headline typography.
 - **English Body & UI:** Use `font-sans` (`Manrope`) for body text, subtitles, descriptions, navigation, and interactive buttons to keep the UI clean, balanced, and readable (avoid overusing `Bebas Neue`).
 - **Arabic Text:** Use `font-arabic` (`Cairo`) across headings, body, and UI elements with appropriate font weights (`font-semibold`, `font-bold`) for natural Arabic legibility.
 
+### 5. Design Tokens & Theme Specification
+
+- **Light Mode (Default if system is light):**
+  - Background: `#fafafa`
+  - Card / Surface: `#ffffff`
+  - Borders: `#e8e8e8`
+  - Text: `#000000` (Black)
+  - Muted Text & Icons: `#666666`
+  - Status Dot: `#22c55e`
+  - Icon: `#000000` | Muted Icon: `#666666`
+
+- **Dark Mode (Default if system is dark):**
+  - Background: `#0a0a0a`
+  - Card / Surface: `#111111`
+  - Borders: `#242424`
+  - Text: `#ffffff` (White)
+  - Muted Text & Icons: `#999999`
+  - Status Dot: `#22c55e`
+  - Icon: `#ffffff` | Muted Icon: `#999999`
+
+- **Toggle Behavior:**
+  - Binary toggle (Sun ⇄ Moon) without a "System" option in the UI.
+  - Automatically loads Dark if system preference is dark; otherwise defaults to Light.
+  - Full FOUC and FOUT prevention via `next-themes` and `suppressHydrationWarning`.
+
 ---
 
-### 5. Implementation Roadmap & Progress Tracker
+### 6. Implementation Roadmap & Progress Tracker
 
 - [x] **Phase 1: i18n Foundation**
   - Setup `next-intl` routing (`/en` and `/ar`).
@@ -64,14 +89,15 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
   - Configure bilingual typography (`Cairo` for Arabic, `Manrope` + `Bebas Neue` for English).
   - Apply `font-display` for English headings, `font-sans` for English body, and `font-arabic` for Arabic.
 
-- [ ] **Phase 3: Design Tokens & Theme Engine**
+- [x] **Phase 3: Design Tokens & Theme Engine**
   - Define dark (`#0a0a0a`) and light (`#fafafa`) CSS variables in `globals.css`.
   - Implement smooth dark/light mode toggle.
 
 - [ ] **Phase 4: Navigation & Shell Components**
-  - Top floating pill navbar (Initials `EO`, links, theme toggle, language switcher).
-  - Desktop left floating vertical social dock with hover tooltips.
-  - Mobile bottom application dock.
+  - Top floating pill navbar (Initials `EO`, `#111111` / `#ffffff` inversion, active tab cut-in notch, language switcher, theme toggle, CV download).
+  - Mobile top squircle navbar (EO monogram, Projects, Contact, CV download, theme toggle, and language switcher).
+  - Desktop side floating vertical social dock (`lg:` only) with hover tooltips and custom SVG icons (GitHub, LinkedIn, WhatsApp, Telegram, Email).
+  - Dedicated routes structure (`/[locale]`, `/[locale]/projects`, `/[locale]/contact`).
 
 - [ ] **Phase 5: Hero Section**
   - "Available for work" pulse pill badge.

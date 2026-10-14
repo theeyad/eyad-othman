@@ -6,6 +6,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "@/components/navbar";
+import { SocialDock } from "@/components/social-dock";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -58,6 +61,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
+      suppressHydrationWarning
       className={cn(
         "h-full",
         "antialiased",
@@ -72,9 +76,18 @@ export default async function LocaleLayout({
           locale === "ar" ? "font-arabic" : "font-sans"
         )}
       >
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <NextIntlClientProvider messages={messages}>
+            <Navbar />
+            <SocialDock />
+            {children}
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
