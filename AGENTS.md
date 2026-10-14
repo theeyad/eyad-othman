@@ -50,7 +50,7 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 
 ### 4. Implementation Roadmap & Progress Tracker
 
-- [ ] **Phase 1: i18n Foundation**
+- [x] **Phase 1: i18n Foundation**
   - Setup `next-intl` routing (`/en` and `/ar`).
   - Setup dynamic `dir="ltr"` / `dir="rtl"` layout shell.
 
