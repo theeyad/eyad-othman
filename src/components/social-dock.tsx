@@ -15,27 +15,27 @@ export const links: SocialLink[] = [
   {
     key: "github",
     href: "https://github.com/theeyad",
-    icon: <GitHubIcon className="size-4.5" />,
+    icon: <GitHubIcon className="size-4" />,
   },
   {
     key: "linkedin",
     href: "https://www.linkedin.com/in/eyad-othman",
-    icon: <LinkedInIcon className="size-4.5" />,
+    icon: <LinkedInIcon className="size-4" />,
   },
   {
     key: "whatsapp",
     href: "https://wa.me/201150440572",
-    icon: <WhatsAppIcon className="size-4.5" />,
+    icon: <WhatsAppIcon className="size-4" />,
   },
   {
     key: "telegram",
     href: "https://t.me/eyad_osman2005",
-    icon: <TelegramIcon className="size-6.5" />,
+    icon: <TelegramIcon className="size-6" />,
   },
   {
     key: "email",
     href: "mailto:eyadosman35@gmail.com",
-    icon: <GmailIcon className="size-4.5" />,
+    icon: <GmailIcon className="size-4" />,
   },
 ];
 
@@ -50,7 +50,7 @@ export function SocialDock() {
       {/* Decorative vertical top line */}
       <span
         aria-hidden="true"
-        className="h-10 w-px bg-linear-to-b from-transparent to-border mb-3"
+        className="h-15 w-px bg-linear-to-b from-transparent to-border mb-3"
       />
 
       {/* Social Links Stack */}
@@ -80,7 +80,7 @@ export function SocialDock() {
       {/* Decorative vertical bottom line */}
       <span
         aria-hidden="true"
-        className="h-10 w-px bg-linear-to-t from-transparent to-border mt-3"
+        className="h-15 w-px bg-linear-to-t from-transparent to-border mt-3"
       />
     </aside>
   );

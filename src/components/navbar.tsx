@@ -39,120 +39,124 @@ export function Navbar() {
           - Center: Capsule with white/dark pill tabs & active notch cutout
           - Right: Theme toggle & Language switcher circular buttons
          ========================================================================= */}
-      <header className="fixed top-5 inset-x-0 mx-auto z-99 w-fit hidden md:flex items-center gap-2 pointer-events-auto">
-        {/* Monogram Brand Circle */}
-        <Link
-          href="/"
-          aria-label="Eyad Othman"
-          className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-md transition-transform duration-200 hover:scale-105 active:scale-95"
-        >
-          <span className="font-display text-xl  tracking-normal leading-none select-none">
-            <span className="inline-block">EO</span>
-          </span>
-        </Link>
-
-        {/* Center Nav Pill Capsule */}
-        <nav
-          aria-label="Main Navigation"
-          className="rounded-full bg-[#111111] dark:bg-[#ffffff] p-1 shadow-md flex items-center gap-1 transition-colors duration-200"
-        >
-          {/* HOME Tab */}
+      <header className="fixed top-5 inset-x-0 mx-auto z-99 w-fit hidden md:flex items-center gap-2.5 pointer-events-auto">
+        <div className="flex gap-px">
+          {/* Monogram Brand Circle */}
           <Link
             href="/"
-            className={cn(
-              "relative overflow-hidden rounded-full px-5 py-1.5 font-display tracking-wider text-9xl uppercase transition-all duration-200 select-none",
-              isAr ? "font-arabic text-xs " : "font-display text-base",
-              "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff] hover:opacity-95 active:scale-98",
-            )}
+            aria-label="Eyad Othman"
+            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm"
           >
-            <span>{t("home")}</span>
-            {isHome && (
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
-              />
-            )}
+            <span className="font-bebas text-xl  tracking-normal leading-none select-none">
+              <span className="inline-block">EO</span>
+            </span>
           </Link>
 
-          {/* PROJECTS Tab */}
-          <Link
-            href="/projects"
-            className={cn(
-              "relative overflow-hidden rounded-full px-5 py-1.5 font-display tracking-wider text-base uppercase transition-all duration-200 select-none",
-              isAr ? "font-arabic text-xs " : "font-display text-base",
-              "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff] hover:opacity-95 active:scale-98",
-            )}
+          {/* Center Nav Pill Capsule */}
+          <nav
+            aria-label="Main Navigation"
+            className="rounded-full bg-[#111111] dark:bg-[#ffffff] p-1 shadow-md flex items-center gap-1 transition-colors duration-200"
           >
-            <span>{t("projects")}</span>
-            {isProjects && (
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
-              />
-            )}
-          </Link>
+            {/* HOME Tab */}
+            <Link
+              href="/"
+              className={cn(
+                "relative overflow-hidden rounded-full px-5 py-1.5 tracking-tight text-base uppercase transition-all duration-200 select-none",
+                isAr ? "font-cairo " : "font-oswald text-base",
+                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
+              )}
+            >
+              <span>{t("home")}</span>
+              {isHome && (
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
+                />
+              )}
+            </Link>
 
-          {/* CONTACT Tab */}
-          <Link
-            href="/contact"
-            className={cn(
-              "relative overflow-hidden rounded-full px-5 py-1.5 font-display tracking-wider text-base uppercase transition-all duration-200 select-none",
-              isAr ? "font-arabic text-xs " : "font-display text-base",
-              "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff] hover:opacity-95 active:scale-98",
-            )}
+            {/* PROJECTS Tab */}
+            <Link
+              href="/projects"
+              className={cn(
+                "relative overflow-hidden rounded-full px-5 py-1.5 font-oswald tracking-wider text-base uppercase transition-all duration-200 select-none",
+                isAr ? "font-cairo" : "font-oswald text-base",
+                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
+              )}
+            >
+              <span>{t("projects")}</span>
+              {isProjects && (
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
+                />
+              )}
+            </Link>
+
+            {/* CONTACT Tab */}
+            <Link
+              href="/contact"
+              className={cn(
+                "relative overflow-hidden rounded-full px-5 py-1.5 font-oswald tracking-wider text-base uppercase transition-all duration-200 select-none",
+                isAr ? "font-cairo" : "font-oswald text-base",
+                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
+              )}
+            >
+              <span>{t("contact")}</span>
+              {isContact && (
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
+                />
+              )}
+            </Link>
+
+            {/* CV Tab */}
+            <a
+              href="/Eyad_Othman_Frontend.pdf"
+              download="Eyad_Othman_Frontend.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "relative rounded-full px-4 py-1.5 font-oswald tracking-wider text-base uppercase transition-all duration-200 select-none inline-flex items-center gap-1",
+                isAr ? "font-cairo" : "font-oswald text-base",
+                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
+              )}
+            >
+              <span>{t("cv")}</span>
+            </a>
+          </nav>
+        </div>
+
+        <div className="flex gap-1">
+          {/* Theme Toggle Circle */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={t("themeToggle")}
+            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-md transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <span>{t("contact")}</span>
-            {isContact && (
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
-              />
-            )}
-          </Link>
-
-          {/* CV Tab */}
-          <a
-            href="/Eyad_Othman_Frontend.pdf"
-            download="Eyad_Othman_Frontend.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "relative rounded-full px-4 py-1.5 font-display tracking-wider text-base uppercase transition-all duration-200 select-none inline-flex items-center gap-1",
-              isAr ? "font-arabic text-xs " : "font-display text-base",
-              "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff] hover:opacity-95 active:scale-98",
-            )}
-          >
-            <span>{t("cv")}</span>
-          </a>
-        </nav>
-
-        {/* Theme Toggle Circle */}
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label={t("themeToggle")}
-          className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-md transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-        >
-          {mounted ? (
-            isDark ? (
-              <Sun className="size-5 transition-transform duration-300 rotate-0 hover:rotate-45" />
+            {mounted ? (
+              isDark ? (
+                <Sun className="size-5 transition-transform duration-300 rotate-0 hover:rotate-45" />
+              ) : (
+                <Moon className="size-5 transition-transform duration-300 -rotate-12 hover:rotate-0" />
+              )
             ) : (
-              <Moon className="size-5 transition-transform duration-300 -rotate-12 hover:rotate-0" />
-            )
-          ) : (
-            <span className="size-5 opacity-0" />
-          )}
-        </button>
+              <span className="size-5 opacity-0" />
+            )}
+          </button>
 
-        {/* Language Switcher Circle */}
-        <Link
-          href={pathname}
-          locale={otherLocale}
-          aria-label={t("switchLang")}
-          className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-md transition-transform duration-200 hover:scale-105 active:scale-95"
-        >
-          <Globe className="size-5 transition-transform duration-300 hover:rotate-12" />
-        </Link>
+          {/* Language Switcher Circle */}
+          <Link
+            href={pathname}
+            locale={otherLocale}
+            aria-label={t("switchLang")}
+            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-md transition-transform duration-200 hover:scale-105 active:scale-95"
+          >
+            <Globe className="size-5 transition-transform duration-300 hover:rotate-12" />
+          </Link>
+        </div>
       </header>
 
       {/* =========================================================================
@@ -166,7 +170,7 @@ export function Navbar() {
             href="/"
             aria-label="Home"
             className={cn(
-              "size-10 rounded-xl flex items-center justify-center font-display text-base transition-all duration-200 active:scale-95 shadow-sm",
+              "size-10 rounded-xl flex items-center justify-center font-oswald text-base transition-all duration-200 active:scale-95 shadow-sm",
               isHome
                 ? "bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111]"
                 : "bg-card hover:bg-muted text-foreground border border-border",

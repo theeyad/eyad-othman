@@ -17,8 +17,8 @@ export default async function HomePage() {
         <h1
           className={
             isAr
-              ? "font-arabic text-4xl font-bold sm:text-6xl text-foreground"
-              : "font-display text-5xl uppercase sm:text-7xl text-foreground"
+              ? "font-cairo text-4xl font-bold sm:text-6xl text-foreground"
+              : "font-bebas text-5xl uppercase sm:text-7xl text-foreground"
           }
         >
           {t("title")}

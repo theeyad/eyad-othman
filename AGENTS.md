@@ -48,9 +48,9 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 
 ### 4. Typography Rules
 
-- **English Headings:** Use `font-display` (`Bebas Neue`) for primary headings, section titles, and badges to give an editorial, high-impact aesthetic. Avoid `tracking-wider` on `Bebas Neue` to maintain tight, impactful headline typography.
-- **English Body & UI:** Use `font-sans` (`Manrope`) for body text, subtitles, descriptions, navigation, and interactive buttons to keep the UI clean, balanced, and readable (avoid overusing `Bebas Neue`).
-- **Arabic Text:** Use `font-arabic` (`Cairo`) across headings, body, and UI elements with appropriate font weights (`font-semibold`, `font-bold`) for natural Arabic legibility.
+- **English Headings:** Use `font-bebas` (`Bebas Neue`) for primary headings, section titles, and badges to give an editorial, high-impact aesthetic. Avoid `tracking-wider` on `Bebas Neue` to maintain tight, impactful headline typography.
+- **English Body & UI:** Use `font-manrope` (`Manrope`) for body text, subtitles, descriptions, navigation, and interactive buttons to keep the UI clean, balanced, and readable (avoid overusing `Bebas Neue`).
+- **Arabic Text:** Use `font-cairo` (`Cairo`) across headings, body, and UI elements with appropriate font weights (`font-semibold`, `font-bold`) for natural Arabic legibility.
 
 ### 5. Design Tokens & Theme Specification
 
@@ -87,7 +87,7 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 
 - [x] **Phase 2: Typography**
   - Configure bilingual typography (`Cairo` for Arabic, `Manrope` + `Bebas Neue` for English).
-  - Apply `font-display` for English headings, `font-sans` for English body, and `font-arabic` for Arabic.
+  - Apply `font-bebas` for English headings, `font-manrope` for English body, and `font-cairo` for Arabic.
 
 - [x] **Phase 3: Design Tokens & Theme Engine**
   - Define dark (`#0a0a0a`) and light (`#fafafa`) CSS variables in `globals.css`.

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Bebas_Neue, Cairo } from "next/font/google";
+import { Manrope, Bebas_Neue, Cairo, Oswald } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
@@ -11,19 +11,25 @@ import { Navbar } from "@/components/navbar";
 import { SocialDock } from "@/components/social-dock";
 
 const manrope = Manrope({
-  variable: "--font-sans",
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
 const bebasNeue = Bebas_Neue({
-  variable: "--font-display",
+  variable: "--font-bebas",
   weight: "400",
   subsets: ["latin"],
 });
 
 const cairo = Cairo({
-  variable: "--font-arabic",
+  variable: "--font-cairo",
   subsets: ["arabic", "latin"],
+});
+
+const oswald = Oswald({
+  variable: "--font-oswald",
+  weight: "400",
+  subsets: ["latin"],
 });
 
 export function generateStaticParams() {
@@ -35,7 +41,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const isAr = locale === "ar";
 
   return {
-    title: isAr ? "إياد عثمان — مطور واجهات أمامية" : "Eyad Othman — Frontend Developer",
+    title: isAr
+      ? "إياد عثمان — مطور واجهات أمامية"
+      : "Eyad Othman — Frontend Developer",
     description: isAr
       ? "رجلٌ تعلم، ويتعلم، وسيتعلم دائمًا... مطور واجهات أمامية"
       : "A man who learned, is learning, and will always learn... Frontend Developer",
@@ -48,7 +56,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  
+
   // Load translation messages for the current locale
   const messages = await getMessages();
 
@@ -67,13 +75,14 @@ export default async function LocaleLayout({
         "antialiased",
         manrope.variable,
         bebasNeue.variable,
-        cairo.variable
+        cairo.variable,
+        oswald.variable,
       )}
     >
       <body
         className={cn(
           "min-h-full flex flex-col bg-background text-foreground",
-          locale === "ar" ? "font-arabic" : "font-sans"
+          locale === "ar" ? "font-cairo" : "font-manrope",
         )}
       >
         <ThemeProvider
