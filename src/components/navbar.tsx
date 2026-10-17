@@ -6,8 +6,10 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Globe, Folder, Mail, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
+import NavTab from "@/components/navtab";
+import { motion } from "motion/react";
 
-export function Navbar() {
+export default function Navbar() {
   const t = useTranslations("Nav");
   const locale = useLocale();
   const pathname = usePathname();
@@ -35,112 +37,84 @@ export function Navbar() {
     <>
       {/* =========================================================================
           DESKTOP NAVBAR (md: and up)
-          - Left: Circular 'EO' Monogram
-          - Center: Capsule with white/dark pill tabs & active notch cutout
-          - Right: Theme toggle & Language switcher circular buttons
+          - Left: Circular 'EO' Monogram (Spring scale-in)
+          - Center: Capsule with white/dark pill tabs (Stretches from start)
+          - Right: Theme toggle & Language switcher circular buttons (Fades in)
          ========================================================================= */}
       <header className="fixed top-5 inset-x-0 mx-auto z-99 w-fit hidden md:flex items-center gap-2.5 pointer-events-auto">
-        <div className="flex gap-px">
+        <div className="flex gap-1 items-center">
           {/* Monogram Brand Circle */}
-          <Link
-            href="/"
-            aria-label="Eyad Othman"
-            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm"
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 450, damping: 22 }}
           >
-            <span className="font-bebas text-xl  tracking-normal leading-none select-none">
-              <span className="inline-block">EO</span>
-            </span>
-          </Link>
-
-          {/* Center Nav Pill Capsule */}
-          <nav
-            aria-label="Main Navigation"
-            className="rounded-full bg-[#111111] dark:bg-[#ffffff] p-1 shadow-md flex items-center gap-1 transition-colors duration-200"
-          >
-            {/* HOME Tab */}
             <Link
               href="/"
-              className={cn(
-                "relative overflow-hidden rounded-full px-5 py-1.5 tracking-tight text-base uppercase transition-all duration-200 select-none",
-                isAr ? "font-cairo " : "font-oswald text-base",
-                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
-              )}
+              aria-label="Eyad Othman"
+              className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
             >
-              <span>{t("home")}</span>
-              {isHome && (
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
-                />
-              )}
+              <span className="font-bebas text-xl tracking-normal leading-none select-none">
+                <span className="inline-block">EO</span>
+              </span>
             </Link>
+          </motion.div>
 
-            {/* PROJECTS Tab */}
-            <Link
+          {/* Center Nav Pill Capsule */}
+          <motion.nav
+            aria-label="Main Navigation"
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            style={{ transformOrigin: isAr ? "right center" : "left center" }}
+            transition={{
+              type: "spring",
+              stiffness: 280,
+              damping: 24,
+              delay: 0.18,
+            }}
+            className="rounded-full bg-[#111111] dark:bg-[#ffffff] p-1 shadow-sm flex items-center gap-1 transition-colors duration-200"
+          >
+            <NavTab href="/" label={t("home")} isActive={isHome} isAr={isAr} />
+            <NavTab
               href="/projects"
-              className={cn(
-                "relative overflow-hidden rounded-full px-5 py-1.5 font-oswald tracking-wider text-base uppercase transition-all duration-200 select-none",
-                isAr ? "font-cairo" : "font-oswald text-base",
-                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
-              )}
-            >
-              <span>{t("projects")}</span>
-              {isProjects && (
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
-                />
-              )}
-            </Link>
-
-            {/* CONTACT Tab */}
-            <Link
+              label={t("projects")}
+              isActive={isProjects}
+              isAr={isAr}
+            />
+            <NavTab
               href="/contact"
-              className={cn(
-                "relative overflow-hidden rounded-full px-5 py-1.5 font-oswald tracking-wider text-base uppercase transition-all duration-200 select-none",
-                isAr ? "font-cairo" : "font-oswald text-base",
-                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
-              )}
-            >
-              <span>{t("contact")}</span>
-              {isContact && (
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 rounded-full bg-[#111111] dark:bg-[#ffffff]"
-                />
-              )}
-            </Link>
-
-            {/* CV Tab */}
-            <a
+              label={t("contact")}
+              isActive={isContact}
+              isAr={isAr}
+            />
+            <NavTab
               href="/Eyad_Othman_Frontend.pdf"
+              label={t("cv")}
+              isAr={isAr}
+              isExternal
               download="Eyad_Othman_Frontend.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "relative rounded-full px-4 py-1.5 font-oswald tracking-wider text-base uppercase transition-all duration-200 select-none inline-flex items-center gap-1",
-                isAr ? "font-cairo" : "font-oswald text-base",
-                "bg-[#ffffff] text-[#111111] dark:bg-[#111111] dark:text-[#ffffff]",
-              )}
-            >
-              <span>{t("cv")}</span>
-            </a>
-          </nav>
+            />
+          </motion.nav>
         </div>
 
-        <div className="flex gap-1">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.35, delay: 0.45, ease: "easeOut" }}
+          className="flex gap-1"
+        >
           {/* Theme Toggle Circle */}
           <button
             type="button"
             onClick={toggleTheme}
             aria-label={t("themeToggle")}
-            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-md transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
           >
             {mounted ? (
               isDark ? (
-                <Sun className="size-5 transition-transform duration-300 rotate-0 hover:rotate-45" />
+                <Sun className="size-5" />
               ) : (
-                <Moon className="size-5 transition-transform duration-300 -rotate-12 hover:rotate-0" />
+                <Moon className="size-5" />
               )
             ) : (
               <span className="size-5 opacity-0" />
@@ -152,11 +126,11 @@ export function Navbar() {
             href={pathname}
             locale={otherLocale}
             aria-label={t("switchLang")}
-            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-md transition-transform duration-200 hover:scale-105 active:scale-95"
+            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
           >
-            <Globe className="size-5 transition-transform duration-300 hover:rotate-12" />
+            <Globe className="size-5" />
           </Link>
-        </div>
+        </motion.div>
       </header>
 
       {/* =========================================================================

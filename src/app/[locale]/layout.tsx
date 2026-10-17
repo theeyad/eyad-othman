@@ -7,7 +7,7 @@ import { getMessages, getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/navbar";
+import Navbar from "@/components/navbar";
 import { SocialDock } from "@/components/social-dock";
 
 const manrope = Manrope({
