@@ -1,37 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { useTheme } from "next-themes";
-import { Moon, Sun, Globe, Folder, Mail, Download } from "lucide-react";
+import { Globe, Folder, Mail, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import NavTab from "@/components/navtab";
+import ThemeToggle from "@/components/theme-toggle";
 import { motion } from "motion/react";
 
 export default function Navbar() {
   const t = useTranslations("Nav");
   const locale = useLocale();
   const pathname = usePathname();
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const otherLocale = locale === "ar" ? "en" : "ar";
   const isAr = locale === "ar";
-  const isDark = resolvedTheme === "dark";
 
   // Active page detection
   const isHome = pathname === "/" || pathname === "";
   const isProjects = pathname.startsWith("/projects");
   const isContact = pathname.startsWith("/contact");
-
-  const toggleTheme = () => {
-    setTheme(isDark ? "light" : "dark");
-  };
 
   return (
     <>
@@ -101,25 +89,10 @@ export default function Navbar() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.35, delay: 0.45, ease: "easeOut" }}
-          className="flex gap-1"
+          className="flex gap-1 items-center"
         >
           {/* Theme Toggle Circle */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={t("themeToggle")}
-            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
-          >
-            {mounted ? (
-              isDark ? (
-                <Sun className="size-5" />
-              ) : (
-                <Moon className="size-5" />
-              )
-            ) : (
-              <span className="size-5 opacity-0" />
-            )}
-          </button>
+          <ThemeToggle className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] border-none shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:ring-muted-foreground" />
 
           {/* Language Switcher Circle */}
           <Link
@@ -136,8 +109,14 @@ export default function Navbar() {
       {/* =========================================================================
           MOBILE NAVBAR (< md:)
           - Single top pill container with squircle icon tiles
+          - Smooth spring entrance animation
          ========================================================================= */}
-      <header className="fixed top-4 inset-x-0 mx-auto z-99 w-fit max-w-[95vw] flex md:hidden items-center justify-center pointer-events-auto">
+      <motion.header
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+        className="fixed bottom-4 inset-x-0 mx-auto z-99 w-fit max-w-[95vw] flex md:hidden items-center justify-center pointer-events-auto"
+      >
         <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-md p-1.5 shadow-lg flex items-center gap-1.5 transition-colors duration-200">
           {/* 1. Monogram Tile */}
           <Link
@@ -193,23 +172,11 @@ export default function Navbar() {
             <Download className="size-4.5" />
           </a>
 
-          {/* 5. Theme Toggle Tile */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={t("themeToggle")}
-            className="size-10 rounded-xl flex items-center justify-center bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm cursor-pointer"
-          >
-            {mounted ? (
-              isDark ? (
-                <Sun className="size-4.5" />
-              ) : (
-                <Moon className="size-4.5" />
-              )
-            ) : (
-              <span className="size-4.5 opacity-0" />
-            )}
-          </button>
+          {/* 5. Theme Toggle Tile (Reused Component) */}
+          <ThemeToggle
+            className="size-10 rounded-xl bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm"
+            iconClassName="size-4.5"
+          />
 
           {/* 6. Language Switcher Tile */}
           <Link
@@ -219,12 +186,12 @@ export default function Navbar() {
             className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm"
           >
             <Globe className="size-4" />
-            <span className="text-[11px]  tracking-tight">
+            <span className="text-[11px] tracking-tight">
               {t("langBadge")}
             </span>
           </Link>
         </div>
-      </header>
+      </motion.header>
     </>
   );
 }
