@@ -136,3 +136,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Suppress all transitions during theme switches to prevent color lag/flash */
+.theme-changing,
+.theme-changing * {
+  transition: none !important;
+}

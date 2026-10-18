@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { Manrope, Bebas_Neue, Cairo, Oswald } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
@@ -66,11 +65,6 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  // Read theme cookie on server to prevent FOUC on language switch
-  const cookieStore = await cookies();
-  const themeCookie = cookieStore.get("theme")?.value;
-  const isDark = themeCookie === "dark";
-
   return (
     <html
       lang={locale}
@@ -79,13 +73,19 @@ export default async function LocaleLayout({
       className={cn(
         "h-full",
         "antialiased",
-        isDark ? "dark" : "",
         manrope.variable,
         bebasNeue.variable,
         cairo.variable,
         oswald.variable,
       )}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark')}}catch(e){}`,
+          }}
+        />
+      </head>
       <body
         suppressHydrationWarning
         className={cn(
@@ -93,12 +93,7 @@ export default async function LocaleLayout({
           locale === "ar" ? "font-cairo" : "font-manrope",
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme={themeCookie || "light"}
-          enableSystem={false}
-          disableTransitionOnChange
-        >
+        <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
             <Navbar />
             <SocialDock />
@@ -109,3 +104,4 @@ export default async function LocaleLayout({
     </html>
   );
 }
+

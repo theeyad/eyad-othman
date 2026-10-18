@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations, useLocale } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { Globe, Folder, Mail, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import NavTab from "@/components/navtab";
@@ -12,6 +12,7 @@ export default function Navbar() {
   const t = useTranslations("Nav");
   const locale = useLocale();
   const pathname = usePathname();
+  const router = useRouter();
 
   const otherLocale = locale === "ar" ? "en" : "ar";
   const isAr = locale === "ar";
@@ -95,14 +96,14 @@ export default function Navbar() {
           <ThemeToggle className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] border-none shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:ring-muted-foreground" />
 
           {/* Language Switcher Circle */}
-          <Link
-            href={pathname}
-            locale={otherLocale}
+          <button
+            type="button"
+            onClick={() => router.replace(pathname, { locale: otherLocale })}
             aria-label={t("switchLang")}
-            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
+            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground cursor-pointer"
           >
             <Globe className="size-5" />
-          </Link>
+          </button>
         </motion.div>
       </header>
 
@@ -179,15 +180,15 @@ export default function Navbar() {
           />
 
           {/* 6. Language Switcher Tile */}
-          <Link
-            href={pathname}
-            locale={otherLocale}
+          <button
+            type="button"
+            onClick={() => router.replace(pathname, { locale: otherLocale })}
             aria-label={t("switchLang")}
-            className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm"
+            className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm cursor-pointer"
           >
             <Globe className="size-4" />
             <span className="text-[11px] tracking-tight">{t("langBadge")}</span>
-          </Link>
+          </button>
         </div>
       </motion.header>
     </>
