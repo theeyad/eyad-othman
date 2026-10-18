@@ -50,7 +50,7 @@ export default async function HomePage() {
   ];
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-6 sm:px-10 lg:ps-28 lg:pe-12 pt-28 pb-16 bg-background text-foreground transition-colors duration-200">
+    <main className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-6 sm:px-10 lg:ps-28 lg:pe-12 pt-28 pb-16 bg-background text-foreground">
       <div className="w-full max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* =========================================================================
