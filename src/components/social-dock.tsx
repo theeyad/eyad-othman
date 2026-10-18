@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
   GitHubIcon,
@@ -56,7 +55,7 @@ export function SocialDock() {
       {/* Social Links Stack */}
       <div className="flex flex-col items-center gap-3">
         {links.map((link) => (
-          <Link
+          <a
             key={link.key}
             href={link.href}
             target={link.key === "email" ? undefined : "_blank"}
@@ -73,7 +72,7 @@ export function SocialDock() {
             >
               {t(link.key)}
             </span>
-          </Link>
+          </a>
         ))}
       </div>
 

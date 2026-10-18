@@ -18,6 +18,15 @@
     "role": "Frontend Developer",
     "tagline": "A man who learned, is learning, and will always learn...",
     "available": "Available for work & freelance",
+    "viewProjects": "View Projects",
+    "hireMe": "Hire Me",
+    "downloadCv": "Download CV",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "telegram": "Telegram",
+    "cv": "CV",
     "switchLang": "العربية"
   },
   "ProjectsPage": {
