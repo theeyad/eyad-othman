@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
-import { usePathname } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,7 @@ interface ThemeToggleProps {
 
 export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
   const t = useTranslations("Nav");
+  const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -48,6 +49,7 @@ export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
     if (typeof document !== "undefined") {
       document.cookie = `theme=${nextTheme}; path=/; max-age=31536000; SameSite=Lax`;
     }
+    router.refresh();
   };
 
   const isDark = mounted && resolvedTheme === "dark";

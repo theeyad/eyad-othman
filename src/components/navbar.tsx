@@ -186,9 +186,7 @@ export default function Navbar() {
             className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm"
           >
             <Globe className="size-4" />
-            <span className="text-[11px] tracking-tight">
-              {t("langBadge")}
-            </span>
+            <span className="text-[11px] tracking-tight">{t("langBadge")}</span>
           </Link>
         </div>
       </motion.header>
