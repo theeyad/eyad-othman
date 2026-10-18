@@ -93,7 +93,7 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
   - Define dark (`#0a0a0a`) and light (`#fafafa`) CSS variables in `globals.css`.
   - Implement smooth dark/light mode toggle.
 
-- [ ] **Phase 4: Navigation & Shell Components**
+- [x] **Phase 4: Navigation & Shell Components**
   - Top floating pill navbar (Initials `EO`, `#111111` / `#ffffff` inversion, active tab cut-in notch, language switcher, theme toggle, CV download).
   - Mobile top squircle navbar (EO monogram, Projects, Contact, CV download, theme toggle, and language switcher).
   - Desktop side floating vertical social dock (`lg:` only) with hover tooltips and custom SVG icons (GitHub, LinkedIn, WhatsApp, Telegram, Email).
