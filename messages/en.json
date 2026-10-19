@@ -27,7 +27,8 @@
     "linkedin": "LinkedIn",
     "telegram": "Telegram",
     "cv": "CV",
-    "switchLang": "العربية"
+    "switchLang": "العربية",
+    "skills": "Skills"
   },
   "ProjectsPage": {
     "title": "Featured Projects",

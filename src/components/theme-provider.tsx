@@ -9,15 +9,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-
-type Theme = "light" | "dark";
-
-interface ThemeContextType {
-  theme: Theme | null;
-  resolvedTheme: Theme;
-  setTheme: (theme: Theme) => void;
-  toggleTheme: () => void;
-}
+import { ThemeContextType, Theme } from "@/lib/types";
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 

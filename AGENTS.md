@@ -45,6 +45,8 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 - Use descriptive, yet short, key names like `title` and `description` instead of repeating the current source string.
 - Use ICU arguments instead of string concatenation to give translators the flexibility to change the order of words within a sentence.
 - Always use CSS logical properties (`start-`, `end-`, `ms-`, `me-`, `ps-`, `pe-`) to guarantee natural RTL and LTR support.
+- No cursor pointer at all and if some element uses it use cursor-default to make it default
+- Do not use shadows (shadow-xs, shadow-md, shadow-lg, shadow-xl, shadow-2xl, etc...) in all elements
 
 ### 4. Typography Rules
 
@@ -99,7 +101,7 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
   - Desktop side floating vertical social dock (`lg:` only) with hover tooltips and custom SVG icons (GitHub, LinkedIn, WhatsApp, Telegram, Email).
   - Dedicated routes structure (`/[locale]`, `/[locale]/projects`, `/[locale]/contact`).
 
-- [ ] **Phase 5: Hero Section**
+- [x] **Phase 5: Hero Section**
   - "Available for work" pulse pill badge.
   - Headline, role, tagline, primary CTA buttons (`View Projects`, `Contact`, `Download CV`).
   - Direct communication chips (Telegram, WhatsApp, Email, GitHub, LinkedIn).

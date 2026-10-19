@@ -5,11 +5,7 @@ import { useTranslations } from "next-intl";
 import { useTheme } from "@/components/theme-provider";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface ThemeToggleProps {
-  className?: string;
-  iconClassName?: string;
-}
+import { ThemeToggleProps } from "@/lib/types";
 
 export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
   const t = useTranslations("Nav");

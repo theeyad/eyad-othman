@@ -142,3 +142,33 @@
 .theme-changing * {
   transition: none !important;
 }
+
+/* =========================================================================
+   Skills LogoLoop Ticker Animation (LTR & RTL)
+   ========================================================================= */
+@keyframes logoloop-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+
+@keyframes logoloop-scroll-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(50% + 0.5rem));
+  }
+}
+
+.animate-logoloop {
+  animation: logoloop-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+[dir="rtl"] .animate-logoloop {
+  animation-name: logoloop-scroll-rtl;
+}

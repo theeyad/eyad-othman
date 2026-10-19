@@ -1,15 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-
-interface SplitTextProps {
-  text: string;
-  isArabic?: boolean;
-  className?: string;
-  delay?: number;
-  charDelay?: number;
-  wordDelay?: number;
-}
+import { SplitTextProps } from "@/lib/types";
 
 export function SplitText({
   text,

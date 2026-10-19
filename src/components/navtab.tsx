@@ -1,14 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
-
-interface NavTabProps {
-  href: string;
-  label: string;
-  isActive?: boolean;
-  isAr: boolean;
-  isExternal?: boolean;
-  download?: string;
-}
+import { NavTabProps } from "@/lib/types";
 
 export default function NavTab({
   href,
