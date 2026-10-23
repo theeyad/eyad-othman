@@ -27,8 +27,13 @@
     "linkedin": "لينكد إن",
     "telegram": "تيليجرام",
     "cv": "السيرة الذاتية",
-    "switchLang": "English",
-    "skills": "المهارات"
+    "skills": "المهارات",
+    "experience": "الخبرات",
+    "experienceRole": "مطور واجهات أمامية",
+    "experiencePeriod": "أكتوبر 2025 — ديسمبر 2025",
+    "experienceCompany": "مؤسسة العدل (القطاع القانوني)",
+    "experienceType": "عمل حر",
+    "experienceDescription": "تطوير الواجهة الأمامية لموقع متجاوب مكون من 7 صفحات لعميل، بالتعاون مع مطور خلفية تولى إدارة الخادم والاستضافة."
   },
   "ProjectsPage": {
     "title": "المشاريع المميزة",

@@ -5,7 +5,7 @@ import {
   GitHubIcon,
   LinkedInIcon,
   WhatsAppIcon,
-  TelegramIcon,
+  TelegramIconInDock,
   GmailIcon,
 } from "@/components/icons";
 import { SocialLink } from "@/lib/types";
@@ -29,7 +29,7 @@ export const links: SocialLink[] = [
   {
     key: "telegram",
     href: "https://t.me/eyad_osman2005",
-    icon: <TelegramIcon className="size-6" />,
+    icon: <TelegramIconInDock className="size-6" />,
   },
   {
     key: "email",

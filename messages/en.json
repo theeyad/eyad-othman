@@ -27,8 +27,13 @@
     "linkedin": "LinkedIn",
     "telegram": "Telegram",
     "cv": "CV",
-    "switchLang": "العربية",
-    "skills": "Skills"
+    "skills": "Skills",
+    "experience": "Experience",
+    "experienceRole": "Front-End Developer",
+    "experiencePeriod": "Oct 2025 — Dec 2025",
+    "experienceCompany": "Al-Adl Organization (legal sector)",
+    "experienceType": "Freelance",
+    "experienceDescription": "Built the frontend of a 7-page responsive website for a paying client, collaborating with a back-end developer who handled the server and hosting."
   },
   "ProjectsPage": {
     "title": "Featured Projects",

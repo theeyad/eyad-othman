@@ -107,10 +107,10 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
   - Direct communication chips (Telegram, WhatsApp, Email, GitHub, LinkedIn).
   - Profile image card frame.
 
-- [ ] **Phase 6: Skills LogoLoop**
+- [x] **Phase 6: Skills LogoLoop**
   - Infinite horizontal ticker (React Bits / pure CSS) with gradient edge fade masks.
 
-- [ ] **Phase 7: Experience Timeline**
+- [x] **Phase 7: Experience Timeline**
   - Clean vertical experience & education timeline with status badges.
 
 - [ ] **Phase 8: Featured Projects Showcase**

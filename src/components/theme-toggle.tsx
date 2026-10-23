@@ -1,20 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/components/theme-provider";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggleProps } from "@/lib/types";
 
+const emptySubscribe = () => () => {};
+
 export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
   const t = useTranslations("Nav");
   const { resolvedTheme, toggleTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const isDark = mounted && resolvedTheme === "dark";
 

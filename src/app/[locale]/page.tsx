@@ -4,11 +4,12 @@ import { Link } from "@/i18n/navigation";
 import { SplitText } from "@/components/split-text";
 import { cn } from "@/lib/utils";
 import { SkillsLoop } from "@/components/skills-loop";
+import { Experience } from "@/components/experience";
 import {
   GitHubIcon,
   LinkedInIcon,
   WhatsAppIcon,
-  TelegramIcon,
+  TelegramIconInContact,
   GmailIcon,
 } from "@/components/icons";
 
@@ -47,7 +48,9 @@ export default async function HomePage() {
       key: "telegram",
       name: t("telegram"),
       href: "https://t.me/eyad_osman2005",
-      icon: <TelegramIcon className="size-6 text-foreground shrink-0" />,
+      icon: (
+        <TelegramIconInContact className="size-4 text-foreground shrink-0" />
+      ),
     },
   ];
 
@@ -58,7 +61,7 @@ export default async function HomePage() {
           {/* =========================================================================
               LEFT COLUMN: Status, Split-text Animated Name & Role, Tagline, CTAs & Chips
              ========================================================================= */}
-          <div className="md:col-span-5 md:items-start md:text-start flex flex-col items-center text-center">
+          <div className="md:col-span-6 md:items-start md:text-start flex flex-col items-center text-center">
             {/* Status Pill Badge */}
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs text-muted-foreground">
               <span className="size-2 rounded-full bg-success shrink-0" />
@@ -150,7 +153,7 @@ export default async function HomePage() {
                     }
                     className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4.5 py-2.5 text-xs font-medium text-foreground transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
                   >
-                    { chip.icon }
+                    {chip.icon}
                     <span>{chip.name}</span>
                   </a>
                 );
@@ -161,7 +164,7 @@ export default async function HomePage() {
           {/* =========================================================================
               RIGHT COLUMN: Portrait Squircle Card (Rendered with next/image, no motion entrance)
              ========================================================================= */}
-          <div className="md:col-span-7 flex justify-center -order-1 md:order-0 md:justify-end">
+          <div className="md:col-span-6 flex justify-center -order-1 md:order-0 md:justify-end">
             <div className="relative w-full max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-[2.5rem] border border-border bg-card overflow-hidden shadow-2xs">
               <Image
                 src="/me.webp"
@@ -187,6 +190,9 @@ export default async function HomePage() {
           </h2>
           <SkillsLoop />
         </section>
+
+        {/* PHASE 7: Experience Section */}
+        <Experience isAr={isAr} />
       </div>
     </main>
   );
