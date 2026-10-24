@@ -82,6 +82,7 @@ export default function Navbar() {
               isAr={isAr}
               isExternal
               download="Eyad_Othman_Frontend.pdf"
+              logo={<Download className="size-4" />}
             />
           </motion.nav>
         </div>

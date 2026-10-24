@@ -3,7 +3,7 @@
     "home": "HOME",
     "projects": "PROJECTS",
     "contact": "CONTACT",
-    "cv": "CV ↓",
+    "cv": "CV",
     "themeToggle": "Toggle theme",
     "switchLang": "العربية",
     "langBadge": "ض",
@@ -33,7 +33,12 @@
     "experiencePeriod": "Oct 2025 — Dec 2025",
     "experienceCompany": "Al-Adl Organization (legal sector)",
     "experienceType": "Freelance",
-    "experienceDescription": "Built the frontend of a 7-page responsive website for a paying client, collaborating with a back-end developer who handled the server and hosting."
+    "experienceDescription": "Built the frontend of a 7-page responsive website for a paying client, collaborating with a back-end developer who handled the server and hosting.",
+    "featuredProjects": "Featured Projects",
+    "seeMoreProjects": "See More Projects",
+    "letsWorkTogether": "Let's Work Together",
+    "workTogetherSubtitle": "Available for remote, part-time, full-time jobs and freelance",
+    "sendMessage": "Send a message"
   },
   "ProjectsPage": {
     "title": "Featured Projects",
@@ -44,5 +49,8 @@
     "title": "Let's Work Together",
     "subtitle": "Available for freelance projects, collaborations, and full-time roles.",
     "comingSoon": "Contact form with Telegram integration coming in Phase 9"
+  },
+  "Footer": {
+    "copyright": "© {year} Eyad Othman · Made with love"
   }
 }

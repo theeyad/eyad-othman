@@ -9,6 +9,7 @@ export default function NavTab({
   isAr,
   isExternal,
   download,
+  logo,
 }: NavTabProps) {
   const Component = isExternal ? "a" : Link;
   const extraProps = isExternal
@@ -34,19 +35,47 @@ export default function NavTab({
       />
 
       {/* 2. Text Flip Container with safe padding for descenders and glyph overhangs */}
-      <span className="relative z-10 block overflow-hidden px-1 -mx-1 py-1 -my-1 leading-normal">
-        {/* Default Text */}
-        <span className="block text-[#111111] dark:text-[#ffffff] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-[-120%]">
-          {label}
+      {logo ? (
+        <span className="relative z-10 block overflow-hidden px-1 -mx-1 py-1 -my-1 leading-normal">
+          {/* Default Text */}
+          <span
+            className={cn(
+              "flex items-center gap-1 text-[#111111] dark:text-[#ffffff] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-[-120%]",
+            )}
+          >
+            {label} {logo}
+          </span>
+          {/* Inverted Flipped Text (Exact same font weight & metrics) */}
+          <span
+            aria-hidden="true"
+            className={cn(
+              "flex items-center gap-1 absolute inset-0 px-1 py-1 text-[#ffffff] dark:text-[#111111] translate-y-[120%] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0",
+            )}
+          >
+            {label} {logo}
+          </span>
         </span>
-        {/* Inverted Flipped Text (Exact same font weight & metrics) */}
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 px-1 py-1 block text-[#ffffff] dark:text-[#111111] translate-y-[120%] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0"
-        >
-          {label}
+      ) : (
+        <span className="relative z-10 block overflow-hidden px-1 -mx-1 py-1 -my-1 leading-normal">
+          {/* Default Text */}
+          <span
+            className={cn(
+              "block text-[#111111] dark:text-[#ffffff] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-[-120%]",
+            )}
+          >
+            {label}
+          </span>
+          {/* Inverted Flipped Text (Exact same font weight & metrics) */}
+          <span
+            aria-hidden="true"
+            className={cn(
+              "absolute inset-0 px-1 py-1 block text-[#ffffff] dark:text-[#111111] translate-y-[120%] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0",
+            )}
+          >
+            {label}
+          </span>
         </span>
-      </span>
+      )}
 
       {/* 3. Active Tab Cut-in Notch */}
       {isActive && (

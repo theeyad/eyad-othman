@@ -9,6 +9,7 @@ import { routing, type Locale } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import { SocialDock } from "@/components/social-dock";
+import Footer from "@/components/footer";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -98,6 +99,7 @@ export default async function LocaleLayout({
             <Navbar />
             <SocialDock />
             {children}
+            <Footer />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

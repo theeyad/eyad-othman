@@ -113,7 +113,7 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 - [x] **Phase 7: Experience Timeline**
   - Clean vertical experience & education timeline with status badges.
 
-- [ ] **Phase 8: Featured Projects Showcase**
+- [x] **Phase 8: Featured Projects Showcase**
   - High-impact project cards with tech tags, live preview, and GitHub links.
   - Category filters / interactive cards.
 

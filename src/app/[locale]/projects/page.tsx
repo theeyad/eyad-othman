@@ -1,5 +1,10 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import type { Metadata } from "next";
+import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
+import { PROJECTS } from "@/data/projects";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -19,24 +24,108 @@ export default async function ProjectsPage() {
   const isAr = locale === "ar";
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 pt-24 text-center bg-background text-foreground transition-colors duration-200">
-      <div className="mx-auto max-w-2xl">
-        <h1
-          className={
-            isAr
-              ? "font-cairo text-4xl font-bold sm:text-6xl text-foreground"
-              : "font-bebas text-5xl uppercase sm:text-7xl text-foreground"
-          }
-        >
-          {t("title")}
-        </h1>
+    <main className="min-h-screen px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-28 pb-24 bg-background text-foreground">
+      <div className="mx-auto max-w-6xl">
+        {/* Header Section */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h1
+            className={
+              isAr
+                ? "font-cairo text-4xl font-bold sm:text-6xl text-foreground"
+                : "font-bebas text-5xl uppercase sm:text-7xl text-foreground tracking-normal"
+            }
+          >
+            {t("title")}
+          </h1>
 
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {t("subtitle")}
-        </p>
+          <p
+            className={cn(
+              "mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg",
+              isAr ? "font-cairo" : "font-manrope",
+            )}
+          >
+            {t("subtitle")}
+          </p>
+        </div>
 
-        <div className="mt-8 inline-flex items-center rounded-full border border-border bg-card px-5 py-2 text-sm text-muted-foreground shadow-sm">
-          {t("comingSoon")}
+        {/* Projects Archive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {PROJECTS.map((project) => {
+            const title = isAr ? project.titleAr : project.title;
+            const category = isAr ? project.categoryAr : project.category;
+            const description = isAr
+              ? project.descriptionAr
+              : project.description;
+
+            return (
+              <Link
+                key={project.slug}
+                href={`/projects/${project.slug}`}
+                className="group relative flex flex-col rounded-3xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-foreground/30 cursor-default"
+              >
+                {/* Visual Image Preview */}
+                <div className="relative aspect-video w-full overflow-hidden bg-muted">
+                  <Image
+                    src={project.image}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 inset-s-4">
+                    <span className="inline-flex items-center rounded-full border border-white/20 bg-black/50 backdrop-blur-md px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+                      {category}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Info Body */}
+                <div className="flex flex-col justify-between flex-1 p-6 space-y-4">
+                  <div className="space-y-2">
+                    <h2
+                      className={cn(
+                        "text-2xl text-foreground uppercase tracking-tight",
+                        isAr
+                          ? "font-cairo font-bold"
+                          : "font-bebas tracking-normal",
+                      )}
+                    >
+                      {title}
+                    </h2>
+                    <p
+                      className={cn(
+                        "text-xs sm:text-sm text-muted-foreground line-clamp-2 leading-relaxed",
+                        isAr ? "font-cairo" : "font-manrope",
+                      )}
+                    >
+                      {description}
+                    </p>
+                  </div>
+
+                  {/* Tech Stack Chips & Link */}
+                  <div className="pt-2 border-t border-border flex items-center justify-between">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.techStack.slice(0, 3).map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-full border border-border bg-background px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors shrink-0 ms-2">
+                      {isAr ? (
+                        <ArrowLeft size={16} />
+                      ) : (
+                        <ArrowRight size={16} />
+                      )}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </main>

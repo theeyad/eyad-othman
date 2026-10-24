@@ -11,6 +11,7 @@ export interface NavTabProps {
   isAr: boolean;
   isExternal?: boolean;
   download?: string;
+  logo?: React.ReactNode;
 }
 
 export interface SplitTextProps {

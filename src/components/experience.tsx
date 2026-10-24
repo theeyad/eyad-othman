@@ -6,7 +6,7 @@ interface ExperienceProps {
   isAr: boolean;
 }
 
-export async function Experience({ isAr }: ExperienceProps) {
+export default async function Experience({ isAr }: ExperienceProps) {
   const t = await getTranslations("HomePage");
 
   return (

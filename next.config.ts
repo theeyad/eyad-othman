@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
   experimental: {
     agentUpgrade: "security",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {
@@ -21,4 +29,3 @@ const nextConfig: NextConfig = {
 };
 
 export default withNextIntl(nextConfig);
-
