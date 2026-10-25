@@ -51,6 +51,7 @@
     "comingSoon": "Contact form with Telegram integration coming in Phase 9"
   },
   "Footer": {
-    "copyright": "© {year} Eyad Othman · Made with love"
+    "copyright": "©",
+    "copyrightText": "Eyad Othman · Made with love"
   }
 }

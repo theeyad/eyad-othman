@@ -1,13 +1,11 @@
-"use cache";
-
 import { getTranslations, getLocale } from "next-intl/server";
+import CurrentYear from "@/components/current-year";
 import { cn } from "@/lib/utils";
 
 export default async function Footer() {
   const locale = await getLocale();
   const t = await getTranslations("Footer");
   const isAr = locale === "ar";
-  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="w-full py-8 border-t border-border mt-auto flex items-center justify-center text-center">
@@ -17,7 +15,7 @@ export default async function Footer() {
           isAr ? "font-cairo" : "font-manrope",
         )}
       >
-        {t("copyright", { year: currentYear })}
+        {t("copyright")} <CurrentYear /> {t("copyrightText")}
       </p>
     </footer>
   );
