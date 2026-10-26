@@ -12,6 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 IMPORTANT NOTE: FROM NOW ON YOU CAN'T EDIT OR WRITE ANY CODE UNTILL I APPROVE TO YOU
 IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
+IMPORTANT NOTE: USE NEW AND BEST PRACTICES LIKE `useSyncExternalStore` REACT HOOK INSTEAD OF `useState` + `useEffect` FOR MOUNT AND UNMOUNT OPERATIONS, ETC...
 
 ---
 
@@ -113,14 +114,30 @@ IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 - [x] **Phase 7: Experience Timeline**
   - Clean vertical experience & education timeline with status badges.
 
-- [x] **Phase 8: Featured Projects Showcase**
+- [x] **Phase 8: Featured Projects Showcase In Home Page**
   - High-impact project cards with tech tags, live preview, and GitHub links.
   - Category filters / interactive cards.
 
-- [ ] **Phase 9: Contact Form**
-  - RHF + Zod validated contact form connected to Telegram Bot API.
+- [x] **Phase 9: Footer**
+  - Build a Footer component with copyright text and current year.
 
-- [ ] **Phase 10: Mobile Responsive**
+- [ ] **Phase 10: Plan Supabase Schema and Tables**
+  - plan the schema and tables for the Supabase database.
+  - plan the projects and experience sections tables.
 
-- [ ] **Phase 11: Final Polish**
+- [ ] **Phase 11: Connect to Supabase to Make the Portfolio Dynamic**
+  - Make the portfolio dynamic by connecting it to Supabase.
+  - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
+  
+- [ ] **Phase 12: Built Admin Pages and Secure it with Proxy.ts (protected)**
+  - Make the portfolio dynamic by connecting it to Supabase.
+  - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
+
+- [ ] **Phase 13: Contact Form in Contact Page**
+  - RHF and Zod with connection to Telegram Bot API to send me a message with the form data.
+
+- [ ] **Phase 14: Mobile Responsive**
+  - Make sure the whole portfolio is responsive for mobile devices.
+
+- [ ] **Phase 15: Final Polish**
   - SEO metadata, OpenGraph tags, dynamic sitemap.ts and dynamic robots.ts.

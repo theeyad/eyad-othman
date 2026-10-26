@@ -24,15 +24,15 @@ export default async function ProjectsPage() {
   const isAr = locale === "ar";
 
   return (
-    <main className="min-h-screen px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-28 pb-24 bg-background text-foreground">
+    <main className="min-h-screen px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-20 md:pt-28 pb-24 bg-background text-foreground">
       <div className="mx-auto max-w-6xl">
         {/* Header Section */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-start mb-16">
           <h1
             className={
               isAr
-                ? "font-cairo text-4xl font-bold sm:text-6xl text-foreground"
-                : "font-bebas text-5xl uppercase sm:text-7xl text-foreground tracking-normal"
+                ? "font-cairo text-3xl font-bold sm:text-4xl text-foreground"
+                : "font-bebas text-3xl uppercase sm:text-4xl text-foreground tracking-normal"
             }
           >
             {t("title")}
@@ -40,7 +40,7 @@ export default async function ProjectsPage() {
 
           <p
             className={cn(
-              "mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg",
+              "mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base",
               isAr ? "font-cairo" : "font-manrope",
             )}
           >
