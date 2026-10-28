@@ -52,5 +52,19 @@
   "Footer": {
     "copyright": "©",
     "copyrightText": "Eyad Othman · Made with love"
+  },
+  "Auth": {
+    "loginTitle": "ADMIN ACCESS",
+    "loginSubtitle": "Enter your credentials to manage your portfolio content.",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "name@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "signInButton": "Sign In",
+    "signingIn": "Authenticating...",
+    "invalidCredentials": "Invalid email or password.",
+    "invalidEmail": "Please enter a valid email address.",
+    "passwordMinLength": "Invalid email or password.",
+    "unauthorized": "You are not authorized to access this portal."
   }
 }

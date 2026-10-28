@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import ScrollCarousel from "@/components/lightswind/scroll-carousel";
+import ScrollCarousel from "@/components/scroll-carousel";
 import MainActionButton from "@/components/shared/main-action-button";
 import { cn } from "@/lib/utils";
 

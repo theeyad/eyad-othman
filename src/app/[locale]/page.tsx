@@ -81,11 +81,10 @@ export default async function HomePage() {
 
             {/* Split-text Animated Name */}
             <h1
-              className={`mt-5 ${
-                isAr
+              className={`mt-5 ${isAr
                   ? "font-cairo text-4xl sm:text-5xl md:text-6xl font-bold text-foreground leading-tight"
                   : "font-bebas text-5xl sm:text-6xl md:text-7xl tracking-normal text-foreground uppercase leading-[0.95]"
-              }`}
+                }`}
             >
               <SplitText
                 text={isAr ? t("title") : t("title").toUpperCase()}
@@ -96,11 +95,10 @@ export default async function HomePage() {
 
             {/* Split-text Animated Role */}
             <h2
-              className={`mt-1.5 ${
-                isAr
+              className={`mt-1.5 ${isAr
                   ? "font-cairo text-xl sm:text-2xl md:text-3xl font-semibold text-muted-foreground leading-tight"
                   : "font-bebas text-2xl sm:text-3xl md:text-4xl text-muted-foreground uppercase tracking-normal leading-[0.95]"
-              }`}
+                }`}
             >
               <SplitText
                 text={isAr ? t("role") : t("role").toUpperCase()}
@@ -111,9 +109,8 @@ export default async function HomePage() {
 
             {/* Tagline */}
             <p
-              className={`mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground ${
-                isAr ? "font-cairo font-normal" : "font-manrope"
-              }`}
+              className={`mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground ${isAr ? "font-cairo font-normal" : "font-manrope"
+                }`}
             >
               {t("tagline")}
             </p>
@@ -170,15 +167,21 @@ export default async function HomePage() {
           </div>
 
           <div className="md:col-span-6 flex justify-center -order-1 md:order-0 md:justify-end">
-            <div className="relative w-full max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-[2.5rem] border border-border bg-card overflow-hidden shadow-2xs">
-              <Image
-                src="/me.webp"
-                alt={t("title")}
-                fill
-                priority
-                sizes="(max-width: 640px) 300px, (max-width: 1024px) 340px, 380px"
-                className="object-cover"
-              />
+            <div className="relative w-full max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-[2.5rem] overflow-hidden">
+              <Link
+                href="/auth/login"
+                aria-label="Profile"
+                className="block cursor-default"
+              >
+                <Image
+                  src="/me.webp"
+                  alt={t("title")}
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 300px, (max-width: 1024px) 340px, 380px"
+                  className="object-cover"
+                />
+              </Link>
             </div>
           </div>
         </section>

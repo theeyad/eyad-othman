@@ -52,5 +52,19 @@
   "Footer": {
     "copyright": "©",
     "copyrightText": "إياد عثمان · صُنع بكل حب"
+  },
+  "Auth": {
+    "loginTitle": "بوابة الإدارة",
+    "loginSubtitle": "أدخل بيانات الاعتماد الخاصة بك لإدارة محتوى موقعك.",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "name@example.com",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "••••••••",
+    "signInButton": "تسجيل الدخول",
+    "signingIn": "جاري التحقق...",
+    "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "invalidEmail": "يرجى إدخال بريد إلكتروني صالح.",
+    "passwordMinLength": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "unauthorized": "غير مصرح لك بالوصول إلى هذه الصفحة."
   }
 }
