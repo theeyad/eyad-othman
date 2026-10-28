@@ -70,3 +70,23 @@ CREATE INDEX IF NOT EXISTS idx_project_images_project_id ON project_images(proje
 CREATE INDEX IF NOT EXISTS idx_project_images_position ON project_images(project_id, position);
 CREATE INDEX IF NOT EXISTS idx_experience_order ON experience(display_order);
 CREATE INDEX IF NOT EXISTS idx_experience_dates ON experience(start_date DESC);
+
+-- ============================================================================
+-- 5. PROFILE / SETTINGS TABLE
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS profile (
+  id INT PRIMARY KEY DEFAULT 1,
+  avatar_url TEXT NOT NULL DEFAULT '/me.webp',
+  resume_url TEXT NOT NULL DEFAULT '/Eyad_Othman_Frontend.pdf',
+  available_for_work BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT single_row CHECK (id = 1)
+);
+
+-- Seed initial default row
+INSERT INTO profile (id, avatar_url, resume_url, available_for_work)
+VALUES (1, '/me.webp', '/Eyad_Othman_Frontend.pdf', true)
+ON CONFLICT (id) DO NOTHING;
+

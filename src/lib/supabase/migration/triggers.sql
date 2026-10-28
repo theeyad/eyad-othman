@@ -24,3 +24,11 @@ CREATE TRIGGER set_experience_updated_at
 BEFORE UPDATE ON experience
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger for profile.updated_at
+DROP TRIGGER IF EXISTS set_profile_updated_at ON profile;
+CREATE TRIGGER set_profile_updated_at
+BEFORE UPDATE ON profile
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
+

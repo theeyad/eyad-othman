@@ -156,6 +156,32 @@ export interface Database {
           updated_at?: string;
         };
       };
+      profile: {
+        Row: {
+          id: number;
+          avatar_url: string;
+          resume_url: string;
+          available_for_work: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: number;
+          avatar_url?: string;
+          resume_url?: string;
+          available_for_work?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: number;
+          avatar_url?: string;
+          resume_url?: string;
+          available_for_work?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
     };
   };
 }
@@ -172,6 +198,10 @@ export type ProjectImageUpdate = Database["public"]["Tables"]["project_images"][
 export type Experience = Database["public"]["Tables"]["experience"]["Row"];
 export type ExperienceInsert = Database["public"]["Tables"]["experience"]["Insert"];
 export type ExperienceUpdate = Database["public"]["Tables"]["experience"]["Update"];
+
+export type Profile = Database["public"]["Tables"]["profile"]["Row"];
+export type ProfileInsert = Database["public"]["Tables"]["profile"]["Insert"];
+export type ProfileUpdate = Database["public"]["Tables"]["profile"]["Update"];
 
 export interface ProjectWithImages extends Project {
   images: ProjectImage[];
