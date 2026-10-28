@@ -13,6 +13,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 IMPORTANT NOTE: FROM NOW ON YOU CAN'T EDIT OR WRITE ANY CODE UNTILL I APPROVE TO YOU
 IMPORTANT NOTE: FROM NOW ON WE WILL ALWAYS DISCUSS BEFORE IMPLEMENTING
 IMPORTANT NOTE: USE NEW AND BEST PRACTICES LIKE `useSyncExternalStore` REACT HOOK INSTEAD OF `useState` + `useEffect` FOR MOUNT AND UNMOUNT OPERATIONS, ETC...
+IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY OTHER ENVIRONMENT VARIABLE FILES.
 
 ---
 
@@ -121,7 +122,7 @@ IMPORTANT NOTE: USE NEW AND BEST PRACTICES LIKE `useSyncExternalStore` REACT HOO
 - [x] **Phase 9: Footer**
   - Build a Footer component with copyright text and current year.
 
-- [ ] **Phase 10: Plan Supabase Schema and Tables**
+- [x] **Phase 10: Plan Supabase Schema and Tables**
   - plan the schema and tables for the Supabase database.
   - plan the projects and experience sections tables.
 
