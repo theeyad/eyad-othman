@@ -80,7 +80,7 @@ export default function LoginPage() {
           <div className="text-start space-y-2 mb-8">
             <h1
               className={cn(
-                "text-3xl sm:text-4xl uppercase tracking-tight text-foreground",
+                "text-2xl sm:text-3xl uppercase tracking-tight text-foreground",
                 isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
               )}
             >
@@ -89,7 +89,7 @@ export default function LoginPage() {
 
             <p
               className={cn(
-                "text-xs sm:text-sm text-muted-foreground leading-relaxed",
+                "text-sm sm:text-base text-muted-foreground leading-relaxed",
                 isAr ? "font-cairo" : "font-manrope",
               )}
             >

@@ -126,19 +126,24 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
   - plan the schema and tables for the Supabase database.
   - plan the projects and experience sections tables.
 
-- [ ] **Phase 11: Connect to Supabase to Make the Portfolio Dynamic**
-  - Make the portfolio dynamic by connecting it to Supabase.
-  - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
-  
-- [ ] **Phase 12: Built Admin Pages and Secure it with Proxy.ts (protected)**
+- [ ] **Phase 11: Built Admin Pages and Secure it with Proxy.ts (protected)**
   - Make the portfolio dynamic by connecting it to Supabase.
   - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
 
-- [ ] **Phase 13: Contact Form in Contact Page**
+
+- [ ] **Phase 12: Connect to Supabase to Make the Portfolio Dynamic**
+  - Make the portfolio dynamic by connecting it to Supabase.
+  - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
+
+- [ ] **Phase 13: Refactor and remove all mocks like `projects.ts`**
+  - refactor all `page.tsx` and other files to use the data coming from supabase instead of the mock data.
+  - delete mock data files.
+  
+- [ ] **Phase 14: Contact Form in Contact Page**
   - RHF and Zod with connection to Telegram Bot API to send me a message with the form data.
 
-- [ ] **Phase 14: Mobile Responsive**
+- [ ] **Phase 15: Mobile Responsive**
   - Make sure the whole portfolio is responsive for mobile devices.
 
-- [ ] **Phase 15: Final Polish**
-  - SEO metadata, OpenGraph tags, dynamic sitemap.ts and dynamic robots.ts.
+- [ ] **Phase 16: Final Polish**
+  - SEO metadata, OpenGraph tags, Canonical tags, dynamic sitemap.ts and dynamic robots.ts.

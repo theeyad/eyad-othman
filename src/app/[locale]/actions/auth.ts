@@ -12,7 +12,6 @@ export async function loginAction(values: LoginFormValues) {
     });
 
     if (error) {
-      console.error("Supabase Auth Error:", error.message, error.status);
       return { success: false, error: error.message };
     }
 
@@ -24,7 +23,21 @@ export async function loginAction(values: LoginFormValues) {
   } catch (err: unknown) {
     const message =
       err instanceof Error ? err.message : "Unexpected error occurred";
-    console.error("Server Action Auth Error:", message);
+    return { success: false, error: message };
+  }
+}
+
+export async function logoutAction() {
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : "Unexpected error occurred";
     return { success: false, error: message };
   }
 }

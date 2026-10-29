@@ -292,12 +292,12 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
       >
         <div
           ref={containerRef}
-          className="relative overflow-hidden md:h-screen md:min-h-175 pt-28 pb-16 flex flex-col justify-center gap-5 xl:gap-6 z-10"
+          className="relative overflow-hidden md:h-screen md:min-h-175 pt-28 pb-16 flex flex-col justify-center gap-2 z-10"
         >
           {/* Row 1 (Desktop + Mobile) */}
           <div
             ref={scrollContainerRef}
-            className="flex flex-col md:flex-row gap-6 items-center px-4 md:px-0"
+            className="flex flex-col md:flex-row gap-3 items-center px-4 md:px-0"
           >
             {renderProjectCards(projects, cardRefs)}
           </div>
@@ -305,7 +305,7 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
           {/* Row 2 (Desktop alternate scroll) */}
           <div
             ref={scrollContainerRef2}
-            className="hidden xl:flex flex-row gap-6 items-center px-0"
+            className="hidden xl:flex flex-row gap-3 items-center px-0"
           >
             {renderProjectCards(projectsRow2, cardRefs2)}
           </div>
