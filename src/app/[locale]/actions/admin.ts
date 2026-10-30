@@ -13,12 +13,12 @@ async function verifyAdminAuth() {
   } = await supabase.auth.getUser();
 
   if (error || !user) {
-    return { authorized: false, error: "Unauthorized access" as const, supabase };
+    return { authorized: false, errorKey: "unauthorized" as const, error: "Unauthorized access", supabase };
   }
 
   const adminEmail = process.env.ADMIN_EMAIL;
   if (adminEmail && user.email !== adminEmail) {
-    return { authorized: false, error: "Unauthorized user email" as const, supabase };
+    return { authorized: false, errorKey: "unauthorized" as const, error: "Unauthorized user email", supabase };
   }
 
   return { authorized: true, user, supabase };
@@ -32,7 +32,7 @@ export async function toggleAvailabilityAction(available: boolean) {
   try {
     const auth = await verifyAdminAuth();
     if (!auth.authorized) {
-      return { success: false, error: auth.error };
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
     const { error } = await auth.supabase
@@ -41,14 +41,14 @@ export async function toggleAvailabilityAction(available: boolean) {
       .eq("id", 1);
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, errorKey: "toggleError", error: error.message };
     }
 
     revalidatePath("/", "layout");
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to toggle status";
-    return { success: false, error: message };
+    return { success: false, errorKey: "toggleError", error: message };
   }
 }
 
@@ -56,7 +56,7 @@ export async function updateProfileAvatarAction(avatarUrl: string) {
   try {
     const auth = await verifyAdminAuth();
     if (!auth.authorized) {
-      return { success: false, error: auth.error };
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
     const { error } = await auth.supabase
@@ -65,14 +65,14 @@ export async function updateProfileAvatarAction(avatarUrl: string) {
       .eq("id", 1);
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, errorKey: "avatarError", error: error.message };
     }
 
     revalidatePath("/", "layout");
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to update avatar";
-    return { success: false, error: message };
+    return { success: false, errorKey: "avatarError", error: message };
   }
 }
 
@@ -133,7 +133,14 @@ export async function createProjectAction(
       .single();
 
     if (projectError || !project) {
-      return { success: false, error: projectError?.message || "Failed to create project" };
+      const isConflict =
+        projectError?.code === "23505" ||
+        projectError?.message?.toLowerCase().includes("unique");
+      return {
+        success: false,
+        errorKey: isConflict ? "slugExists" : "saveError",
+        error: projectError?.message || "Failed to create project",
+      };
     }
 
     if (images.length > 0) {
@@ -149,7 +156,7 @@ export async function createProjectAction(
         .insert(projectImages);
 
       if (imagesError) {
-        return { success: false, error: imagesError.message };
+        return { success: false, errorKey: "saveError", error: imagesError.message };
       }
     }
 
@@ -157,7 +164,7 @@ export async function createProjectAction(
     return { success: true, projectId: project.id };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to create project";
-    return { success: false, error: message };
+    return { success: false, errorKey: "saveError", error: message };
   }
 }
 
@@ -169,7 +176,7 @@ export async function updateProjectAction(
   try {
     const auth = await verifyAdminAuth();
     if (!auth.authorized) {
-      return { success: false, error: auth.error };
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
     const techStackArray = values.tech_stack
@@ -215,7 +222,14 @@ export async function updateProjectAction(
       .eq("id", id);
 
     if (projectError) {
-      return { success: false, error: projectError.message };
+      const isConflict =
+        projectError.code === "23505" ||
+        projectError.message.toLowerCase().includes("unique");
+      return {
+        success: false,
+        errorKey: isConflict ? "slugExists" : "saveError",
+        error: projectError.message,
+      };
     }
 
     // Refresh images
@@ -234,7 +248,7 @@ export async function updateProjectAction(
         .insert(projectImages);
 
       if (imagesError) {
-        return { success: false, error: imagesError.message };
+        return { success: false, errorKey: "saveError", error: imagesError.message };
       }
     }
 
@@ -242,7 +256,7 @@ export async function updateProjectAction(
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to update project";
-    return { success: false, error: message };
+    return { success: false, errorKey: "saveError", error: message };
   }
 }
 
@@ -250,20 +264,20 @@ export async function deleteProjectAction(id: string) {
   try {
     const auth = await verifyAdminAuth();
     if (!auth.authorized) {
-      return { success: false, error: auth.error };
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
     const { error } = await auth.supabase.from("projects").delete().eq("id", id);
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, errorKey: "deleteError", error: error.message };
     }
 
     revalidatePath("/", "layout");
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to delete project";
-    return { success: false, error: message };
+    return { success: false, errorKey: "deleteError", error: message };
   }
 }
 
@@ -275,7 +289,7 @@ export async function createExperienceAction(values: ExperienceFormValues) {
   try {
     const auth = await verifyAdminAuth();
     if (!auth.authorized) {
-      return { success: false, error: auth.error };
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
     const { error } = await auth.supabase.from("experience").insert({
@@ -294,14 +308,14 @@ export async function createExperienceAction(values: ExperienceFormValues) {
     });
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, errorKey: "saveError", error: error.message };
     }
 
     revalidatePath("/", "layout");
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to create experience";
-    return { success: false, error: message };
+    return { success: false, errorKey: "saveError", error: message };
   }
 }
 
@@ -309,7 +323,7 @@ export async function updateExperienceAction(id: string, values: ExperienceFormV
   try {
     const auth = await verifyAdminAuth();
     if (!auth.authorized) {
-      return { success: false, error: auth.error };
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
     const { error } = await auth.supabase
@@ -332,14 +346,14 @@ export async function updateExperienceAction(id: string, values: ExperienceFormV
       .eq("id", id);
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, errorKey: "saveError", error: error.message };
     }
 
     revalidatePath("/", "layout");
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to update experience";
-    return { success: false, error: message };
+    return { success: false, errorKey: "saveError", error: message };
   }
 }
 
@@ -347,20 +361,20 @@ export async function deleteExperienceAction(id: string) {
   try {
     const auth = await verifyAdminAuth();
     if (!auth.authorized) {
-      return { success: false, error: auth.error };
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
     const { error } = await auth.supabase.from("experience").delete().eq("id", id);
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, errorKey: "deleteError", error: error.message };
     }
 
     revalidatePath("/", "layout");
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to delete experience";
-    return { success: false, error: message };
+    return { success: false, errorKey: "deleteError", error: message };
   }
 }
 

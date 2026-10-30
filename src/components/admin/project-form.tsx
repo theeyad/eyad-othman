@@ -97,7 +97,9 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
       : await createProjectAction(values, images);
 
     if (!result.success) {
-      setFormError(result.error || t("saveError"));
+      const errorKey = (result as { errorKey?: string }).errorKey;
+      const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
+      setFormError(errorMsg);
       setIsLoading(false);
       return;
     }
@@ -170,8 +172,8 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-10" noValidate>
           {/* Section 1: Titles & Slugs */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
-              Basic Identification
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
+              {t("basicIdentification")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -186,7 +188,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <input
                   id="title"
                   type="text"
-                  placeholder="e.g. Al-Adl Legal Organization"
+                  placeholder={t("titleEnPlaceholder")}
                   disabled={isLoading}
                   {...register("title")}
                   className={cn(
@@ -212,7 +214,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <input
                   id="title_ar"
                   type="text"
-                  placeholder="مثال: مؤسسة العدل للمحاماة"
+                  placeholder={t("titleArPlaceholder")}
                   disabled={isLoading}
                   dir="rtl"
                   {...register("title_ar")}
@@ -276,8 +278,8 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
           {/* Section 2: Categories */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
-              Categories
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
+              {t("categoriesSection")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -292,7 +294,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <input
                   id="category"
                   type="text"
-                  placeholder="Frontend / Full Stack"
+                  placeholder={t("categoryEnPlaceholder")}
                   disabled={isLoading}
                   {...register("category")}
                   className={cn(
@@ -318,7 +320,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <input
                   id="category_ar"
                   type="text"
-                  placeholder="واجهات أمامية / تطوير شامل"
+                  placeholder={t("categoryArPlaceholder")}
                   disabled={isLoading}
                   dir="rtl"
                   {...register("category_ar")}
@@ -338,8 +340,8 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
           {/* Section 3: Descriptions */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
-              Narrative & Overviews
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
+              {t("descriptionsSection")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -354,7 +356,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <textarea
                   id="description"
                   rows={3}
-                  placeholder="Brief synopsis for cards and previews..."
+                  placeholder={t("descEnPlaceholder")}
                   disabled={isLoading}
                   {...register("description")}
                   className={cn(
@@ -380,7 +382,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <textarea
                   id="description_ar"
                   rows={3}
-                  placeholder="نبذة مختصرة تظهر في بطاقات المعرض..."
+                  placeholder={t("descArPlaceholder")}
                   disabled={isLoading}
                   dir="rtl"
                   {...register("description_ar")}
@@ -407,7 +409,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <textarea
                   id="long_description"
                   rows={5}
-                  placeholder="Detailed case study, architecture, and problem solved..."
+                  placeholder={t("longDescEnPlaceholder")}
                   disabled={isLoading}
                   {...register("long_description")}
                   className={cn(
@@ -433,7 +435,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <textarea
                   id="long_description_ar"
                   rows={5}
-                  placeholder="نظرة تفصيلية، التحديات والحلول المنفذة..."
+                  placeholder={t("longDescArPlaceholder")}
                   disabled={isLoading}
                   dir="rtl"
                   {...register("long_description_ar")}
@@ -453,8 +455,8 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
           {/* Section 4: Tech Stack & Highlights */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
-              Technical Stack & Highlights
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
+              {t("techStackSection")}
             </h2>
 
             <div className="space-y-6">
@@ -469,7 +471,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 <input
                   id="tech_stack"
                   type="text"
-                  placeholder="Next.js, React 19, Tailwind CSS v4, TypeScript, Supabase"
+                  placeholder={t("techStackPlaceholder")}
                   disabled={isLoading}
                   {...register("tech_stack")}
                   className={cn(
@@ -496,7 +498,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   <input
                     id="highlights"
                     type="text"
-                    placeholder="Built in Next.js 16, Achieved 100 Lighthouse score"
+                    placeholder={t("highlightsEnPlaceholder")}
                     disabled={isLoading}
                     {...register("highlights")}
                     className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
@@ -514,7 +516,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   <input
                     id="highlights_ar"
                     type="text"
-                    placeholder="مبني بأحدث تقنيات Next.js 16، تحقيق سرعة 100%"
+                    placeholder={t("highlightsArPlaceholder")}
                     disabled={isLoading}
                     dir="rtl"
                     {...register("highlights_ar")}
@@ -565,7 +567,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
           {/* Section 5: Gallery Images */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
               {t("projectImagesLabel")}
             </h2>
 
@@ -628,7 +630,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                 isAr ? "font-cairo" : "font-manrope"
               )}
             >
-              {isAr ? "إلغاء" : "Cancel"}
+              {t("cancel")}
             </Link>
           </div>
         </form>

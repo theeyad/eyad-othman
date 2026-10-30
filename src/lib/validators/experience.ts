@@ -2,17 +2,17 @@ import * as z from "zod";
 
 export const getExperienceSchema = (t: (key: string) => string) =>
   z.object({
-    role: z.string().min(1, { message: t("roleEn") }),
-    role_ar: z.string().min(1, { message: t("roleAr") }),
-    company: z.string().min(1, { message: t("company") }),
+    role: z.string().min(1, { message: t("roleRequired") }),
+    role_ar: z.string().min(1, { message: t("roleRequired") }),
+    company: z.string().min(1, { message: t("companyRequired") }),
     company_url: z.string().optional(),
-    type: z.string().min(1, { message: t("typeEn") }),
-    type_ar: z.string().min(1, { message: t("typeAr") }),
-    start_date: z.string().min(1, { message: t("startDate") }),
+    type: z.string().min(1, { message: t("typeRequired") }),
+    type_ar: z.string().min(1, { message: t("typeRequired") }),
+    start_date: z.string().min(1, { message: t("startDateRequired") }),
     end_date: z.string().optional(),
     is_current: z.boolean(),
-    description: z.string().min(1, { message: t("expDescriptionEn") }),
-    description_ar: z.string().min(1, { message: t("expDescriptionAr") }),
+    description: z.string().min(1, { message: t("descriptionRequired") }),
+    description_ar: z.string().min(1, { message: t("descriptionRequired") }),
     display_order: z.number(),
   });
 

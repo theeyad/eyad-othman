@@ -126,7 +126,7 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
   - plan the schema and tables for the Supabase database.
   - plan the projects and experience sections tables.
 
-- [ ] **Phase 11: Built Admin Pages and Secure it with Proxy.ts (protected)**
+- [x] **Phase 11: Built Admin Pages and Secure it with Proxy.ts (protected)**
   - Make the portfolio dynamic by connecting it to Supabase.
   - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
 

@@ -127,14 +127,14 @@ const reducer = (state: State, action: Action): State => {
 };
 
 // Memory state and listeners
-const listeners: Array<(state: State) => void> = [];
+const listeners: Array<() => void> = [];
 let memoryState: State = { toasts: [] };
 
 // Dispatch function to update state and notify listeners
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => {
-    listener(memoryState);
+    listener();
   });
 }
 
@@ -213,19 +213,28 @@ toast.success = (props: Omit<ToastOptions, "type">) => toast({ ...props, type: "
 toast.warning = (props: Omit<ToastOptions, "type">) => toast({ ...props, type: "warning" });
 toast.info = (props: Omit<ToastOptions, "type">) => toast({ ...props, type: "info" });
 
-// Hook for consuming toasts
-function useToast() {
-  const [state, setState] = React.useState<State>(memoryState);
+function subscribe(listener: () => void) {
+  listeners.push(listener);
+  return () => {
+    const index = listeners.indexOf(listener);
+    if (index > -1) {
+      listeners.splice(index, 1);
+    }
+  };
+}
 
-  React.useEffect(() => {
-    listeners.push(setState);
-    return () => {
-      const index = listeners.indexOf(setState);
-      if (index > -1) {
-        listeners.splice(index, 1);
-      }
-    };
-  }, []);
+function getSnapshot(): State {
+  return memoryState;
+}
+
+const serverSnapshot: State = { toasts: [] };
+function getServerSnapshot(): State {
+  return serverSnapshot;
+}
+
+// Hook for consuming toasts using useSyncExternalStore
+function useToast() {
+  const state = React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   return {
     ...state,

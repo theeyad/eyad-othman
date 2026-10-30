@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import { SocialDock } from "@/components/social-dock";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -111,6 +112,7 @@ export default async function LocaleLayout({
             <SocialDock />
             {children}
             <Footer />
+            <Toaster />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

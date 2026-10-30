@@ -39,7 +39,13 @@ export function MultiImageUploader({
     );
 
     if (validFiles.length === 0) {
-      onError(t("saveError"));
+      onError(t("invalidImageFile"));
+      return;
+    }
+
+    const oversizedFiles = validFiles.filter((file) => file.size > 5 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
+      onError(t("imageTooLarge"));
       return;
     }
 
@@ -50,7 +56,7 @@ export function MultiImageUploader({
       for (const file of validFiles) {
         const result = await uploadStorageImage(file, bucket);
         if (result.error) {
-          onError(result.error);
+          onError(t("uploadError"));
         } else if (result.publicUrl) {
           newUploadedImages.push({
             url: result.publicUrl,
@@ -69,7 +75,7 @@ export function MultiImageUploader({
         onChange(updatedList);
       }
     } catch {
-      onError(t("saveError"));
+      onError(t("uploadError"));
     } finally {
       setUploading(false);
     }

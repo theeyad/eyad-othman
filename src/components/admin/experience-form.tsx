@@ -80,7 +80,9 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
       : await createExperienceAction(values);
 
     if (!result.success) {
-      setFormError(result.error || t("saveError"));
+      const errorKey = (result as { errorKey?: string }).errorKey;
+      const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
+      setFormError(errorMsg);
       setIsLoading(false);
       return;
     }
@@ -153,8 +155,8 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-10" noValidate>
           {/* Section 1: Role & Company */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
-              Role & Organization
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
+              {t("roleOrgSection")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -169,7 +171,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 <input
                   id="role"
                   type="text"
-                  placeholder="e.g. Front-End Developer"
+                  placeholder={t("roleEnPlaceholder")}
                   disabled={isLoading}
                   {...register("role")}
                   className={cn(
@@ -195,7 +197,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 <input
                   id="role_ar"
                   type="text"
-                  placeholder="مثال: مطور واجهات أمامية"
+                  placeholder={t("roleArPlaceholder")}
                   disabled={isLoading}
                   dir="rtl"
                   {...register("role_ar")}
@@ -222,7 +224,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 <input
                   id="company"
                   type="text"
-                  placeholder="e.g. Al-Adl Organization"
+                  placeholder={t("companyPlaceholder")}
                   disabled={isLoading}
                   {...register("company")}
                   className={cn(
@@ -259,8 +261,8 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
 
           {/* Section 2: Contract Type & Timeline */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
-              Timeline & Contract
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
+              {t("timelineSection")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -275,7 +277,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 <input
                   id="type"
                   type="text"
-                  placeholder="Freelance / Full-time / Part-time"
+                  placeholder={t("typeEnPlaceholder")}
                   disabled={isLoading}
                   {...register("type")}
                   className={cn(
@@ -301,7 +303,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 <input
                   id="type_ar"
                   type="text"
-                  placeholder="عمل حر / دوام كامل / دوام جزئي"
+                  placeholder={t("typeArPlaceholder")}
                   disabled={isLoading}
                   dir="rtl"
                   {...register("type_ar")}
@@ -408,8 +410,8 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
 
           {/* Section 3: Descriptions */}
           <div className="space-y-6">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border">
-              Impact & Responsibilities
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pb-2 border-b-3 border-border">
+              {t("responsibilitiesSection")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -424,7 +426,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 <textarea
                   id="description"
                   rows={4}
-                  placeholder="Engineered the frontend for a 7-page responsive website..."
+                  placeholder={t("expDescEnPlaceholder")}
                   disabled={isLoading}
                   {...register("description")}
                   className={cn(
@@ -450,7 +452,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 <textarea
                   id="description_ar"
                   rows={4}
-                  placeholder="تطوير الواجهة الأمامية لموقع متجاوب مكون من 7 صفحات..."
+                  placeholder={t("expDescArPlaceholder")}
                   disabled={isLoading}
                   dir="rtl"
                   {...register("description_ar")}
@@ -495,7 +497,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                 isAr ? "font-cairo" : "font-manrope"
               )}
             >
-              {isAr ? "إلغاء" : "Cancel"}
+              {t("cancel")}
             </Link>
           </div>
         </form>

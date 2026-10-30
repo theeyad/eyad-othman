@@ -13,6 +13,7 @@ import {
   deleteExperienceAction,
   updateProfileAvatarAction,
 } from "@/app/[locale]/actions/admin";
+import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import {
   LogOut,
@@ -24,8 +25,6 @@ import {
   Layers,
   Sparkles,
   Loader2,
-  AlertCircle,
-  CheckCircle2,
 } from "lucide-react";
 import { ImageUploader } from "@/components/image-uploader";
 
@@ -86,7 +85,6 @@ export default function AdminDashboardClient({
   const [profile, setProfile] = useState<ProfileItem | null>(initialProfile);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [showAvatarEdit, setShowAvatarEdit] = useState(false);
-  const [feedback, setFeedback] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const featuredCount = initialProjects.filter((p) => p.featured).length;
 
@@ -106,9 +104,11 @@ export default function AdminDashboardClient({
       const result = await toggleAvailabilityAction(nextState);
       if (!result.success) {
         setProfile({ ...profile, available_for_work: !nextState });
-        setFeedback({ type: "error", text: result.error || t("saveError") });
+        const errorKey = (result as { errorKey?: string }).errorKey;
+        const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
+        toast.destructive({ title: errorMsg });
       } else {
-        setFeedback({ type: "success", text: t("saveSuccess") });
+        toast.success({ title: t("saveSuccess") });
         router.refresh();
       }
     });
@@ -122,9 +122,11 @@ export default function AdminDashboardClient({
     startTransition(async () => {
       const result = await updateProfileAvatarAction(newUrl);
       if (!result.success) {
-        setFeedback({ type: "error", text: result.error || t("saveError") });
+        const errorKey = (result as { errorKey?: string }).errorKey;
+        const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
+        toast.destructive({ title: errorMsg });
       } else {
-        setFeedback({ type: "success", text: t("saveSuccess") });
+        toast.success({ title: t("saveSuccess") });
         router.refresh();
       }
     });
@@ -136,9 +138,11 @@ export default function AdminDashboardClient({
     startTransition(async () => {
       const result = await deleteProjectAction(id);
       if (!result.success) {
-        setFeedback({ type: "error", text: result.error || t("deleteError") });
+        const errorKey = (result as { errorKey?: string }).errorKey;
+        const errorMsg = errorKey ? t(errorKey) : result.error || t("deleteError");
+        toast.destructive({ title: errorMsg });
       } else {
-        setFeedback({ type: "success", text: t("deleteSuccess") });
+        toast.success({ title: t("deleteSuccess") });
         router.refresh();
       }
     });
@@ -150,9 +154,11 @@ export default function AdminDashboardClient({
     startTransition(async () => {
       const result = await deleteExperienceAction(id);
       if (!result.success) {
-        setFeedback({ type: "error", text: result.error || t("deleteError") });
+        const errorKey = (result as { errorKey?: string }).errorKey;
+        const errorMsg = errorKey ? t(errorKey) : result.error || t("deleteError");
+        toast.destructive({ title: errorMsg });
       } else {
-        setFeedback({ type: "success", text: t("deleteSuccess") });
+        toast.success({ title: t("deleteSuccess") });
         router.refresh();
       }
     });
@@ -186,7 +192,6 @@ export default function AdminDashboardClient({
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              target="_blank"
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-foreground hover:text-card transition-all duration-200 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground",
                 isAr ? "font-cairo" : "font-manrope"
@@ -219,36 +224,6 @@ export default function AdminDashboardClient({
             </button>
           </div>
         </header>
-
-        {/* Global Feedback Banner */}
-        {feedback && (
-          <div
-            role="alert"
-            className={cn(
-              "flex items-center justify-between rounded-xl p-3.5 text-xs border transition-all",
-              feedback.type === "error"
-                ? "border-destructive/40 bg-destructive/10 text-destructive"
-                : "border-success/40 bg-success/10 text-foreground",
-              isAr ? "font-cairo" : "font-manrope"
-            )}
-          >
-            <div className="flex items-center gap-2">
-              {feedback.type === "error" ? (
-                <AlertCircle className="size-4 shrink-0" />
-              ) : (
-                <CheckCircle2 className="size-4 shrink-0 text-success" />
-              )}
-              <span>{feedback.text}</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setFeedback(null)}
-              className="text-xs opacity-70 hover:opacity-100 cursor-default"
-            >
-              ×
-            </button>
-          </div>
-        )}
 
         {/* Metric Cards Grid */}
         <section aria-label="Overview Metrics" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -339,8 +314,8 @@ export default function AdminDashboardClient({
                 <p className="text-xs font-semibold uppercase tracking-wider text-foreground">
                   {t("profileAvatarLabel")}
                 </p>
-                <p className="text-[11px] text-muted-foreground">
-                  /me.webp
+                <p className="text-[11px] text-muted-foreground truncate max-w-40">
+                  {profile?.avatar_url || "/me.webp"}
                 </p>
               </div>
             </div>
@@ -372,7 +347,7 @@ export default function AdminDashboardClient({
             <ImageUploader
               value={profile?.avatar_url}
               onChange={handleUpdateAvatar}
-              onError={(err) => setFeedback({ type: "error", text: err })}
+              onError={(err) => toast.destructive({ title: err || t("uploadError") })}
             />
           </div>
         )}

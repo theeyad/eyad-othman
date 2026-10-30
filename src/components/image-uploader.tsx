@@ -31,7 +31,12 @@ export function ImageUploader({
 
   async function processFile(file: File) {
     if (!file.type.startsWith("image/")) {
-      onError?.(t("saveError"));
+      onError?.(t("invalidImageFile"));
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      onError?.(t("imageTooLarge"));
       return;
     }
 
@@ -40,7 +45,7 @@ export function ImageUploader({
       const result = await uploadStorageImage(file, bucket);
 
       if (result.error) {
-        onError?.(result.error);
+        onError?.(t("uploadError"));
         return;
       }
 
@@ -48,7 +53,7 @@ export function ImageUploader({
         onChange(result.publicUrl);
       }
     } catch {
-      onError?.(t("saveError"));
+      onError?.(t("uploadError"));
     } finally {
       setUploading(false);
     }
