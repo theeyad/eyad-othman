@@ -168,6 +168,24 @@ export async function createProjectAction(
   }
 }
 
+function extractStoragePath(url: string, bucket: string): string | null {
+  const marker = `/storage/v1/object/public/${bucket}/`;
+  const index = url.indexOf(marker);
+  if (index !== -1) {
+    return decodeURIComponent(url.substring(index + marker.length));
+  }
+  try {
+    const parsed = new URL(url);
+    const parts = parsed.pathname.split(`/${bucket}/`);
+    if (parts.length > 1) {
+      return decodeURIComponent(parts[1]);
+    }
+  } catch {
+    // URL parsing failed
+  }
+  return null;
+}
+
 export async function updateProjectAction(
   id: string,
   values: ProjectFormValues,
@@ -197,6 +215,25 @@ export async function updateProjectAction(
           .map((s) => s.trim())
           .filter(Boolean)
       : [];
+
+    // 1. Check if any previously saved images were removed
+    const { data: existingImages } = await auth.supabase
+      .from("project_images")
+      .select("url")
+      .eq("project_id", id);
+
+    const updatedUrls = new Set(images.map((img) => img.url));
+    const removedImages = (existingImages || []).filter((img) => !updatedUrls.has(img.url));
+
+    if (removedImages.length > 0) {
+      const removedPaths = removedImages
+        .map((img) => extractStoragePath(img.url, "project_media"))
+        .filter((path): path is string => Boolean(path));
+
+      if (removedPaths.length > 0) {
+        await auth.supabase.storage.from("project_media").remove(removedPaths);
+      }
+    }
 
     const { error: projectError } = await auth.supabase
       .from("projects")
@@ -267,10 +304,28 @@ export async function deleteProjectAction(id: string) {
       return { success: false, errorKey: auth.errorKey, error: auth.error };
     }
 
+    // 1. Fetch all associated image URLs before deleting the project
+    const { data: images } = await auth.supabase
+      .from("project_images")
+      .select("url")
+      .eq("project_id", id);
+
+    // 2. Delete the project from the database
     const { error } = await auth.supabase.from("projects").delete().eq("id", id);
 
     if (error) {
       return { success: false, errorKey: "deleteError", error: error.message };
+    }
+
+    // 3. Delete physical files from Supabase Storage
+    if (images && images.length > 0) {
+      const filePaths = images
+        .map((img) => extractStoragePath(img.url, "project_media"))
+        .filter((path): path is string => Boolean(path));
+
+      if (filePaths.length > 0) {
+        await auth.supabase.storage.from("project_media").remove(filePaths);
+      }
     }
 
     revalidatePath("/", "layout");

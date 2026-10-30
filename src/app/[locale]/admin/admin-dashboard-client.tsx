@@ -86,6 +86,11 @@ export default function AdminDashboardClient({
   const [profile, setProfile] = useState<ProfileItem | null>(initialProfile);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [showAvatarEdit, setShowAvatarEdit] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<{
+    type: "project" | "experience";
+    id: string;
+    title: string;
+  } | null>(null);
 
   const featuredCount = initialProjects.filter((p) => p.featured).length;
 
@@ -133,11 +138,15 @@ export default function AdminDashboardClient({
     });
   };
 
-  const handleDeleteProject = (id: string) => {
-    if (!window.confirm(t("deleteConfirm"))) return;
+  const handleConfirmDelete = () => {
+    if (!deleteTarget) return;
 
     startTransition(async () => {
-      const result = await deleteProjectAction(id);
+      const isProject = deleteTarget.type === "project";
+      const result = isProject
+        ? await deleteProjectAction(deleteTarget.id)
+        : await deleteExperienceAction(deleteTarget.id);
+
       if (!result.success) {
         const errorKey = (result as { errorKey?: string }).errorKey;
         const errorMsg = errorKey ? t(errorKey) : result.error || t("deleteError");
@@ -146,22 +155,7 @@ export default function AdminDashboardClient({
         toast.success({ title: t("deleteSuccess") });
         router.refresh();
       }
-    });
-  };
-
-  const handleDeleteExperience = (id: string) => {
-    if (!window.confirm(t("deleteConfirm"))) return;
-
-    startTransition(async () => {
-      const result = await deleteExperienceAction(id);
-      if (!result.success) {
-        const errorKey = (result as { errorKey?: string }).errorKey;
-        const errorMsg = errorKey ? t(errorKey) : result.error || t("deleteError");
-        toast.destructive({ title: errorMsg });
-      } else {
-        toast.success({ title: t("deleteSuccess") });
-        router.refresh();
-      }
+      setDeleteTarget(null);
     });
   };
 
@@ -460,7 +454,13 @@ export default function AdminDashboardClient({
 
                       <button
                         type="button"
-                        onClick={() => handleDeleteProject(project.id)}
+                        onClick={() =>
+                          setDeleteTarget({
+                            type: "project",
+                            id: project.id,
+                            title,
+                          })
+                        }
                         disabled={isPending}
                         aria-label={`${t("delete")} ${title}`}
                         className="inline-flex items-center gap-1.5 rounded-full border border-destructive/30 bg-destructive/10 px-3.5 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/20 transition-colors cursor-default disabled:opacity-50"
@@ -558,7 +558,13 @@ export default function AdminDashboardClient({
 
                       <button
                         type="button"
-                        onClick={() => handleDeleteExperience(exp.id)}
+                        onClick={() =>
+                          setDeleteTarget({
+                            type: "experience",
+                            id: exp.id,
+                            title: role,
+                          })
+                        }
                         disabled={isPending}
                         aria-label={`${t("delete")} ${role}`}
                         className="inline-flex items-center gap-1.5 rounded-full border border-destructive/30 bg-destructive/10 px-3.5 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/20 transition-colors cursor-default disabled:opacity-50"
@@ -574,6 +580,68 @@ export default function AdminDashboardClient({
           )}
         </section>
       </div>
+
+      {/* Editorial Delete Confirmation Modal */}
+      {deleteTarget && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200"
+        >
+          <div
+            className={cn(
+              "w-full max-w-md rounded-2xl border border-border bg-card p-6 space-y-6 animate-in zoom-in-95 duration-200 cursor-default",
+              isAr ? "font-cairo text-start" : "font-manrope text-start"
+            )}
+          >
+            <div className="flex items-start gap-4">
+              <div className="size-10 rounded-full border border-destructive/30 bg-destructive/10 flex items-center justify-center shrink-0">
+                <Trash2 className="size-5 text-destructive" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-base font-semibold text-foreground">
+                  {t("deleteModalTitle")}: {deleteTarget.title}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {deleteTarget.type === "project"
+                    ? t("deleteProjectWarning")
+                    : t("deleteExperienceWarning")}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setDeleteTarget(null)}
+                disabled={isPending}
+                className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-default"
+              >
+                {t("cancel")}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleConfirmDelete}
+                disabled={isPending}
+                className="inline-flex items-center gap-1.5 rounded-full bg-destructive text-destructive-foreground px-5 py-2 text-xs font-semibold hover:bg-destructive/90 transition-transform active:scale-95 disabled:opacity-60 cursor-default"
+              >
+                {isPending ? (
+                  <>
+                    <Loader2 className="size-3.5 animate-spin" />
+                    <span>{t("deleting")}</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="size-3.5" />
+                    <span>{t("delete")}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
