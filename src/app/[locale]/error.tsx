@@ -18,7 +18,7 @@ export default function GlobalErrorPage({
 
   return (
     <main className="min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center px-6 py-24 bg-background text-foreground">
-      <div className="w-full max-w-lg mx-auto flex flex-col items-center">
+      <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
         <h1
           className={cn(
             "text-4xl sm:text-5xl uppercase tracking-tight text-foreground",
@@ -41,12 +41,12 @@ export default function GlobalErrorPage({
           <div
             role="alert"
             className={cn(
-              "mt-6 flex items-start gap-2.5 rounded-xl border border-destructive/40 bg-destructive/10 p-3.5 text-xs text-destructive text-start w-full",
+              "overflow-x-scroll mt-6 flex items-start gap-2.5 rounded-xl border border-destructive/40 bg-destructive/10 p-3.5 text-xs text-destructive text-start w-full",
               isAr ? "font-cairo" : "font-manrope"
             )}
           >
             <AlertCircle className="size-4 shrink-0 mt-0.5" />
-            <span className="break-words">{error.message}</span>
+            <span className="wrap-break-word">{error.message}</span>
           </div>
         )}
 

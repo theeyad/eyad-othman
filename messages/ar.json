@@ -145,6 +145,7 @@
     "deleteSuccess": "تم الحذف بنجاح!",
     "saveError": "فشل الحفظ. يرجى المحاولة مرة أخرى.",
     "deleteError": "فشل الحذف. يرجى المحاولة مرة أخرى.",
+    "saveAvatar": "حفظ الصورة",
     "cancel": "إلغاء",
     "basicIdentification": "البيانات الأساسية",
     "categoriesSection": "التصنيفات",

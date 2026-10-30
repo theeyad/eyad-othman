@@ -145,6 +145,7 @@
     "deleteSuccess": "Deleted successfully!",
     "saveError": "Failed to save. Please try again.",
     "deleteError": "Failed to delete. Please try again.",
+    "saveAvatar": "Save Avatar",
     "cancel": "Cancel",
     "basicIdentification": "Basic Identification",
     "categoriesSection": "Categories",
@@ -192,7 +193,7 @@
   },
   "Error": {
     "title": "Something Went Wrong",
-    "subtitle": "An unexpected error occurred while loading this page.",
+    "subtitle": "An unexpected error occurred.",
     "tryAgain": "Try Again",
     "backHome": "Back to Home"
   }

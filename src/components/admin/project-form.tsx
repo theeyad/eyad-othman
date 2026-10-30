@@ -13,7 +13,8 @@ import {
   createProjectAction,
   updateProjectAction,
 } from "@/app/[locale]/actions/admin";
-import { MultiImageUploader, type UploadedImage } from "@/components/multi-image-uploader";
+import { MultiImageUploader, type GalleryItem } from "@/components/multi-image-uploader";
+import { uploadStorageImage } from "@/lib/upload";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 
@@ -49,9 +50,10 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  const [images, setImages] = useState<UploadedImage[]>(
+  const [images, setImages] = useState<GalleryItem[]>(
     initialData?.project_images?.map((img) => ({
-      url: img.url,
+      id: img.url,
+      previewUrl: img.url,
       is_primary: img.is_primary,
     })) || []
   );
@@ -92,20 +94,55 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
     setIsLoading(true);
     setFormError(null);
 
-    const result = isEditing
-      ? await updateProjectAction(initialData!.id, values, images)
-      : await createProjectAction(values, images);
+    try {
+      // 1. Upload only newly staged files
+      const finalImages: { url: string; is_primary: boolean }[] = [];
+      for (const item of images) {
+        if (item.file) {
+          const uploadResult = await uploadStorageImage(item.file, "project_media");
+          if (uploadResult.error || !uploadResult.publicUrl) {
+            setFormError(t("uploadError"));
+            setIsLoading(false);
+            return;
+          }
+          finalImages.push({
+            url: uploadResult.publicUrl,
+            is_primary: item.is_primary,
+          });
+        } else {
+          finalImages.push({
+            url: item.previewUrl,
+            is_primary: item.is_primary,
+          });
+        }
+      }
 
-    if (!result.success) {
-      const errorKey = (result as { errorKey?: string }).errorKey;
-      const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
-      setFormError(errorMsg);
+      // 2. Submit to server action
+      const result = isEditing
+        ? await updateProjectAction(initialData!.id, values, finalImages)
+        : await createProjectAction(values, finalImages);
+
+      if (!result.success) {
+        const errorKey = (result as { errorKey?: string }).errorKey;
+        const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
+        setFormError(errorMsg);
+        setIsLoading(false);
+        return;
+      }
+
+      // 3. Clean up any blob URLs
+      images.forEach((item) => {
+        if (item.file && item.previewUrl.startsWith("blob:")) {
+          URL.revokeObjectURL(item.previewUrl);
+        }
+      });
+
+      router.push("/admin");
+      router.refresh();
+    } catch {
+      setFormError(t("saveError"));
       setIsLoading(false);
-      return;
     }
-
-    router.push("/admin");
-    router.refresh();
   };
 
   return (

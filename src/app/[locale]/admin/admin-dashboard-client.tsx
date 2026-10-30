@@ -27,6 +27,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { ImageUploader } from "@/components/image-uploader";
+import { uploadStorageImage } from "@/lib/upload";
 
 interface ProjectItem {
   id: string;
@@ -346,7 +347,15 @@ export default function AdminDashboardClient({
             </div>
             <ImageUploader
               value={profile?.avatar_url}
-              onChange={handleUpdateAvatar}
+              onSave={async (file) => {
+                const uploadResult = await uploadStorageImage(file, "profile_media");
+                if (uploadResult.error || !uploadResult.publicUrl) {
+                  toast.destructive({ title: t("uploadError") });
+                  return;
+                }
+                await handleUpdateAvatar(uploadResult.publicUrl);
+              }}
+              onCancel={() => setShowAvatarEdit(false)}
               onError={(err) => toast.destructive({ title: err || t("uploadError") })}
             />
           </div>

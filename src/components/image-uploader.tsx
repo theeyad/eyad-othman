@@ -1,35 +1,43 @@
 "use client";
 
-import { useState, useRef } from "react";
-import React from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { Upload, X, Loader2 } from "lucide-react";
+import { Upload, X, Loader2, Check } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { uploadStorageImage } from "@/lib/upload";
 import { cn } from "@/lib/utils";
 
 interface ImageUploaderProps {
   value?: string;
-  onChange: (url: string) => void;
+  onSave: (file: File) => Promise<void>;
+  onCancel?: () => void;
   onError?: (message: string) => void;
-  bucket?: string;
-  folder?: string;
   disabled?: boolean;
 }
 
 export function ImageUploader({
   value = "",
-  onChange,
+  onSave,
+  onCancel,
   onError,
-  bucket = "profile_media",
   disabled = false,
 }: ImageUploaderProps) {
   const t = useTranslations("Admin");
-  const [uploading, setUploading] = useState(false);
+  const [stagedFile, setStagedFile] = useState<File | null>(null);
+  const [stagedPreview, setStagedPreview] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  async function processFile(file: File) {
+  // Clean up object URL on unmount or when stagedPreview changes
+  useEffect(() => {
+    return () => {
+      if (stagedPreview && stagedPreview.startsWith("blob:")) {
+        URL.revokeObjectURL(stagedPreview);
+      }
+    };
+  }, [stagedPreview]);
+
+  function processFile(file: File) {
     if (!file.type.startsWith("image/")) {
       onError?.(t("invalidImageFile"));
       return;
@@ -40,36 +48,26 @@ export function ImageUploader({
       return;
     }
 
-    setUploading(true);
-    try {
-      const result = await uploadStorageImage(file, bucket);
-
-      if (result.error) {
-        onError?.(t("uploadError"));
-        return;
-      }
-
-      if (result.publicUrl) {
-        onChange(result.publicUrl);
-      }
-    } catch {
-      onError?.(t("uploadError"));
-    } finally {
-      setUploading(false);
+    if (stagedPreview && stagedPreview.startsWith("blob:")) {
+      URL.revokeObjectURL(stagedPreview);
     }
+
+    setStagedFile(file);
+    setStagedPreview(URL.createObjectURL(file));
   }
 
   function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (file) {
       processFile(file);
+      e.target.value = "";
     }
   }
 
   function handleDragOver(e: React.DragEvent<HTMLLabelElement>) {
     e.preventDefault();
     e.stopPropagation();
-    if (!disabled && !uploading) {
+    if (!disabled && !isSaving) {
       setIsDragging(true);
     }
   }
@@ -85,7 +83,7 @@ export function ImageUploader({
     e.stopPropagation();
     setIsDragging(false);
 
-    if (disabled || uploading) return;
+    if (disabled || isSaving) return;
 
     const file = e.dataTransfer.files?.[0];
     if (file) {
@@ -94,47 +92,104 @@ export function ImageUploader({
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLLabelElement>) {
-    if ((e.key === "Enter" || e.key === " ") && !disabled && !uploading) {
+    if ((e.key === "Enter" || e.key === " ") && !disabled && !isSaving) {
       e.preventDefault();
       fileInputRef.current?.click();
     }
   }
 
-  function handleRemoveImage() {
-    onChange("");
+  function handleDiscardStaged() {
+    if (stagedPreview && stagedPreview.startsWith("blob:")) {
+      URL.revokeObjectURL(stagedPreview);
+    }
+    setStagedFile(null);
+    setStagedPreview(null);
+    onCancel?.();
   }
 
+  async function handleConfirmSave() {
+    if (!stagedFile) return;
+    setIsSaving(true);
+    try {
+      await onSave(stagedFile);
+      if (stagedPreview && stagedPreview.startsWith("blob:")) {
+        URL.revokeObjectURL(stagedPreview);
+      }
+      setStagedFile(null);
+      setStagedPreview(null);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  const currentPreview = stagedPreview || value;
+
   return (
-    <div>
-      {value ? (
-        <div className="relative w-full h-40 rounded-2xl overflow-hidden border border-border bg-card">
-          <Image
-            src={value}
-            alt="Uploaded Preview"
-            fill
-            sizes="(max-width: 768px) 100vw, 400px"
-            className="object-cover"
-          />
-          <button
-            type="button"
-            onClick={handleRemoveImage}
-            disabled={disabled}
-            aria-label={t("removeImage")}
-            className="absolute top-3 inset-e-3 bg-[#111111]/80 hover:bg-[#111111] dark:bg-[#ffffff]/80 dark:hover:bg-[#ffffff] text-white dark:text-[#111111] p-1.5 rounded-full transition-colors disabled:opacity-50 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
-          >
-            <X className="size-4" />
-          </button>
+    <div className="space-y-4">
+      {stagedFile && currentPreview ? (
+        /* Staged New Preview with Confirmation Buttons */
+        <div className="space-y-3">
+          <div className="relative w-full h-44 rounded-2xl overflow-hidden border border-foreground/30 bg-card">
+            <Image
+              src={currentPreview}
+              alt="New Avatar Preview"
+              fill
+              sizes="(max-width: 768px) 100vw, 400px"
+              unoptimized={currentPreview.startsWith("blob:")}
+              className="object-cover"
+            />
+            <button
+              type="button"
+              onClick={handleDiscardStaged}
+              disabled={isSaving}
+              aria-label={t("cancel")}
+              className="absolute top-3 inset-e-3 bg-[#111111]/80 hover:bg-[#111111] dark:bg-[#ffffff]/80 dark:hover:bg-[#ffffff] text-white dark:text-[#111111] p-1.5 rounded-full transition-colors disabled:opacity-50 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
+            >
+              <X className="size-4" />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleConfirmSave}
+              disabled={isSaving}
+              className="inline-flex items-center gap-2 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] px-5 py-2 text-xs font-semibold transition-transform duration-200 hover:scale-105 active:scale-95 disabled:opacity-60 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="size-3.5 animate-spin" />
+                  <span>{t("uploadingImage")}</span>
+                </>
+              ) : (
+                <>
+                  <Check className="size-3.5" />
+                  <span>{t("saveAvatar")}</span>
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleDiscardStaged}
+              disabled={isSaving}
+              className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-default"
+            >
+              {t("cancel")}
+            </button>
+          </div>
         </div>
       ) : (
+        /* Empty / Dropzone State */
         <label
-          tabIndex={disabled || uploading ? -1 : 0}
+          tabIndex={disabled || isSaving ? -1 : 0}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onKeyDown={handleKeyDown}
           className={cn(
             "flex flex-col items-center justify-center w-full h-40 border border-dashed rounded-2xl transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground",
-            disabled || uploading
+            disabled || isSaving
               ? "cursor-not-allowed opacity-60 pointer-events-none"
               : "cursor-default",
             isDragging
@@ -143,35 +198,26 @@ export function ImageUploader({
           )}
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4 text-center">
-            {uploading ? (
-              <div className="flex items-center gap-2 text-muted-foreground text-sm font-medium">
-                <Loader2 className="size-5 animate-spin text-foreground" />
-                <span>{t("uploadingImage")}</span>
-              </div>
-            ) : (
-              <>
-                <Upload
-                  className={cn(
-                    "size-6 mb-2.5 transition-transform duration-200",
-                    isDragging ? "scale-110 text-foreground" : "text-muted-foreground"
-                  )}
-                />
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">
-                    {t("uploadProfileImage")}
-                  </span>
-                </p>
-                <p className="text-xs text-muted-foreground/70 mt-1">
-                  {t("uploadProfileImageSub")}
-                </p>
-              </>
-            )}
+            <Upload
+              className={cn(
+                "size-6 mb-2.5 transition-transform duration-200",
+                isDragging ? "scale-110 text-foreground" : "text-muted-foreground"
+              )}
+            />
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">
+                {t("uploadProfileImage")}
+              </span>
+            </p>
+            <p className="text-xs text-muted-foreground/70 mt-1">
+              {t("uploadProfileImageSub")}
+            </p>
           </div>
           <input
             ref={fileInputRef}
             type="file"
             accept="image/*"
-            disabled={disabled || uploading}
+            disabled={disabled || isSaving}
             onChange={handleImageUpload}
             className="hidden"
           />
