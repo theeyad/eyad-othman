@@ -41,7 +41,7 @@ export default function Navbar() {
             <Link
               href="/"
               aria-label="Eyad Othman"
-              className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
+              className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
             >
               <span className="font-bebas text-xl tracking-normal leading-none select-none">
                 <span className="inline-block">EO</span>
@@ -61,7 +61,7 @@ export default function Navbar() {
               damping: 24,
               delay: 0.18,
             }}
-            className="rounded-full bg-[#111111] dark:bg-[#ffffff] p-1 shadow-sm flex items-center gap-1 transition-colors duration-200"
+            className="rounded-full bg-[#111111] dark:bg-[#ffffff] p-1 flex items-center gap-1 transition-colors duration-200"
           >
             <NavTab href="/" label={t("home")} isActive={isHome} isAr={isAr} />
             <NavTab
@@ -94,14 +94,14 @@ export default function Navbar() {
           className="flex gap-1 items-center"
         >
           {/* Theme Toggle Circle */}
-          <ThemeToggle className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] border-none shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:ring-muted-foreground" />
+          <ThemeToggle className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] border-none transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:ring-muted-foreground" />
 
           {/* Language Switcher Circle */}
           <button
             type="button"
             onClick={() => router.replace(pathname, { locale: otherLocale })}
             aria-label={t("switchLang")}
-            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground cursor-pointer"
+            className="size-11 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] flex items-center justify-center transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground cursor-default"
           >
             <Globe className="size-5" />
           </button>
@@ -119,13 +119,13 @@ export default function Navbar() {
         transition={{ type: "spring", stiffness: 350, damping: 25 }}
         className="fixed bottom-4 inset-x-0 mx-auto z-99 w-fit max-w-[95vw] flex md:hidden items-center justify-center pointer-events-auto"
       >
-        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-md p-1.5 shadow-lg flex items-center gap-1.5 transition-colors duration-200">
+        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-md p-1.5 flex items-center gap-1.5 transition-colors duration-200">
           {/* 1. Monogram Tile */}
           <Link
             href="/"
             aria-label="Home"
             className={cn(
-              "size-10 rounded-xl flex items-center justify-center font-oswald text-base transition-all duration-200 active:scale-95 shadow-sm",
+              "size-10 rounded-xl flex items-center justify-center font-oswald text-base transition-all duration-200 active:scale-95 cursor-default",
               isHome
                 ? "bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111]"
                 : "bg-card hover:bg-muted text-foreground border border-border",
@@ -139,7 +139,7 @@ export default function Navbar() {
             href="/projects"
             aria-label={t("projects")}
             className={cn(
-              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 shadow-sm",
+              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 cursor-default",
               isProjects
                 ? "bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111]"
                 : "bg-card hover:bg-muted text-foreground border border-border",
@@ -153,7 +153,7 @@ export default function Navbar() {
             href="/contact"
             aria-label={t("contact")}
             className={cn(
-              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 shadow-sm",
+              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 cursor-default",
               isContact
                 ? "bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111]"
                 : "bg-card hover:bg-muted text-foreground border border-border",
@@ -169,14 +169,14 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t("cv")}
-            className="size-10 rounded-xl flex items-center justify-center bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm"
+            className="size-10 rounded-xl flex items-center justify-center bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 cursor-default"
           >
             <Download className="size-4.5" />
           </a>
 
           {/* 5. Theme Toggle Tile (Reused Component) */}
           <ThemeToggle
-            className="size-10 rounded-xl bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm"
+            className="size-10 rounded-xl bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95"
             iconClassName="size-4.5"
           />
 
@@ -185,7 +185,7 @@ export default function Navbar() {
             type="button"
             onClick={() => router.replace(pathname, { locale: otherLocale })}
             aria-label={t("switchLang")}
-            className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 shadow-sm cursor-pointer"
+            className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 cursor-default"
           >
             <Globe className="size-4" />
             <span className="text-[11px] tracking-tight">{t("langBadge")}</span>

@@ -5,14 +5,7 @@ import Image from "next/image";
 import { Upload, X, Loader2, Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-
-interface ImageUploaderProps {
-  value?: string;
-  onSave: (file: File) => Promise<void>;
-  onCancel?: () => void;
-  onError?: (message: string) => void;
-  disabled?: boolean;
-}
+import type { ImageUploaderProps } from "@/lib/types";
 
 export function ImageUploader({
   value = "",

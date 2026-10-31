@@ -3,13 +3,7 @@ import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ProjectForm } from "@/components/admin/project-form";
-
-interface EditProjectPageProps {
-  params: Promise<{
-    id: string;
-    locale: string;
-  }>;
-}
+import type { EditProjectPageProps } from "@/lib/types";
 
 export async function generateMetadata({
   params,

@@ -68,3 +68,51 @@ export function throttle<T extends (...args: unknown[]) => void>(func: T, limit:
     }
   };
 }
+
+/**
+ * Localized date utilities for experience timeline and portfolio display.
+ */
+
+export function formatMonthYear(dateStr: string, locale: string): string {
+  if (!dateStr) return "";
+
+  // Support YYYY-MM-DD or YYYY-MM
+  const parts = dateStr.split("-");
+  const year = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10);
+
+  if (isNaN(year) || isNaN(month)) return dateStr;
+
+  const date = new Date(Date.UTC(year, month - 1, 1));
+  const intlLocale = locale === "ar" ? "ar-EG" : "en-US";
+
+  return new Intl.DateTimeFormat(intlLocale, {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+export function formatExperiencePeriod({
+  startDate,
+  endDate,
+  isCurrent,
+  locale,
+  presentLabel,
+}: {
+  startDate: string;
+  endDate: string | null;
+  isCurrent: boolean;
+  locale: string;
+  presentLabel: string;
+}): string {
+  const formattedStart = formatMonthYear(startDate, locale);
+
+  if (isCurrent || !endDate) {
+    return `${formattedStart} — ${presentLabel}`;
+  }
+
+  const formattedEnd = formatMonthYear(endDate, locale);
+  return `${formattedStart} — ${formattedEnd}`;
+}
+

@@ -23,7 +23,7 @@ export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
       aria-label={t("themeToggle")}
       suppressHydrationWarning
       className={cn(
-        "relative flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
+        "relative flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-all duration-200 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
         className,
       )}
     >

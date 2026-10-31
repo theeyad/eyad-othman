@@ -21,7 +21,7 @@ export default function NavTab({
       href={href}
       {...extraProps}
       className={cn(
-        "group relative overflow-hidden rounded-full px-5 py-2 select-none block transition-colors duration-200",
+        "cursor-default group relative overflow-hidden rounded-full px-5 py-2 select-none block transition-colors duration-200",
         "bg-[#ffffff] dark:bg-[#111111]",
         isAr
           ? "font-cairo text-sm font-medium"

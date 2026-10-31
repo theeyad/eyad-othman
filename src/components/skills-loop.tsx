@@ -144,7 +144,7 @@ export function SkillsLoop() {
               key={`track1-${skill.name}`}
               className={cn(
                 "inline-flex items-center gap-2.5 rounded-[14px] border border-border bg-card px-5 py-3 text-[13px] font-semibold text-foreground",
-                "transition-transform duration-200 hover:scale-115 active:scale-95 cursor-default",
+                "transition-transform duration-200 hover:scale-110 active:scale-95 cursor-default",
               )}
             >
               {skill.icon}
@@ -160,7 +160,7 @@ export function SkillsLoop() {
               key={`track2-${skill.name}`}
               className={cn(
                 "inline-flex items-center gap-2.5 rounded-[14px] border border-border bg-card px-5 py-3 text-[13px] font-semibold text-foreground",
-                "transition-transform duration-200 hover:scale-115 active:scale-95 cursor-default",
+                "transition-transform duration-200 hover:scale-110 active:scale-95 cursor-default",
               )}
             >
               {skill.icon}

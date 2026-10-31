@@ -61,14 +61,14 @@ export function SocialDock() {
             target={link.key === "email" ? undefined : "_blank"}
             rel={link.key === "email" ? undefined : "noopener noreferrer"}
             aria-label={t(link.key)}
-            className="bg-card border border-border text-icon-muted hover:bg-foreground hover:border-foreground hover:text-card group relative size-10 rounded-full flex items-center justify-center hover:translate-x-1 rtl:hover:-translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="cursor-default bg-card border border-border text-icon-muted hover:bg-foreground hover:border-foreground hover:text-card group relative size-10 rounded-full flex items-center justify-center hover:translate-x-1 rtl:hover:-translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             {link.icon}
 
             {/* Slide-out Tooltip */}
             <span
               role="tooltip"
-              className="invisible pointer-events-none absolute inset-s-full ms-3.5 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md border border-border bg-card px-2.5 py-1 text-xs font-medium text-foreground opacity-0 shadow-md transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 rtl:group-hover:translate-x-0 group-hover:visible group-focus-visible:visible group-focus-visible:opacity-100"
+              className="invisible pointer-events-none absolute inset-s-full ms-3.5 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md border border-border bg-card px-2.5 py-1 text-xs font-medium text-foreground opacity-0 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 rtl:group-hover:translate-x-0 group-hover:visible group-focus-visible:visible group-focus-visible:opacity-100"
             >
               {t(link.key)}
             </span>

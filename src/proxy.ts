@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
-import { Database } from "@/lib/supabase/types";
+import { Database } from "@/lib/types";
 
 const handleI18n = createMiddleware(routing);
 

@@ -13,33 +13,11 @@ import {
   createProjectAction,
   updateProjectAction,
 } from "@/app/[locale]/actions/admin";
-import { MultiImageUploader, type GalleryItem } from "@/components/multi-image-uploader";
+import { MultiImageUploader } from "@/components/multi-image-uploader";
 import { uploadStorageImage } from "@/lib/upload";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Loader2, AlertCircle } from "lucide-react";
-
-interface ProjectFormProps {
-  initialData?: {
-    id: string;
-    slug: string;
-    title: string;
-    title_ar: string;
-    category: string;
-    category_ar: string;
-    description: string;
-    description_ar: string;
-    long_description: string;
-    long_description_ar: string;
-    tech_stack: string[];
-    highlights: string[];
-    highlights_ar: string[];
-    live_url: string | null;
-    github_url: string | null;
-    featured: boolean;
-    display_order: number;
-    project_images?: { url: string; is_primary: boolean }[];
-  };
-}
+import type { ProjectFormProps, GalleryItem } from "@/lib/types";
 
 export function ProjectForm({ initialData }: ProjectFormProps) {
   const t = useTranslations("Admin");

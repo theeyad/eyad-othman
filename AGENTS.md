@@ -131,19 +131,28 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
   - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
 
 
-- [ ] **Phase 12: Connect to Supabase to Make the Portfolio Dynamic**
+- [x] **Phase 12: Connect to Supabase to Make the Portfolio Dynamic**
   - Make the portfolio dynamic by connecting it to Supabase.
   - add projects section to be dynamic from supabase, the user will add projects from an admin panel in the future.
 
-- [ ] **Phase 13: Refactor and remove all mocks like `projects.ts`**
-  - refactor all `page.tsx` and other files to use the data coming from supabase instead of the mock data.
+- [x] **Phase 13: Remove all mocks like `projects.ts`**
   - delete mock data files.
   
-- [ ] **Phase 14: Contact Form in Contact Page**
+- [x] **Phase 14: Review & Refactor verification, make sure all Refactord files are good**
+  - review all files (specially refactored ones) and all `page.tsx` and other files to make sure they use the data coming from supabase instead of the mock data and they are refactored and good to go.
+  
+- [ ] **Phase 15: make the huge components and pages files smaller (split to components)**
+  - as home page for example we split the hero section and the timeline section and the skills section and the projects section to components (not all but as much as we could so components and pages are easier to maintain and understand) we need this in all our pages and components.
+  
+- [ ] **Phase 16: Contact Form in Contact Page**
   - RHF and Zod with connection to Telegram Bot API to send me a message with the form data.
 
-- [ ] **Phase 15: Mobile Responsive**
+- [ ] **Phase 17: Mobile Responsive**
   - Make sure the whole portfolio is responsive for mobile devices.
 
-- [ ] **Phase 16: Final Polish**
+- [ ] **Phase 18: a11y**
+  - Make sure we apply a11y, all h1-h6, cards, all links and buttons have aria-label and have a clear readable aria-labelledby and are keyboard-navigable.
+  - skills cards in Home page should not be keyboard-navigable, only the h2 saying {t("skills")}.
+
+- [ ] **Phase 19: Final Polish**
   - SEO metadata, OpenGraph tags, Canonical tags, dynamic sitemap.ts and dynamic robots.ts.

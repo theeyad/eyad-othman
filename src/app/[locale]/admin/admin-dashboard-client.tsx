@@ -28,49 +28,11 @@ import {
 } from "lucide-react";
 import { ImageUploader } from "@/components/image-uploader";
 import { uploadStorageImage } from "@/lib/upload";
-
-interface ProjectItem {
-  id: string;
-  slug: string;
-  title: string;
-  title_ar: string;
-  category: string;
-  category_ar: string;
-  description: string;
-  description_ar: string;
-  featured: boolean;
-  display_order: number;
-  live_url: string | null;
-  github_url: string | null;
-  project_images?: { url: string; is_primary: boolean }[];
-}
-
-interface ExperienceItem {
-  id: string;
-  role: string;
-  role_ar: string;
-  company: string;
-  company_url: string | null;
-  type: string;
-  type_ar: string;
-  start_date: string;
-  end_date: string | null;
-  is_current: boolean;
-  display_order: number;
-}
-
-interface ProfileItem {
-  id: number;
-  avatar_url: string;
-  resume_url: string;
-  available_for_work: boolean;
-}
-
-interface AdminDashboardClientProps {
-  initialProfile: ProfileItem | null;
-  initialProjects: ProjectItem[];
-  initialExperience: ExperienceItem[];
-}
+import type {
+  ProfileRow,
+  DeleteTarget,
+  AdminDashboardClientProps,
+} from "@/lib/types";
 
 export default function AdminDashboardClient({
   initialProfile,
@@ -83,14 +45,10 @@ export default function AdminDashboardClient({
   const router = useRouter();
 
   const [isPending, startTransition] = useTransition();
-  const [profile, setProfile] = useState<ProfileItem | null>(initialProfile);
+  const [profile, setProfile] = useState<ProfileRow | null>(initialProfile);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [showAvatarEdit, setShowAvatarEdit] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<{
-    type: "project" | "experience";
-    id: string;
-    title: string;
-  } | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<DeleteTarget | null>(null);
 
   const featuredCount = initialProjects.filter((p) => p.featured).length;
 

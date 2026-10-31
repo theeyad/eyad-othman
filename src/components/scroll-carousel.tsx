@@ -11,17 +11,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { ProjectItem, PROJECTS } from "@/data/projects";
+import type { ProjectWithImages, ScrollCarouselProps } from "@/lib/types";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
-
-export interface ScrollCarouselProps {
-  projects?: ProjectItem[];
-  isAr?: boolean;
-  className?: string;
-  maxScrollHeight?: number;
-}
 
 const subscribeDesktop = (cb: () => void) => {
   if (typeof window === "undefined") return () => {};
@@ -29,6 +22,7 @@ const subscribeDesktop = (cb: () => void) => {
   mql.addEventListener("change", cb);
   return () => mql.removeEventListener("change", cb);
 };
+
 const getDesktopSnapshot = () =>
   typeof window !== "undefined"
     ? window.matchMedia("(min-width: 768px)").matches
@@ -43,9 +37,12 @@ const useProjectAnimations = (
   cardRefs2: React.RefObject<HTMLDivElement[]>,
   isDesktop: boolean,
   isAr: boolean,
+  hasProjects: boolean,
   maxScrollHeight?: number,
 ) => {
   useEffect(() => {
+    if (!hasProjects) return;
+
     const ctx = gsap.context(() => {
       if (isDesktop) {
         const scrollWidth1 = scrollContainerRef.current?.scrollWidth || 0;
@@ -60,44 +57,50 @@ const useProjectAnimations = (
         const scrollDistance = maxScrollHeight || finalOffset1;
         const dirMultiplier = isAr ? -1 : 1;
 
-        gsap.set(scrollContainerRef2.current, {
-          x: dirMultiplier * (-finalOffset2 + viewportOffset * 2),
-        });
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top top",
-              end: () => `+=${scrollDistance}`,
-              scrub: 1,
-              pin: true,
-            },
-          })
-          .fromTo(
-            scrollContainerRef.current,
-            { x: dirMultiplier * viewportOffset },
-            {
-              x: dirMultiplier * (-finalOffset1 + viewportOffset),
-              ease: "none",
-            },
-          );
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top top",
-              end: () => `+=${scrollDistance}`,
-              scrub: 1,
-            },
-          })
-          .to(scrollContainerRef2.current, {
-            x: dirMultiplier * viewportOffset,
-            ease: "none",
+        if (scrollContainerRef2.current) {
+          gsap.set(scrollContainerRef2.current, {
+            x: dirMultiplier * (-finalOffset2 + viewportOffset * 2),
           });
+        }
 
-        if (progressBarRef.current) {
+        if (scrollContainerRef.current && containerRef.current) {
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: () => `+=${scrollDistance}`,
+                scrub: 1,
+                pin: true,
+              },
+            })
+            .fromTo(
+              scrollContainerRef.current,
+              { x: dirMultiplier * viewportOffset },
+              {
+                x: dirMultiplier * (-finalOffset1 + viewportOffset),
+                ease: "none",
+              },
+            );
+        }
+
+        if (scrollContainerRef2.current && containerRef.current) {
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: () => `+=${scrollDistance}`,
+                scrub: 1,
+              },
+            })
+            .to(scrollContainerRef2.current, {
+              x: dirMultiplier * viewportOffset,
+              ease: "none",
+            });
+        }
+
+        if (progressBarRef.current && containerRef.current) {
           gsap.to(progressBarRef.current, {
             width: "100%",
             ease: "none",
@@ -143,6 +146,7 @@ const useProjectAnimations = (
   }, [
     isDesktop,
     isAr,
+    hasProjects,
     maxScrollHeight,
     cardRefs,
     cardRefs2,
@@ -154,7 +158,7 @@ const useProjectAnimations = (
 };
 
 export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
-  ({ projects = PROJECTS, isAr = false, className, maxScrollHeight }, ref) => {
+  ({ projects, isAr = false, className, maxScrollHeight }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const scrollContainerRef2 = useRef<HTMLDivElement>(null);
@@ -168,8 +172,8 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
       () => false,
     );
 
-    // Dynamic alternate order for row 2
-    const projectsRow2 = [...projects].reverse();
+    const hasProjects = projects && projects.length > 0;
+    const projectsRow2 = hasProjects ? [...projects].reverse() : [];
 
     useProjectAnimations(
       containerRef,
@@ -180,17 +184,26 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
       cardRefs2,
       isDesktop,
       isAr,
+      hasProjects,
       maxScrollHeight,
     );
 
+    if (!hasProjects) {
+      return null;
+    }
+
     const renderProjectCards = (
-      items: ProjectItem[],
+      items: ProjectWithImages[],
       refs: React.RefObject<HTMLDivElement[]>,
     ) =>
       items.map((project, index) => {
-        const title = isAr ? project.titleAr : project.title;
-        const category = isAr ? project.categoryAr : project.category;
-        const description = isAr ? project.descriptionAr : project.description;
+        const title = isAr ? project.title_ar : project.title;
+        const category = isAr ? project.category_ar : project.category;
+        const description = isAr ? project.description_ar : project.description;
+        const primaryImage =
+          project.project_images.find((img) => img.is_primary)?.url ||
+          project.project_images[0]?.url ||
+          "";
 
         return (
           <div
@@ -208,14 +221,16 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
               )}
             >
               {/* Background Project Image */}
-              <div className="absolute inset-0 z-0">
-                <Image
-                  src={project.image}
-                  alt={title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 480px"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                />
+              <div className="absolute inset-0 z-0 bg-muted">
+                {primaryImage ? (
+                  <Image
+                    src={primaryImage}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 480px"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                ) : null}
                 {/* Gradient Overlays for optimal typography readability */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/55 to-black/25" />
               </div>
@@ -265,16 +280,18 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
                   </p>
 
                   {/* Tech Stack Chips */}
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {project.techStack.slice(0, 4).map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-medium text-white backdrop-blur-xs"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                  {project.tech_stack && project.tech_stack.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {project.tech_stack.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-medium text-white backdrop-blur-xs"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </Link>
@@ -303,12 +320,14 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
           </div>
 
           {/* Row 2 (Desktop alternate scroll) */}
-          <div
-            ref={scrollContainerRef2}
-            className="hidden xl:flex flex-row gap-3 items-center px-0"
-          >
-            {renderProjectCards(projectsRow2, cardRefs2)}
-          </div>
+          {projectsRow2.length > 1 && (
+            <div
+              ref={scrollContainerRef2}
+              className="hidden xl:flex flex-row gap-3 items-center px-0"
+            >
+              {renderProjectCards(projectsRow2, cardRefs2)}
+            </div>
+          )}
 
           {/* Progress Bar (Desktop only) */}
           {isDesktop && (

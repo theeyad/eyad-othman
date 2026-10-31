@@ -5,20 +5,7 @@ import Image from "next/image";
 import { Upload, X, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-
-export interface GalleryItem {
-  id: string;
-  file?: File;
-  previewUrl: string;
-  is_primary: boolean;
-}
-
-interface MultiImageUploaderProps {
-  value: GalleryItem[];
-  onChange: (images: GalleryItem[]) => void;
-  onError: (message: string) => void;
-  disabled?: boolean;
-}
+import type { GalleryItem, MultiImageUploaderProps } from "@/lib/types";
 
 export function MultiImageUploader({
   value = [],

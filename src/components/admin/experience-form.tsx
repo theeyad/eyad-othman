@@ -15,24 +15,7 @@ import {
 } from "@/app/[locale]/actions/admin";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Loader2, AlertCircle } from "lucide-react";
-
-interface ExperienceFormProps {
-  initialData?: {
-    id: string;
-    role: string;
-    role_ar: string;
-    company: string;
-    company_url: string | null;
-    type: string;
-    type_ar: string;
-    start_date: string;
-    end_date: string | null;
-    is_current: boolean;
-    description: string;
-    description_ar: string;
-    display_order: number;
-  };
-}
+import type { ExperienceFormProps } from "@/lib/types";
 
 export function ExperienceForm({ initialData }: ExperienceFormProps) {
   const t = useTranslations("Admin");

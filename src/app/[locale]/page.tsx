@@ -15,12 +15,28 @@ import {
 } from "@/components/icons";
 import { Download } from "lucide-react";
 import MainActionButton from "@/components/shared/main-action-button";
+import {
+  getProfile,
+  getExperiences,
+  getFeaturedProjects,
+} from "@/lib/supabase/queries";
 
 export default async function HomePage() {
   const locale = await getLocale();
   const t = await getTranslations("HomePage");
 
   const isAr = locale === "ar";
+
+  // Fetch all data concurrently in parallel via Unified Query Layer
+  const [profile, experiences, featuredProjects] = await Promise.all([
+    getProfile(),
+    getExperiences(),
+    getFeaturedProjects(),
+  ]);
+
+  const isAvailable = profile?.available_for_work ?? true;
+  const avatarUrl = profile?.avatar_url || "/me.webp";
+  const resumeUrl = profile?.resume_url || "/Eyad_Othman_Frontend.pdf";
 
   const commChips = [
     {
@@ -62,7 +78,7 @@ export default async function HomePage() {
     {
       key: "cv",
       name: t("cv"),
-      href: "/Eyad_Othman_Frontend.pdf",
+      href: resumeUrl,
       icon: <Download className="size-4 text-foreground shrink-0" />,
     },
   ];
@@ -70,21 +86,28 @@ export default async function HomePage() {
   return (
     <main className="min-h-[calc(100vh-5rem)] flex flex-col items-center px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-28 pb-24 bg-background text-foreground">
       <div className="w-full max-w-6xl mx-auto">
-
         <section className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center">
           <div className="md:col-span-6 md:items-start md:text-start flex flex-col items-center text-center">
             {/* Status Pill Badge */}
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs text-muted-foreground">
-              <span className="size-2 rounded-full bg-success shrink-0" />
-              <span className="font-medium">{t("available")}</span>
+              <span
+                className={cn(
+                  "size-2 rounded-full shrink-0",
+                  isAvailable ? "bg-[#22c55e]" : "bg-muted-foreground/60",
+                )}
+              />
+              <span className="font-medium">
+                {isAvailable ? t("available") : t("unavailable")}
+              </span>
             </div>
 
             {/* Split-text Animated Name */}
             <h1
-              className={`mt-5 ${isAr
+              className={`mt-5 ${
+                isAr
                   ? "font-cairo text-4xl sm:text-5xl md:text-6xl font-bold text-foreground leading-tight"
                   : "font-bebas text-5xl sm:text-6xl md:text-7xl tracking-normal text-foreground uppercase leading-[0.95]"
-                }`}
+              }`}
             >
               <SplitText
                 text={isAr ? t("title") : t("title").toUpperCase()}
@@ -95,10 +118,11 @@ export default async function HomePage() {
 
             {/* Split-text Animated Role */}
             <h2
-              className={`mt-1.5 ${isAr
+              className={`mt-1.5 ${
+                isAr
                   ? "font-cairo text-xl sm:text-2xl md:text-3xl font-semibold text-muted-foreground leading-tight"
                   : "font-bebas text-2xl sm:text-3xl md:text-4xl text-muted-foreground uppercase tracking-normal leading-[0.95]"
-                }`}
+              }`}
             >
               <SplitText
                 text={isAr ? t("role") : t("role").toUpperCase()}
@@ -109,8 +133,9 @@ export default async function HomePage() {
 
             {/* Tagline */}
             <p
-              className={`mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground ${isAr ? "font-cairo font-normal" : "font-manrope"
-                }`}
+              className={`mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground ${
+                isAr ? "font-cairo font-normal" : "font-manrope"
+              }`}
             >
               {t("tagline")}
             </p>
@@ -130,7 +155,7 @@ export default async function HomePage() {
 
               {/* Download CV */}
               <a
-                href="/Eyad_Othman_Frontend.pdf"
+                href={resumeUrl}
                 download="Eyad_Othman_Frontend.pdf"
                 className="inline-flex items-center justify-center rounded-full border border-border bg-card px-6 py-2.5 text-sm font-semibold text-foreground transition-all duration-200 hover:bg-muted hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
               >
@@ -167,14 +192,14 @@ export default async function HomePage() {
           </div>
 
           <div className="md:col-span-6 flex justify-center -order-1 md:order-0 md:justify-end">
-            <div className="relative w-full max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-[2.5rem] overflow-hidden">
+            <div className="relative w-full max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-[2.5rem] overflow-hidden bg-card border border-border">
               <Link
                 href="/auth/login"
                 aria-label="Profile"
-                className="block cursor-default"
+                className="block cursor-default size-full relative"
               >
                 <Image
-                  src="/me.webp"
+                  src={avatarUrl}
                   alt={t("title")}
                   fill
                   priority
@@ -199,11 +224,18 @@ export default async function HomePage() {
           <SkillsLoop />
         </section>
 
-        {/* Experience Section */}
-        <Experience isAr={isAr} />
+        {/* Dynamic Experience Section */}
+        <Experience
+          experiences={experiences}
+          locale={locale}
+          isAr={isAr}
+        />
 
-        {/* Featured Projects Section */}
-        <FeaturedProjects isAr={isAr} />
+        {/* Dynamic Featured Projects Section */}
+        <FeaturedProjects
+          projects={featuredProjects}
+          isAr={isAr}
+        />
 
         {/* Contact CTA Section */}
         <section className="mt-24 sm:mt-32 w-full flex flex-col items-center text-center">
