@@ -22,7 +22,7 @@ export function AdminDeleteModal({
     >
       <div
         className={cn(
-          "w-full max-w-md rounded-2xl border border-border bg-card p-6 space-y-6 animate-in zoom-in-95 duration-200 cursor-default",
+          "w-full max-w-lg rounded-2xl border border-border bg-card p-6 space-y-6 animate-in zoom-in-95 duration-200 cursor-default",
           isAr ? "font-cairo text-start" : "font-manrope text-start",
         )}
       >

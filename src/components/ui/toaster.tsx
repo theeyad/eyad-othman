@@ -16,7 +16,7 @@ export function Toaster() {
     <div
       aria-live="assertive"
       className={cn(
-        "fixed bottom-6 end-6 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0",
+        "fixed bottom-6 inset-e-6 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0",
         isAr ? "font-cairo" : "font-manrope"
       )}
     >

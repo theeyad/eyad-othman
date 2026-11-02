@@ -76,7 +76,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
 
   return (
     <main className="min-h-screen px-6 sm:px-10 lg:ps-20 lg:pe-20 pt-24 pb-24 bg-background text-foreground">
-      <div className="w-full max-w-5xl mx-auto space-y-8">
+      <div className="w-full max-w-6xl mx-auto space-y-8">
         {/* Direction-Aware Back Link */}
         <div>
           <Link

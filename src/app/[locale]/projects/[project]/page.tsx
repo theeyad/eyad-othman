@@ -64,7 +64,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main className="min-h-[calc(100vh-5rem)] px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-28 pb-24 bg-background text-foreground">
-      <div className="w-full max-w-4xl mx-auto">
+      <div className="w-full max-w-6xl mx-auto">
         {/* Top Navigation Row: Back Link & Category */}
         <div className="flex items-center justify-between mb-8">
           <Link

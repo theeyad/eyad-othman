@@ -47,6 +47,9 @@
   "ProjectsPage": {
     "title": "Projects",
     "subtitle": "A showcase of recent frontend projects, web applications, and experiments.",
+    "all": "All",
+    "previous": "Previous",
+    "next": "Next",
     "noProjects": "No projects found.",
     "viewDetails": "View details",
     "backToProjects": "Back to projects",

@@ -229,3 +229,40 @@ export interface ProjectPageProps {
     project: string;
   }>;
 }
+
+export interface ProjectsPageProps {
+  params: Promise<{
+    locale: string;
+  }>;
+  searchParams: Promise<{
+    category?: string;
+    page?: string;
+  }>;
+}
+
+export interface ProjectCategory {
+  slug: string;
+  name: string;
+  name_ar: string;
+}
+
+export interface ProjectFiltersProps {
+  categories: ProjectCategory[];
+  activeCategory?: string;
+  isAr: boolean;
+}
+
+export interface ProjectPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  activeCategory?: string;
+  isAr: boolean;
+}
+
+export interface PixelCardProps {
+  children?: React.ReactNode;
+  className?: string;
+  gap?: number;
+  speed?: number;
+  colors?: string[];
+}
