@@ -1,12 +1,9 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
-import {
-  logoutAction,
-} from "@/app/[locale]/actions/auth";
+import { logoutAction } from "@/app/[locale]/actions/auth";
 import {
   toggleAvailabilityAction,
   deleteProjectAction,
@@ -15,19 +12,11 @@ import {
 } from "@/app/[locale]/actions/admin";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import {
-  LogOut,
-  ExternalLink,
-  Plus,
-  Pencil,
-  Trash2,
-  Briefcase,
-  Layers,
-  Sparkles,
-  Loader2,
-} from "lucide-react";
-import { ImageUploader } from "@/components/image-uploader";
-import { uploadStorageImage } from "@/lib/upload";
+import { LogOut, ExternalLink, Loader2 } from "lucide-react";
+import { AdminStatsOverview } from "@/components/admin/admin-stats-overview";
+import { AdminProjectsList } from "@/components/admin/admin-projects-list";
+import { AdminExperienceList } from "@/components/admin/admin-experience-list";
+import { AdminDeleteModal } from "@/components/admin/admin-delete-modal";
 import type {
   ProfileRow,
   DeleteTarget,
@@ -47,7 +36,6 @@ export default function AdminDashboardClient({
   const [isPending, startTransition] = useTransition();
   const [profile, setProfile] = useState<ProfileRow | null>(initialProfile);
   const [isSigningOut, setIsSigningOut] = useState(false);
-  const [showAvatarEdit, setShowAvatarEdit] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<DeleteTarget | null>(null);
 
   const featuredCount = initialProjects.filter((p) => p.featured).length;
@@ -69,7 +57,8 @@ export default function AdminDashboardClient({
       if (!result.success) {
         setProfile({ ...profile, available_for_work: !nextState });
         const errorKey = (result as { errorKey?: string }).errorKey;
-        const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
+        const errorMsg =
+          errorKey ? t(errorKey) : result.error || t("saveError");
         toast.destructive({ title: errorMsg });
       } else {
         toast.success({ title: t("saveSuccess") });
@@ -81,13 +70,13 @@ export default function AdminDashboardClient({
   const handleUpdateAvatar = async (newUrl: string) => {
     if (!newUrl || !profile) return;
     setProfile({ ...profile, avatar_url: newUrl });
-    setShowAvatarEdit(false);
 
     startTransition(async () => {
       const result = await updateProfileAvatarAction(newUrl);
       if (!result.success) {
         const errorKey = (result as { errorKey?: string }).errorKey;
-        const errorMsg = errorKey ? t(errorKey) : result.error || t("saveError");
+        const errorMsg =
+          errorKey ? t(errorKey) : result.error || t("saveError");
         toast.destructive({ title: errorMsg });
       } else {
         toast.success({ title: t("saveSuccess") });
@@ -107,7 +96,8 @@ export default function AdminDashboardClient({
 
       if (!result.success) {
         const errorKey = (result as { errorKey?: string }).errorKey;
-        const errorMsg = errorKey ? t(errorKey) : result.error || t("deleteError");
+        const errorMsg =
+          errorKey ? t(errorKey) : result.error || t("deleteError");
         toast.destructive({ title: errorMsg });
       } else {
         toast.success({ title: t("deleteSuccess") });
@@ -126,7 +116,7 @@ export default function AdminDashboardClient({
             <h1
               className={cn(
                 "text-3xl sm:text-4xl text-foreground uppercase tracking-tight",
-                isAr ? "font-cairo font-bold" : "font-bebas tracking-normal"
+                isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
               )}
             >
               {t("dashboardTitle")}
@@ -134,7 +124,7 @@ export default function AdminDashboardClient({
             <p
               className={cn(
                 "text-xs sm:text-sm text-muted-foreground",
-                isAr ? "font-cairo" : "font-manrope"
+                isAr ? "font-cairo" : "font-manrope",
               )}
             >
               {t("dashboardSubtitle")}
@@ -147,7 +137,7 @@ export default function AdminDashboardClient({
               href="/"
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-foreground hover:text-card transition-all duration-200 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground",
-                isAr ? "font-cairo" : "font-manrope"
+                isAr ? "font-cairo" : "font-manrope",
               )}
             >
               <span>{t("viewSite")}</span>
@@ -160,7 +150,7 @@ export default function AdminDashboardClient({
               disabled={isSigningOut}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] px-4 py-2 text-xs font-semibold transition-transform duration-200 hover:scale-105 active:scale-95 disabled:opacity-60 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground",
-                isAr ? "font-cairo" : "font-manrope"
+                isAr ? "font-cairo" : "font-manrope",
               )}
             >
               {isSigningOut ? (
@@ -178,429 +168,45 @@ export default function AdminDashboardClient({
           </div>
         </header>
 
-        {/* Metric Cards Grid */}
-        <section aria-label="Overview Metrics" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Total Projects Card */}
-          <div className="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between cursor-default">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {t("totalProjects")}
-              </span>
-              <Layers className="size-4 text-muted-foreground" />
-            </div>
-            <div className="mt-4 flex items-baseline gap-2">
-              <span className="font-bebas text-4xl text-foreground">
-                {initialProjects.length}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                ({featuredCount} {t("featuredProjects")})
-              </span>
-            </div>
-          </div>
-
-          {/* Experience Card */}
-          <div className="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between cursor-default">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {t("totalExperience")}
-              </span>
-              <Briefcase className="size-4 text-muted-foreground" />
-            </div>
-            <div className="mt-4">
-              <span className="font-bebas text-4xl text-foreground">
-                {initialExperience.length}
-              </span>
-            </div>
-          </div>
-
-          {/* Availability Status Card with Toggle */}
-          <div className="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between cursor-default">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {t("availabilityStatus")}
-              </span>
-              <span
-                className={cn(
-                  "size-2.5 rounded-full transition-colors",
-                  profile?.available_for_work ? "bg-success" : "bg-muted-foreground/40"
-                )}
-              />
-            </div>
-            <div className="mt-4 flex items-center justify-between gap-3">
-              <span
-                className={cn(
-                  "text-sm font-semibold",
-                  profile?.available_for_work ? "text-foreground" : "text-muted-foreground"
-                )}
-              >
-                {profile?.available_for_work ? t("availableForWork") : t("notAvailable")}
-              </span>
-              <button
-                type="button"
-                onClick={handleToggleAvailability}
-                disabled={isPending}
-                className={cn(
-                  "rounded-full border border-border bg-background px-3 py-1 text-xs font-medium transition-colors hover:border-foreground/40 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground",
-                  isAr ? "font-cairo" : "font-manrope"
-                )}
-              >
-                {isPending ? t("updatingStatus") : t("edit")}
-              </button>
-            </div>
-          </div>
-
-          {/* Profile Avatar Card */}
-          <div className="rounded-2xl border border-border bg-card p-6 flex items-center justify-between cursor-default">
-            <div className="flex items-center gap-3.5">
-              <div className="relative size-12 rounded-full overflow-hidden border border-border shrink-0 bg-muted">
-                {profile?.avatar_url && (
-                  <Image
-                    src={profile.avatar_url}
-                    alt="Eyad Othman"
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                  />
-                )}
-              </div>
-              <div className="space-y-0.5 text-start">
-                <p className="text-xs font-semibold uppercase tracking-wider text-foreground">
-                  {t("profileAvatarLabel")}
-                </p>
-                <p className="text-[11px] text-muted-foreground truncate max-w-40">
-                  {profile?.avatar_url || "/me.webp"}
-                </p>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => setShowAvatarEdit(!showAvatarEdit)}
-              className="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium transition-colors hover:border-foreground/40 cursor-default"
-            >
-              {t("edit")}
-            </button>
-          </div>
-        </section>
-
-        {/* Quick Avatar Uploader Drawer */}
-        {showAvatarEdit && (
-          <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-                {t("uploadProfileImage")}
-              </h3>
-              <button
-                type="button"
-                onClick={() => setShowAvatarEdit(false)}
-                className="text-xs text-muted-foreground hover:text-foreground cursor-default"
-              >
-                ✕
-              </button>
-            </div>
-            <ImageUploader
-              value={profile?.avatar_url}
-              onSave={async (file) => {
-                const uploadResult = await uploadStorageImage(file, "profile_media");
-                if (uploadResult.error || !uploadResult.publicUrl) {
-                  toast.destructive({ title: t("uploadError") });
-                  return;
-                }
-                await handleUpdateAvatar(uploadResult.publicUrl);
-              }}
-              onCancel={() => setShowAvatarEdit(false)}
-              onError={(err) => toast.destructive({ title: err || t("uploadError") })}
-            />
-          </div>
-        )}
+        {/* Metric Cards Grid & Avatar Drawer */}
+        <AdminStatsOverview
+          initialProjectsCount={initialProjects.length}
+          featuredCount={featuredCount}
+          initialExperienceCount={initialExperience.length}
+          profile={profile}
+          isPending={isPending}
+          onToggleAvailability={handleToggleAvailability}
+          onUpdateAvatar={handleUpdateAvatar}
+          isAr={isAr}
+        />
 
         {/* Projects Management Section */}
-        <section aria-label="Projects Management" className="space-y-5">
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5 text-start">
-              <h2
-                className={cn(
-                  "text-2xl text-foreground uppercase tracking-tight",
-                  isAr ? "font-cairo font-bold" : "font-bebas tracking-normal"
-                )}
-              >
-                {t("projectsTitle")}
-              </h2>
-            </div>
-
-            <Link
-              href="/admin/projects/new"
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] px-5 py-2.5 text-xs font-semibold transition-transform duration-200 hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground",
-                isAr ? "font-cairo" : "font-manrope"
-              )}
-            >
-              <Plus className="size-4" />
-              <span>{t("newProject")}</span>
-            </Link>
-          </div>
-
-          {initialProjects.length === 0 ? (
-            <div className="rounded-2xl border border-border bg-card p-10 text-center text-sm text-muted-foreground">
-              {t("noProjects")}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-border bg-card divide-y divide-border overflow-hidden">
-              {initialProjects.map((project) => {
-                const title = isAr ? project.title_ar : project.title;
-                const category = isAr ? project.category_ar : project.category;
-                const primaryImage =
-                  project.project_images?.find((img) => img.is_primary)?.url ||
-                  project.project_images?.[0]?.url;
-
-                return (
-                  <div
-                    key={project.id}
-                    className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-muted/10 transition-colors cursor-default"
-                  >
-                    <div className="flex items-center gap-4">
-                      {primaryImage ? (
-                        <div className="relative size-14 rounded-xl overflow-hidden border border-border shrink-0 bg-muted">
-                          <Image
-                            src={primaryImage}
-                            alt={title}
-                            fill
-                            sizes="56px"
-                            className="object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <div className="size-14 rounded-xl border border-border shrink-0 bg-muted flex items-center justify-center text-muted-foreground">
-                          <Layers className="size-6" />
-                        </div>
-                      )}
-
-                      <div className="space-y-1 text-start">
-                        <div className="flex items-center gap-2">
-                          <h3
-                            className={cn(
-                              "text-lg text-foreground uppercase tracking-tight",
-                              isAr ? "font-cairo font-bold" : "font-bebas tracking-normal"
-                            )}
-                          >
-                            {title}
-                          </h3>
-                          {project.featured && (
-                            <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/40 px-2 py-0.5 text-[10px] font-semibold text-foreground">
-                              <Sparkles className="size-2.5 text-success" />
-                              <span>{t("featured")}</span>
-                            </span>
-                          )}
-                        </div>
-
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <span>{category}</span>
-                          <span>•</span>
-                          <span>/{project.slug}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 self-end sm:self-center">
-                      <Link
-                        href={`/admin/projects/${project.id}/edit`}
-                        aria-label={`${t("edit")} ${title}`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3.5 py-1.5 text-xs font-medium text-foreground hover:border-foreground/40 transition-colors cursor-default"
-                      >
-                        <Pencil className="size-3.5" />
-                        <span>{t("edit")}</span>
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setDeleteTarget({
-                            type: "project",
-                            id: project.id,
-                            title,
-                          })
-                        }
-                        disabled={isPending}
-                        aria-label={`${t("delete")} ${title}`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-destructive/30 bg-destructive/10 px-3.5 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/20 transition-colors cursor-default disabled:opacity-50"
-                      >
-                        <Trash2 className="size-3.5" />
-                        <span>{t("delete")}</span>
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </section>
+        <AdminProjectsList
+          projects={initialProjects}
+          isAr={isAr}
+          isPending={isPending}
+          onSelectDelete={setDeleteTarget}
+        />
 
         {/* Experience Management Section */}
-        <section aria-label="Experience Timeline Management" className="space-y-5">
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5 text-start">
-              <h2
-                className={cn(
-                  "text-2xl text-foreground uppercase tracking-tight",
-                  isAr ? "font-cairo font-bold" : "font-bebas tracking-normal"
-                )}
-              >
-                {t("experienceTitle")}
-              </h2>
-            </div>
-
-            <Link
-              href="/admin/experience/new"
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-full bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111] px-5 py-2.5 text-xs font-semibold transition-transform duration-200 hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground",
-                isAr ? "font-cairo" : "font-manrope"
-              )}
-            >
-              <Plus className="size-4" />
-              <span>{t("newExperience")}</span>
-            </Link>
-          </div>
-
-          {initialExperience.length === 0 ? (
-            <div className="rounded-2xl border border-border bg-card p-10 text-center text-sm text-muted-foreground">
-              {t("noExperience")}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-border bg-card divide-y divide-border overflow-hidden">
-              {initialExperience.map((exp) => {
-                const role = isAr ? exp.role_ar : exp.role;
-                const type = isAr ? exp.type_ar : exp.type;
-
-                return (
-                  <div
-                    key={exp.id}
-                    className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-muted/10 transition-colors cursor-default"
-                  >
-                    <div className="space-y-1 text-start">
-                      <div className="flex items-center gap-2">
-                        <h3
-                          className={cn(
-                            "text-lg text-foreground uppercase tracking-tight",
-                            isAr ? "font-cairo font-bold" : "font-bebas tracking-normal"
-                          )}
-                        >
-                          {role}
-                        </h3>
-                        {exp.is_current && (
-                          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/40 px-2 py-0.5 text-[10px] font-semibold text-foreground">
-                            <span className="size-1.5 rounded-full bg-success" />
-                            <span>{t("currentRole")}</span>
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span className="font-medium text-foreground">{exp.company}</span>
-                        <span>•</span>
-                        <span>{type}</span>
-                        <span>•</span>
-                        <span>
-                          {exp.start_date} — {exp.is_current ? t("currentRole") : exp.end_date || ""}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 self-end sm:self-center">
-                      <Link
-                        href={`/admin/experience/${exp.id}/edit`}
-                        aria-label={`${t("edit")} ${role}`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3.5 py-1.5 text-xs font-medium text-foreground hover:border-foreground/40 transition-colors cursor-default"
-                      >
-                        <Pencil className="size-3.5" />
-                        <span>{t("edit")}</span>
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setDeleteTarget({
-                            type: "experience",
-                            id: exp.id,
-                            title: role,
-                          })
-                        }
-                        disabled={isPending}
-                        aria-label={`${t("delete")} ${role}`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-destructive/30 bg-destructive/10 px-3.5 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/20 transition-colors cursor-default disabled:opacity-50"
-                      >
-                        <Trash2 className="size-3.5" />
-                        <span>{t("delete")}</span>
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </section>
+        <AdminExperienceList
+          experiences={initialExperience}
+          isAr={isAr}
+          isPending={isPending}
+          onSelectDelete={setDeleteTarget}
+        />
       </div>
 
       {/* Editorial Delete Confirmation Modal */}
       {deleteTarget && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200"
-        >
-          <div
-            className={cn(
-              "w-full max-w-md rounded-2xl border border-border bg-card p-6 space-y-6 animate-in zoom-in-95 duration-200 cursor-default",
-              isAr ? "font-cairo text-start" : "font-manrope text-start"
-            )}
-          >
-            <div className="flex items-start gap-4">
-              <div className="size-10 rounded-full border border-destructive/30 bg-destructive/10 flex items-center justify-center shrink-0">
-                <Trash2 className="size-5 text-destructive" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-base font-semibold text-foreground">
-                  {t("deleteModalTitle")}: {deleteTarget.title}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {deleteTarget.type === "project"
-                    ? t("deleteProjectWarning")
-                    : t("deleteExperienceWarning")}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => setDeleteTarget(null)}
-                disabled={isPending}
-                className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-default"
-              >
-                {t("cancel")}
-              </button>
-
-              <button
-                type="button"
-                onClick={handleConfirmDelete}
-                disabled={isPending}
-                className="inline-flex items-center gap-1.5 rounded-full bg-destructive text-destructive-foreground px-5 py-2 text-xs font-semibold hover:bg-destructive/90 transition-transform active:scale-95 disabled:opacity-60 cursor-default"
-              >
-                {isPending ? (
-                  <>
-                    <Loader2 className="size-3.5 animate-spin" />
-                    <span>{t("deleting")}</span>
-                  </>
-                ) : (
-                  <>
-                    <Trash2 className="size-3.5" />
-                    <span>{t("delete")}</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
+        <AdminDeleteModal
+          target={deleteTarget}
+          isPending={isPending}
+          isAr={isAr}
+          onCancel={() => setDeleteTarget(null)}
+          onConfirm={handleConfirmDelete}
+        />
       )}
     </main>
   );
 }
-

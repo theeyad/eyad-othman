@@ -158,6 +158,39 @@ export interface DeleteTarget {
   title: string;
 }
 
+export interface AdminStatsOverviewProps {
+  initialProjectsCount: number;
+  featuredCount: number;
+  initialExperienceCount: number;
+  profile: ProfileRow | null;
+  isPending: boolean;
+  onToggleAvailability: () => void;
+  onUpdateAvatar: (url: string) => Promise<void>;
+  isAr: boolean;
+}
+
+export interface AdminProjectsListProps {
+  projects: ProjectWithImages[];
+  isAr: boolean;
+  isPending: boolean;
+  onSelectDelete: (target: DeleteTarget) => void;
+}
+
+export interface AdminExperienceListProps {
+  experiences: ExperienceRow[];
+  isAr: boolean;
+  isPending: boolean;
+  onSelectDelete: (target: DeleteTarget) => void;
+}
+
+export interface AdminDeleteModalProps {
+  target: DeleteTarget;
+  isPending: boolean;
+  isAr: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
 export interface AdminDashboardClientProps {
   initialProfile: ProfileRow | null;
   initialProjects: ProjectWithImages[];
