@@ -199,7 +199,6 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
       items.map((project, index) => {
         const title = isAr ? project.title_ar : project.title;
         const category = isAr ? project.category_ar : project.category;
-        const description = isAr ? project.description_ar : project.description;
         const primaryImage =
           project.project_images.find((img) => img.is_primary)?.url ||
           project.project_images[0]?.url ||
@@ -231,8 +230,6 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   />
                 ) : null}
-                {/* Gradient Overlays for optimal typography readability */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/55 to-black/25" />
               </div>
 
               {/* Card Content Overlay */}
@@ -242,56 +239,6 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
                   <span className="inline-flex items-center rounded-full border border-white/20 bg-black/40 backdrop-blur-md px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">
                     {category}
                   </span>
-                  <span className="flex items-center gap-1 text-xs text-white/70 group-hover:text-white transition-colors duration-200">
-                    {isAr ? (
-                      <>
-                        <span>عرض التفاصيل</span>
-                        <ArrowLeft size={16} />
-                      </>
-                    ) : (
-                      <>
-                        <span>View details</span>
-                        <ArrowRight size={16} />
-                      </>
-                    )}
-                  </span>
-                </div>
-
-                {/* Bottom Details: Title, Description, Tech Stack */}
-                <div className="space-y-2 xl:space-y-1.5 2xl:space-y-2">
-                  <h3
-                    className={cn(
-                      "text-xl sm:text-2xl xl:text-xl 2xl:text-2xl text-white uppercase tracking-tight",
-                      isAr
-                        ? "font-cairo font-bold"
-                        : "font-bebas tracking-normal",
-                    )}
-                  >
-                    {title}
-                  </h3>
-
-                  <p
-                    className={cn(
-                      "text-xs sm:text-sm xl:text-xs 2xl:text-sm text-white/80 line-clamp-2 leading-relaxed",
-                      isAr ? "font-cairo" : "font-manrope",
-                    )}
-                  >
-                    {description}
-                  </p>
-
-                  {/* Tech Stack Chips */}
-                  {project.tech_stack && project.tech_stack.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {project.tech_stack.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-medium text-white backdrop-blur-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             </Link>

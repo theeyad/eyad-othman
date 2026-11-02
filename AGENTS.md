@@ -141,7 +141,7 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
 - [x] **Phase 14: Review & Refactor verification, make sure all Refactord files are good**
   - review all files (specially refactored ones) and all `page.tsx` and other files to make sure they use the data coming from supabase instead of the mock data and they are refactored and good to go.
   
-- [ ] **Phase 15: make the huge components and pages files smaller (split to components)**
+- [x] **Phase 15: make the huge components and pages files smaller (split to components)**
   - as home page for example we split the hero section and the timeline section and the skills section and the projects section to components (not all but as much as we could so components and pages are easier to maintain and understand) we need this in all our pages and components.
 
 - [ ] **Phase 16: Refactor Projects Page**
