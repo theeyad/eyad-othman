@@ -143,16 +143,19 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
   
 - [ ] **Phase 15: make the huge components and pages files smaller (split to components)**
   - as home page for example we split the hero section and the timeline section and the skills section and the projects section to components (not all but as much as we could so components and pages are easier to maintain and understand) we need this in all our pages and components.
-  
-- [ ] **Phase 16: Contact Form in Contact Page**
+
+- [ ] **Phase 16: Refactor Projects Page**
+  - Add filters and pagination.
+
+- [ ] **Phase 17: Contact Form in Contact Page**
   - RHF and Zod with connection to Telegram Bot API to send me a message with the form data.
 
-- [ ] **Phase 17: Mobile Responsive**
+- [ ] **Phase 18: Mobile Responsive**
   - Make sure the whole portfolio is responsive for mobile devices.
 
-- [ ] **Phase 18: a11y**
+- [ ] **Phase 19: a11y**
   - Make sure we apply a11y, all h1-h6, cards, all links and buttons have aria-label and have a clear readable aria-labelledby and are keyboard-navigable.
   - skills cards in Home page should not be keyboard-navigable, only the h2 saying {t("skills")}.
 
-- [ ] **Phase 19: Final Polish**
+- [ ] **Phase 20: Final Polish**
   - SEO metadata, OpenGraph tags, Canonical tags, dynamic sitemap.ts and dynamic robots.ts.

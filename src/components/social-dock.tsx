@@ -9,31 +9,32 @@ import {
   GmailIcon,
 } from "@/components/icons";
 import { SocialLink } from "@/lib/types";
+import { SOCIAL_LINKS } from "@/components/socials";
 
 export const links: SocialLink[] = [
   {
     key: "github",
-    href: "https://github.com/theeyad",
+    href: SOCIAL_LINKS.github,
     icon: <GitHubIcon className="size-4" />,
   },
   {
     key: "linkedin",
-    href: "https://www.linkedin.com/in/eyad-othman",
+    href: SOCIAL_LINKS.linkedin,
     icon: <LinkedInIcon className="size-4" />,
   },
   {
     key: "whatsapp",
-    href: "https://wa.me/201150440572",
+    href: SOCIAL_LINKS.whatsapp,
     icon: <WhatsAppIcon className="size-4" />,
   },
   {
     key: "telegram",
-    href: "https://t.me/eyad_osman2005",
+    href: SOCIAL_LINKS.telegram,
     icon: <TelegramIconInDock className="size-6" />,
   },
   {
     key: "email",
-    href: "mailto:eyadosman35@gmail.com",
+    href: SOCIAL_LINKS.email,
     icon: <GmailIcon className="size-4" />,
   },
 ];

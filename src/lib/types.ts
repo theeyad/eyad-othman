@@ -65,6 +65,13 @@ export interface SocialLink {
   icon: React.ReactNode;
 }
 
+export interface CommunicationChip {
+  key: string;
+  name: string;
+  href: string;
+  icon: React.ReactNode;
+}
+
 export interface NavTabProps {
   href: string;
   label: string;
@@ -108,6 +115,20 @@ export type { ToastItem } from "@/hooks/use-toast";
 // ============================================================================
 // 4. PORTFOLIO COMPONENT PROPS
 // ============================================================================
+
+export interface HeroSectionProps {
+  profile: ProfileRow | null;
+  isAr: boolean;
+}
+
+export interface SkillsLoopSectionProps {
+  isAr: boolean;
+}
+
+export interface HomeContactCtaProps {
+  resumeUrl: string;
+  isAr: boolean;
+}
 
 export interface ExperienceProps {
   experiences: ExperienceRow[];
