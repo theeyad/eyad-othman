@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { LoginFormValues } from "@/lib/validators/login";
+import { LoginFormValues } from "@/lib/validations/login";
 
 export async function loginAction(values: LoginFormValues) {
   try {

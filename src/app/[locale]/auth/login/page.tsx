@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter, Link } from "@/i18n/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getLoginSchema, type LoginFormValues } from "@/lib/validators/login";
+import { getLoginSchema, type LoginFormValues } from "@/lib/validations/login";
 import { loginAction } from "@/app/[locale]/actions/auth";
 import { cn } from "@/lib/utils";
 import { Mail, Eye, EyeOff, AlertCircle, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
@@ -49,8 +49,8 @@ export default function LoginPage() {
   };
 
   return (
-        <main className="min-h-[calc(100vh-5rem)] flex flex-col justify-center px-10 sm:px-10 pt-28 pb-24 bg-background text-foreground">
-            <div className="w-full lg:ms-10">
+    <main className="min-h-[calc(100vh-5rem)] flex flex-col justify-center px-10 sm:px-10 pt-28 pb-24 bg-background text-foreground">
+      <div className="w-full lg:ms-10">
         {/* Back Link to Portfolio */}
         <div className="mb-6">
           <Link

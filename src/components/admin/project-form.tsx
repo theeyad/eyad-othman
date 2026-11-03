@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   getProjectSchema,
   type ProjectFormValues,
-} from "@/lib/validators/project";
+} from "@/lib/validations/project";
 import {
   createProjectAction,
   updateProjectAction,

@@ -2,8 +2,8 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { ProjectFormValues } from "@/lib/validators/project";
-import { ExperienceFormValues } from "@/lib/validators/experience";
+import { ProjectFormValues } from "@/lib/validations/project";
+import { ExperienceFormValues } from "@/lib/validations/experience";
 
 async function verifyAdminAuth() {
   const supabase = await createClient();
@@ -97,16 +97,16 @@ export async function createProjectAction(
 
     const highlightsArray = values.highlights
       ? values.highlights
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
       : [];
 
     const highlightsArArray = values.highlights_ar
       ? values.highlights_ar
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
       : [];
 
     const { data: project, error: projectError } = await auth.supabase
@@ -204,16 +204,16 @@ export async function updateProjectAction(
 
     const highlightsArray = values.highlights
       ? values.highlights
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
       : [];
 
     const highlightsArArray = values.highlights_ar
       ? values.highlights_ar
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
       : [];
 
     // 1. Check if any previously saved images were removed

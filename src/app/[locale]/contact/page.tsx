@@ -1,5 +1,9 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import type { Metadata } from "next";
+import { getProfile } from "@/lib/supabase/queries";
+import { ContactInfo } from "@/components/contact/contact-info";
+import { ContactForm } from "@/components/contact/contact-form";
+import { cn } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -18,25 +22,44 @@ export default async function ContactPage() {
   const t = await getTranslations("ContactPage");
   const isAr = locale === "ar";
 
+  const profile = await getProfile();
+  const isAvailable = profile?.available_for_work ?? true;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 pt-24 text-center bg-background text-foreground transition-colors duration-200">
-      <div className="mx-auto max-w-2xl">
-        <h1
-          className={
-            isAr
-              ? "font-cairo text-4xl font-bold sm:text-6xl text-foreground"
-              : "font-bebas text-5xl uppercase sm:text-7xl text-foreground"
-          }
-        >
-          {t("title")}
-        </h1>
+    <main className="min-h-screen px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-20 md:pt-28 pb-24 bg-background text-foreground">
+      <div className="mx-auto max-w-6xl">
+        {/* Editorial Header */}
+        <div className="text-start mb-12 sm:mb-16">
+          <h1
+            className={cn(
+              "text-3xl sm:text-5xl uppercase tracking-tight text-foreground",
+              isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
+            )}
+          >
+            {t("title")}
+          </h1>
 
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {t("subtitle")}
-        </p>
+          <p
+            className={cn(
+              "mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base max-w-2xl",
+              isAr ? "font-cairo" : "font-manrope",
+            )}
+          >
+            {t("subtitle")}
+          </p>
+        </div>
 
-        <div className="mt-8 inline-flex items-center rounded-full border border-border bg-card px-5 py-2 text-sm text-muted-foreground">
-          {t("comingSoon")}
+        {/* Two-Column Responsive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          {/* Direct Communication Column */}
+          <div className="lg:col-span-5">
+            <ContactInfo isAvailable={isAvailable} isAr={isAr} />
+          </div>
+
+          {/* Interactive Form Column */}
+          <div className="lg:col-span-7">
+            <ContactForm isAr={isAr} />
+          </div>
         </div>
       </div>
     </main>

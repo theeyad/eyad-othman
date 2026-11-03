@@ -266,3 +266,14 @@ export interface PixelCardProps {
   speed?: number;
   colors?: string[];
 }
+
+export type { ContactFormData, ContactSubject } from "./validations/contact";
+
+export interface ContactInfoProps {
+  isAvailable: boolean;
+  isAr: boolean;
+}
+
+export interface ContactFormProps {
+  isAr: boolean;
+}

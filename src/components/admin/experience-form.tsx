@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   getExperienceSchema,
   type ExperienceFormValues,
-} from "@/lib/validators/experience";
+} from "@/lib/validations/experience";
 import {
   createExperienceAction,
   updateExperienceAction,

@@ -147,15 +147,15 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
 - [x] **Phase 16: Refactor Projects Page**
   - Add filters and pagination.
 
-- [ ] **Phase 17: Contact Form in Contact Page**
+- [x] **Phase 17: Contact Form in Contact Page**
   - RHF and Zod with connection to Telegram Bot API to send me a message with the form data.
 
-- [ ] **Phase 18: Mobile Responsive**
-  - Make sure the whole portfolio is responsive for mobile devices.
-
-- [ ] **Phase 19: a11y**
+- [ ] **Phase 18: a11y**
   - Make sure we apply a11y, all h1-h6, cards, all links and buttons have aria-label and have a clear readable aria-labelledby and are keyboard-navigable.
   - skills cards in Home page should not be keyboard-navigable, only the h2 saying {t("skills")}.
+
+- [ ] **Phase 19: Mobile Responsive**
+  - Make sure the whole portfolio is responsive for mobile devices.
 
 - [ ] **Phase 20: Final Polish**
   - SEO metadata, OpenGraph tags, Canonical tags, dynamic sitemap.ts and dynamic robots.ts.
