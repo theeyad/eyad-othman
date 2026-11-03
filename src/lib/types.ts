@@ -165,7 +165,6 @@ export interface AdminStatsOverviewProps {
   profile: ProfileRow | null;
   isPending: boolean;
   onToggleAvailability: () => void;
-  onUpdateAvatar: (url: string) => Promise<void>;
   isAr: boolean;
 }
 
@@ -205,9 +204,19 @@ export interface ProjectFormProps {
   initialData?: ProjectWithImages;
 }
 
+export interface ProfileFormProps {
+  initialData?: ProfileRow | null;
+}
+
 // ============================================================================
 // 6. NEXT.JS PAGE PROPS
 // ============================================================================
+
+export interface EditProfilePageProps {
+  params: Promise<{
+    locale: string;
+  }>;
+}
 
 export interface EditExperiencePageProps {
   params: Promise<{

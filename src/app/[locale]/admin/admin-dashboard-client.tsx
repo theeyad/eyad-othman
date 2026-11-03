@@ -8,7 +8,6 @@ import {
   toggleAvailabilityAction,
   deleteProjectAction,
   deleteExperienceAction,
-  updateProfileAvatarAction,
 } from "@/app/[locale]/actions/admin";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -56,24 +55,6 @@ export default function AdminDashboardClient({
       const result = await toggleAvailabilityAction(nextState);
       if (!result.success) {
         setProfile({ ...profile, available_for_work: !nextState });
-        const errorKey = (result as { errorKey?: string }).errorKey;
-        const errorMsg =
-          errorKey ? t(errorKey) : result.error || t("saveError");
-        toast.destructive({ title: errorMsg });
-      } else {
-        toast.success({ title: t("saveSuccess") });
-        router.refresh();
-      }
-    });
-  };
-
-  const handleUpdateAvatar = async (newUrl: string) => {
-    if (!newUrl || !profile) return;
-    setProfile({ ...profile, avatar_url: newUrl });
-
-    startTransition(async () => {
-      const result = await updateProfileAvatarAction(newUrl);
-      if (!result.success) {
         const errorKey = (result as { errorKey?: string }).errorKey;
         const errorMsg =
           errorKey ? t(errorKey) : result.error || t("saveError");
@@ -168,7 +149,7 @@ export default function AdminDashboardClient({
           </div>
         </header>
 
-        {/* Metric Cards Grid & Avatar Drawer */}
+        {/* Metric Cards Grid */}
         <AdminStatsOverview
           initialProjectsCount={initialProjects.length}
           featuredCount={featuredCount}
@@ -176,7 +157,6 @@ export default function AdminDashboardClient({
           profile={profile}
           isPending={isPending}
           onToggleAvailability={handleToggleAvailability}
-          onUpdateAvatar={handleUpdateAvatar}
           isAr={isAr}
         />
 

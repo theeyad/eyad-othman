@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { ProjectFormValues } from "@/lib/validations/project";
 import { ExperienceFormValues } from "@/lib/validations/experience";
+import { Database } from "@/lib/types";
 
 async function verifyAdminAuth() {
   const supabase = await createClient();
@@ -73,6 +74,43 @@ export async function updateProfileAvatarAction(avatarUrl: string) {
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to update avatar";
     return { success: false, errorKey: "avatarError", error: message };
+  }
+}
+
+export async function updateProfileAction(values: {
+  avatar_url?: string;
+  resume_url?: string;
+  available_for_work?: boolean;
+}) {
+  try {
+    const auth = await verifyAdminAuth();
+    if (!auth.authorized) {
+      return { success: false, errorKey: auth.errorKey, error: auth.error };
+    }
+
+    const updatePayload: Database["public"]["Tables"]["profile"]["Update"] = {
+      updated_at: new Date().toISOString(),
+    };
+    if (values.avatar_url !== undefined) updatePayload.avatar_url = values.avatar_url;
+    if (values.resume_url !== undefined) updatePayload.resume_url = values.resume_url;
+    if (values.available_for_work !== undefined)
+      updatePayload.available_for_work = values.available_for_work;
+
+    const { error } = await auth.supabase
+      .from("profile")
+      .update(updatePayload)
+      .eq("id", 1);
+
+    if (error) {
+      return { success: false, errorKey: "saveError", error: error.message };
+    }
+
+    revalidatePath("/", "layout");
+    revalidatePath("/admin", "layout");
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to update profile";
+    return { success: false, errorKey: "saveError", error: message };
   }
 }
 
