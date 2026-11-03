@@ -77,18 +77,21 @@ export default async function ProjectsPage({
         {/* Header Section */}
         <div className="text-start mb-10 sm:mb-12">
           <h1
-            className={
+            tabIndex={0}
+            className={cn(
+              "cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
               isAr
                 ? "font-cairo text-3xl font-bold sm:text-4xl text-foreground"
-                : "font-bebas text-3xl uppercase sm:text-4xl text-foreground tracking-normal"
-            }
+                : "font-bebas text-3xl uppercase sm:text-4xl text-foreground tracking-normal",
+            )}
           >
             {t("title")}
           </h1>
 
           <p
+            tabIndex={0}
             className={cn(
-              "mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base",
+              "mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
               isAr ? "font-cairo" : "font-manrope",
             )}
           >
@@ -105,7 +108,11 @@ export default async function ProjectsPage({
 
         {/* Projects Archive Grid or Empty State */}
         {paginatedProjects.length === 0 ? (
-          <div className="rounded-2xl sm:rounded-3xl border border-dashed border-border bg-card/40 p-12 text-center text-sm text-muted-foreground">
+          <div
+            tabIndex={0}
+            role="status"
+            className="rounded-2xl sm:rounded-3xl border border-dashed border-border bg-card/40 p-12 text-center text-sm text-muted-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
+          >
             {t("noProjects")}
           </div>
         ) : (
@@ -131,7 +138,8 @@ export default async function ProjectsPage({
                 >
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="flex flex-col h-full cursor-default"
+                    aria-labelledby={`project-title-${project.slug}`}
+                    className="flex flex-col h-full cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-3xl"
                   >
                     {/* Visual Image Preview */}
                     <div className="relative aspect-video w-full overflow-hidden bg-muted">
@@ -155,6 +163,7 @@ export default async function ProjectsPage({
                     <div className="flex flex-col justify-between flex-1 p-6 space-y-4 relative z-30">
                       <div className="space-y-2">
                         <h2
+                          id={`project-title-${project.slug}`}
                           className={cn(
                             "text-2xl text-foreground uppercase tracking-tight",
                             isAr
@@ -189,9 +198,9 @@ export default async function ProjectsPage({
                         </div>
                         <span className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0 ms-2">
                           {isAr ? (
-                            <ArrowLeft size={16} />
+                            <ArrowLeft aria-hidden="true" size={16} />
                           ) : (
-                            <ArrowRight size={16} />
+                            <ArrowRight aria-hidden="true" size={16} />
                           )}
                         </span>
                       </div>

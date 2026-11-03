@@ -55,20 +55,21 @@ export default function LoginPage() {
         <div className="mb-6">
           <Link
             href="/"
+            aria-label={t("backToPortfolio")}
             className={cn(
-              "inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default",
+              "inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground rounded",
               isAr ? "font-cairo" : "font-manrope",
             )}
           >
             {isAr ? (
               <>
-                <ArrowRight className="size-4" />
-                <span>العودة إلى الرئيسية</span>
+                <ArrowRight aria-hidden="true" className="size-4" />
+                <span>{t("backToPortfolio")}</span>
               </>
             ) : (
               <>
-                <ArrowLeft className="size-4" />
-                <span>Back to portfolio</span>
+                <ArrowLeft aria-hidden="true" className="size-4" />
+                <span>{t("backToPortfolio")}</span>
               </>
             )}
           </Link>
@@ -133,19 +134,22 @@ export default function LoginPage() {
                   placeholder={t("emailPlaceholder")}
                   disabled={isLoading}
                   {...register("email")}
+                  aria-required="true"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                   className={cn(
                     "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.email ? "border-b-destructive" : "border-b-border",
                     isAr ? "pe-10 font-cairo" : "pe-10 font-manrope",
                   )}
                 />
-                <div className="pointer-events-none absolute inset-y-0 inset-e-0 flex items-center pe-3.5 text-muted-foreground">
+                <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 inset-e-0 flex items-center pe-3.5 text-muted-foreground">
                   <Mail className="size-4" />
                 </div>
               </div>
 
               {errors.email && (
-                <p className="text-xs text-destructive mt-1">
+                <p id="email-error" role="alert" className="text-xs text-destructive mt-1">
                   {errors.email.message}
                 </p>
               )}
@@ -171,6 +175,9 @@ export default function LoginPage() {
                   placeholder={t("passwordPlaceholder")}
                   disabled={isLoading}
                   {...register("password")}
+                  aria-required="true"
+                  aria-invalid={!!errors.password}
+                  aria-describedby={errors.password ? "password-error" : undefined}
                   className={cn(
                     "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.password ? "border-b-destructive" : "border-b-border",
@@ -180,20 +187,19 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                  tabIndex={-1}
-                  className="absolute inset-y-0 inset-e-0 flex items-center pe-3.5 text-muted-foreground hover:text-foreground transition-colors cursor-default"
+                  aria-label={showPassword ? t("hidePassword") : t("showPassword")}
+                  className="absolute inset-y-0 inset-e-0 flex items-center pe-3.5 text-muted-foreground hover:text-foreground transition-colors cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground rounded"
                 >
                   {showPassword ? (
-                    <EyeOff className="size-4" />
+                    <EyeOff aria-hidden="true" className="size-4" />
                   ) : (
-                    <Eye className="size-4" />
+                    <Eye aria-hidden="true" className="size-4" />
                   )}
                 </button>
               </div>
 
               {errors.password && (
-                <p className="text-xs text-destructive mt-1">
+                <p id="password-error" role="alert" className="text-xs text-destructive mt-1">
                   {errors.password.message}
                 </p>
               )}
@@ -210,7 +216,7 @@ export default function LoginPage() {
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="size-4 animate-spin" />
+                  <Loader2 aria-hidden="true" className="size-4 animate-spin" />
                   <span>{t("signingIn")}</span>
                 </>
               ) : (

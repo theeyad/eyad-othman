@@ -75,16 +75,18 @@ export function ContactForm({ isAr }: ContactFormProps) {
       {/* Header */}
       <div className="space-y-1.5 pb-2 border-b-3 border-border">
         <h2
+          tabIndex={0}
           className={cn(
-            "text-2xl sm:text-3xl uppercase tracking-tight text-foreground",
+            "text-2xl sm:text-3xl uppercase tracking-tight text-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
             isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
           )}
         >
           {t("formTitle")}
         </h2>
         <p
+          tabIndex={0}
           className={cn(
-            "text-xs sm:text-sm text-muted-foreground",
+            "text-xs sm:text-sm text-muted-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
             isAr ? "font-cairo" : "font-manrope",
           )}
         >
@@ -101,7 +103,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             isAr ? "font-cairo" : "font-manrope",
           )}
         >
-          <AlertCircle className="size-4 shrink-0 mt-0.5" />
+          <AlertCircle aria-hidden="true" className="size-4 shrink-0 mt-0.5" />
           <span>{formError}</span>
         </div>
       )}
@@ -125,7 +127,9 @@ export function ContactForm({ isAr }: ContactFormProps) {
             placeholder={t("namePlaceholder")}
             disabled={isSubmitting}
             {...register("name")}
+            aria-required="true"
             aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "name-error" : undefined}
             className={cn(
               "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
               errors.name ? "border-b-destructive" : "border-b-border",
@@ -133,7 +137,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             )}
           />
           {errors.name && (
-            <p className="text-xs text-destructive mt-1 font-medium">
+            <p id="name-error" role="alert" className="text-xs text-destructive mt-1 font-medium">
               {errors.name.message ? t(errors.name.message) : t("nameMin")}
             </p>
           )}
@@ -157,7 +161,9 @@ export function ContactForm({ isAr }: ContactFormProps) {
             placeholder={t("emailPlaceholder")}
             disabled={isSubmitting}
             {...register("email")}
+            aria-required="true"
             aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
             className={cn(
               "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default text-start",
               errors.email ? "border-b-destructive" : "border-b-border",
@@ -165,7 +171,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             )}
           />
           {errors.email && (
-            <p className="text-xs text-destructive mt-1 font-medium">
+            <p id="email-error" role="alert" className="text-xs text-destructive mt-1 font-medium">
               {errors.email.message ? t(errors.email.message) : t("emailInvalid")}
             </p>
           )}
@@ -189,6 +195,9 @@ export function ContactForm({ isAr }: ContactFormProps) {
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger
                   id="subject"
+                  aria-required="true"
+                  aria-invalid={!!errors.subject}
+                  aria-describedby={errors.subject ? "subject-error" : undefined}
                   className={cn(
                     "w-full rounded-none border-0 border-b bg-transparent px-4 py-3 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:border-b-foreground focus-visible:ring-0 cursor-default",
                     errors.subject ? "border-b-destructive" : "border-b-border",
@@ -217,7 +226,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             )}
           />
           {errors.subject && (
-            <p className="text-xs text-destructive mt-1 font-medium">
+            <p id="subject-error" role="alert" className="text-xs text-destructive mt-1 font-medium">
               {t("subjectRequired")}
             </p>
           )}
@@ -240,7 +249,9 @@ export function ContactForm({ isAr }: ContactFormProps) {
             placeholder={t("messagePlaceholder")}
             disabled={isSubmitting}
             {...register("message")}
+            aria-required="true"
             aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? "message-error" : undefined}
             className={cn(
               "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none leading-relaxed min-h-28",
               errors.message ? "border-b-destructive" : "border-b-border",
@@ -248,7 +259,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             )}
           />
           {errors.message && (
-            <p className="text-xs text-destructive mt-1 font-medium">
+            <p id="message-error" role="alert" className="text-xs text-destructive mt-1 font-medium">
               {errors.message.message ? t(errors.message.message) : t("messageMin")}
             </p>
           )}
@@ -266,12 +277,12 @@ export function ContactForm({ isAr }: ContactFormProps) {
           >
             {isSubmitting ? (
               <>
-                <Loader2 className="size-4 animate-spin" />
+                <Loader2 aria-hidden="true" className="size-4 animate-spin" />
                 <span>{t("submitting")}</span>
               </>
             ) : (
               <>
-                <Send className="size-4 rtl:-scale-x-100" />
+                <Send aria-hidden="true" className="size-4 rtl:-scale-x-100" />
                 <span>{t("submitButton")}</span>
               </>
             )}

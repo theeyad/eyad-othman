@@ -18,7 +18,10 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
   const commChips = getCommunicationChips(t);
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center">
+    <section
+      aria-labelledby="hero-title"
+      className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center"
+    >
       <div className="md:col-span-6 md:items-start md:text-start flex flex-col items-center text-center">
         {/* Status Pill Badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs text-muted-foreground">
@@ -35,7 +38,9 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
 
         {/* Split-text Animated Name */}
         <h1
-          className={`mt-5 ${
+          id="hero-title"
+          tabIndex={0}
+          className={`mt-5 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg ${
             isAr
               ? "font-cairo text-4xl sm:text-5xl md:text-6xl font-bold text-foreground leading-tight"
               : "font-bebas text-5xl sm:text-6xl md:text-7xl tracking-normal text-foreground uppercase leading-[0.95]"
@@ -50,7 +55,8 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
 
         {/* Split-text Animated Role */}
         <h2
-          className={`mt-1.5 ${
+          tabIndex={0}
+          className={`mt-1.5 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg ${
             isAr
               ? "font-cairo text-xl sm:text-2xl md:text-3xl font-semibold text-muted-foreground leading-tight"
               : "font-bebas text-2xl sm:text-3xl md:text-4xl text-muted-foreground uppercase tracking-normal leading-[0.95]"
@@ -65,7 +71,8 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
 
         {/* Tagline */}
         <p
-          className={`mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground ${
+          tabIndex={0}
+          className={`mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg ${
             isAr ? "font-cairo font-normal" : "font-manrope"
           }`}
         >
@@ -89,9 +96,10 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
           <a
             href={resumeUrl}
             download="Eyad_Othman_Frontend.pdf"
+            aria-label={`${t("downloadCv")} (PDF)`}
             className="inline-flex items-center justify-center rounded-full border border-border bg-card px-6 py-2.5 text-sm font-semibold text-foreground transition-all duration-200 hover:bg-muted hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
           >
-            <span className="me-1.5">
+            <span aria-hidden="true" className="me-1.5 flex items-center">
               <Download size={16} />
             </span>
             {t("downloadCv")}
@@ -101,19 +109,21 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
         {/* Row 2 — Direct Communication Chips */}
         <div className="mt-4 flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-2.5">
           {commChips.map((chip) => {
+            const isEmail = chip.href.startsWith("mailto:");
             return (
               <a
                 key={chip.key}
                 href={chip.href}
-                target={chip.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={
-                  chip.href.startsWith("mailto:")
-                    ? undefined
-                    : "noopener noreferrer"
+                target={isEmail ? undefined : "_blank"}
+                rel={isEmail ? undefined : "noopener noreferrer"}
+                aria-label={
+                  isEmail ? t("email") : `${chip.name} (opens in new tab)`
                 }
                 className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4.5 py-2.5 text-xs font-medium text-foreground transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
               >
-                {chip.icon}
+                <span aria-hidden="true" className="flex items-center">
+                  {chip.icon}
+                </span>
                 <span>{chip.name}</span>
               </a>
             );
@@ -125,8 +135,8 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
         <div className="relative w-full max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-[2.5rem] overflow-hidden bg-card border border-border">
           <Link
             href="/auth/login"
-            aria-label="Profile"
-            className="block cursor-default size-full relative"
+            aria-label={t("title")}
+            className="block cursor-default size-full relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-[2.5rem]"
           >
             <Image
               src={avatarUrl}

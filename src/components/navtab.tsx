@@ -20,8 +20,10 @@ export default function NavTab({
     <Component
       href={href}
       {...extraProps}
+      aria-current={isActive ? "page" : undefined}
+      aria-label={isExternal ? `${label} (PDF)` : label}
       className={cn(
-        "cursor-default group relative overflow-hidden rounded-full px-5 py-2 select-none block transition-colors duration-200",
+        "cursor-default group relative overflow-hidden rounded-full px-5 py-2 select-none block transition-colors duration-200 focus-visible:ring-3 focus-visible:ring-accent",
         "bg-[#ffffff] dark:bg-[#111111]",
         isAr
           ? "font-cairo text-sm font-medium"

@@ -11,10 +11,12 @@ export default async function Experience({
   const t = await getTranslations("HomePage");
 
   return (
-    <section className="mt-20 sm:mt-28 w-full">
+    <section aria-labelledby="experience-heading" className="mt-20 sm:mt-28 w-full">
       <h2
+        id="experience-heading"
+        tabIndex={0}
         className={cn(
-          "mb-6 sm:mb-8 text-2xl sm:text-3xl uppercase text-foreground",
+          "mb-6 sm:mb-8 text-2xl sm:text-3xl uppercase text-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
           isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
         )}
       >
@@ -54,12 +56,17 @@ export default async function Experience({
                 />
 
                 {/* Experience Card */}
-                <div className="flex-1 rounded-2xl sm:rounded-3xl border border-border bg-card p-6 sm:p-8 cursor-default">
+                <article
+                  aria-labelledby={`exp-role-${exp.id}`}
+                  className="flex-1 rounded-2xl sm:rounded-3xl border border-border bg-card p-6 sm:p-8 cursor-default"
+                >
                   {/* Header Row: Title & Date Pill */}
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <h3
+                      id={`exp-role-${exp.id}`}
+                      tabIndex={0}
                       className={cn(
-                        "text-xl sm:text-2xl uppercase text-foreground tracking-normal",
+                        "text-xl sm:text-2xl uppercase text-foreground tracking-normal cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
                         isAr ? "font-cairo font-bold" : "font-bebas",
                       )}
                     >
@@ -87,12 +94,13 @@ export default async function Experience({
                   {/* Meta Row: Company & Type Badge */}
                   <div className="mt-3 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
                     <div className="inline-flex items-center gap-1.5 text-foreground font-medium">
-                      <Briefcase className="size-3.5 sm:size-4 shrink-0 text-muted-foreground" />
+                      <Briefcase aria-hidden="true" className="size-3.5 sm:size-4 shrink-0 text-muted-foreground" />
                       {exp.company_url ? (
                         <a
                           href={exp.company_url}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`${exp.company} (opens in new tab)`}
                           className="inline-flex items-center gap-1 hover:underline cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground rounded"
                         >
                           <span
@@ -100,7 +108,7 @@ export default async function Experience({
                           >
                             {exp.company}
                           </span>
-                          <ExternalLink className="size-3 text-muted-foreground" />
+                          <ExternalLink aria-hidden="true" className="size-3 text-muted-foreground" />
                         </a>
                       ) : (
                         <span
@@ -117,14 +125,15 @@ export default async function Experience({
 
                   {/* Description Body */}
                   <p
+                    tabIndex={0}
                     className={cn(
-                      "mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground",
+                      "mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
                       isAr ? "font-cairo" : "font-manrope",
                     )}
                   >
                     {description}
                   </p>
-                </div>
+                </article>
               </div>
             );
           })}

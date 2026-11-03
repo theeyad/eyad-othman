@@ -123,9 +123,6 @@ export function AdminStatsOverview({
               <p className="text-xs font-semibold uppercase tracking-wider text-foreground">
                 {t("profileAvatarLabel")}
               </p>
-              <p className="text-[11px] text-muted-foreground truncate max-w-40">
-                {profile?.avatar_url || "/me.webp"}
-              </p>
             </div>
           </div>
           <button

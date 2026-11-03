@@ -69,19 +69,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="flex items-center justify-between mb-8">
           <Link
             href="/projects"
+            aria-label={t("backToProjects")}
             className={cn(
-              "inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default",
+              "inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground rounded",
               isAr ? "font-cairo" : "font-manrope",
             )}
           >
             {isAr ? (
               <>
-                <ArrowRight className="size-4" />
+                <ArrowRight aria-hidden="true" className="size-4" />
                 <span>{t("backToProjects")}</span>
               </>
             ) : (
               <>
-                <ArrowLeft className="size-4" />
+                <ArrowLeft aria-hidden="true" className="size-4" />
                 <span>{t("backToProjects")}</span>
               </>
             )}
@@ -95,8 +96,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Project Header */}
         <div className="space-y-4">
           <h1
+            tabIndex={0}
             className={cn(
-              "text-3xl sm:text-5xl uppercase tracking-tight text-foreground",
+              "text-3xl sm:text-5xl uppercase tracking-tight text-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
               isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
             )}
           >
@@ -104,8 +106,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </h1>
 
           <p
+            tabIndex={0}
             className={cn(
-              "text-base sm:text-lg leading-relaxed text-muted-foreground",
+              "text-base sm:text-lg leading-relaxed text-muted-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
               isAr ? "font-cairo" : "font-manrope",
             )}
           >
@@ -120,10 +123,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               href={project.live_url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${t("visitLiveSite")}: ${title} (opens in new tab)`}
               className="inline-flex items-center gap-2 rounded-full border border-border bg-foreground text-background px-6 py-2.5 text-xs sm:text-sm font-semibold transition-transform duration-200 hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
             >
               <span>{t("visitLiveSite")}</span>
-              <ExternalLink className="size-3.5" />
+              <ExternalLink aria-hidden="true" className="size-3.5" />
             </a>
           )}
 
@@ -132,9 +136,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               href={project.github_url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${t("githubCode")}: ${title} (opens in new tab)`}
               className="inline-flex items-center gap-2 rounded-full border border-border bg-card text-foreground px-6 py-2.5 text-xs sm:text-sm font-semibold transition-transform duration-200 hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
             >
-              <GitHubIcon className="size-4" />
+              <span aria-hidden="true" className="flex items-center">
+                <GitHubIcon className="size-4" />
+              </span>
               <span>{t("githubCode")}</span>
             </a>
           )}
@@ -153,16 +160,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="md:col-span-8 space-y-8">
             <div>
               <h2
+                tabIndex={0}
                 className={cn(
-                  "text-xl sm:text-2xl uppercase text-foreground mb-3",
+                  "text-xl sm:text-2xl uppercase text-foreground mb-3 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
                   isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
                 )}
               >
                 {t("overview")}
               </h2>
               <p
+                tabIndex={0}
                 className={cn(
-                  "text-sm sm:text-base leading-relaxed text-muted-foreground whitespace-pre-line",
+                  "text-sm sm:text-base leading-relaxed text-muted-foreground whitespace-pre-line cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
                   isAr ? "font-cairo" : "font-manrope",
                 )}
               >
@@ -174,8 +183,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {highlights && highlights.length > 0 && (
               <div>
                 <h2
+                  tabIndex={0}
                   className={cn(
-                    "text-xl sm:text-2xl uppercase text-foreground mb-4",
+                    "text-xl sm:text-2xl uppercase text-foreground mb-4 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
                     isAr
                       ? "font-cairo font-bold"
                       : "font-bebas tracking-normal",
@@ -187,8 +197,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   {highlights.map((highlight, idx) => (
                     <li
                       key={idx}
+                      tabIndex={0}
                       className={cn(
-                        "flex items-start gap-3 text-sm sm:text-base leading-relaxed text-muted-foreground",
+                        "flex items-start gap-3 text-sm sm:text-base leading-relaxed text-muted-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
                         isAr ? "font-cairo" : "font-manrope",
                       )}
                     >
@@ -204,14 +215,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {/* Sidebar Column: Tech Stack */}
           <div className="md:col-span-4">
             <div className="rounded-2xl border border-border bg-card p-6 cursor-default">
-              <h3
+              <h2
+                tabIndex={0}
                 className={cn(
-                  "text-lg uppercase text-foreground mb-4",
+                  "text-lg uppercase text-foreground mb-4 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
                   isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
                 )}
               >
                 {t("techStack")}
-              </h3>
+              </h2>
               {project.tech_stack && project.tech_stack.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {project.tech_stack.map((tech) => (

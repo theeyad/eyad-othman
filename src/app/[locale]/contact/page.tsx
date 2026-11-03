@@ -31,8 +31,9 @@ export default async function ContactPage() {
         {/* Editorial Header */}
         <div className="text-start mb-12 sm:mb-16">
           <h1
+            tabIndex={0}
             className={cn(
-              "text-3xl sm:text-5xl uppercase tracking-tight text-foreground",
+              "text-3xl sm:text-5xl uppercase tracking-tight text-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
               isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
             )}
           >
@@ -40,8 +41,9 @@ export default async function ContactPage() {
           </h1>
 
           <p
+            tabIndex={0}
             className={cn(
-              "mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base max-w-2xl",
+              "mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base max-w-2xl cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
               isAr ? "font-cairo" : "font-manrope",
             )}
           >

@@ -15,26 +15,29 @@ export function SplitText({
   if (isArabic) {
     const words = text.split(" ");
     return (
-      <span className={`inline-block ${className}`} aria-label={text}>
-        {words.map((word, wordIndex) => (
-          <span
-            key={wordIndex}
-            className="inline-block overflow-hidden py-1.5 me-2.5 last:me-0 align-bottom"
-          >
-            <motion.span
-              className="inline-block"
-              initial={{ y: "115%", opacity: 0 }}
-              animate={{ y: "0%", opacity: 1 }}
-              transition={{
-                duration: 0.65,
-                ease: [0.22, 1, 0.36, 1],
-                delay: delay + wordIndex * wordDelay,
-              }}
+      <span className={`inline-block ${className}`}>
+        <span className="sr-only">{text}</span>
+        <span aria-hidden="true" className="inline-block">
+          {words.map((word, wordIndex) => (
+            <span
+              key={wordIndex}
+              className="inline-block overflow-hidden py-1.5 me-2.5 last:me-0 align-bottom"
             >
-              {word}
-            </motion.span>
-          </span>
-        ))}
+              <motion.span
+                className="inline-block"
+                initial={{ y: "115%", opacity: 0 }}
+                animate={{ y: "0%", opacity: 1 }}
+                transition={{
+                  duration: 0.65,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: delay + wordIndex * wordDelay,
+                }}
+              >
+                {word}
+              </motion.span>
+            </span>
+          ))}
+        </span>
       </span>
     );
   }
@@ -44,39 +47,42 @@ export function SplitText({
   let globalCharIndex = 0;
 
   return (
-    <span className={`inline-block ${className}`} aria-label={text}>
-      {words.map((word, wordIndex) => {
-        const chars = word.split("");
-        return (
-          <span
-            key={wordIndex}
-            className="inline-block whitespace-nowrap me-3 sm:me-4 last:me-0 align-bottom"
-          >
-            {chars.map((char) => {
-              const charIdx = globalCharIndex++;
-              return (
-                <span
-                  key={charIdx}
-                  className="inline-block overflow-hidden py-1 align-bottom"
-                >
-                  <motion.span
-                    className="inline-block"
-                    initial={{ y: "115%", opacity: 0 }}
-                    animate={{ y: "0%", opacity: 1 }}
-                    transition={{
-                      duration: 0.55,
-                      ease: [0.22, 1, 0.36, 1],
-                      delay: delay + charIdx * charDelay,
-                    }}
+    <span className={`inline-block ${className}`}>
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true" className="inline-block">
+        {words.map((word, wordIndex) => {
+          const chars = word.split("");
+          return (
+            <span
+              key={wordIndex}
+              className="inline-block whitespace-nowrap me-3 sm:me-4 last:me-0 align-bottom"
+            >
+              {chars.map((char) => {
+                const charIdx = globalCharIndex++;
+                return (
+                  <span
+                    key={charIdx}
+                    className="inline-block overflow-hidden py-1 align-bottom"
                   >
-                    {char}
-                  </motion.span>
-                </span>
-              );
-            })}
-          </span>
-        );
-      })}
+                    <motion.span
+                      className="inline-block"
+                      initial={{ y: "115%", opacity: 0 }}
+                      animate={{ y: "0%", opacity: 1 }}
+                      transition={{
+                        duration: 0.55,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: delay + charIdx * charDelay,
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  </span>
+                );
+              })}
+            </span>
+          );
+        })}
+      </span>
     </span>
   );
 }

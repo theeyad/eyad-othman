@@ -124,8 +124,9 @@ export default function Navbar() {
           <Link
             href="/"
             aria-label="Home"
+            aria-current={isHome ? "page" : undefined}
             className={cn(
-              "size-10 rounded-xl flex items-center justify-center font-oswald text-base transition-all duration-200 active:scale-95 cursor-default",
+              "size-10 rounded-xl flex items-center justify-center font-oswald text-base transition-all duration-200 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
               isHome
                 ? "bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111]"
                 : "bg-card hover:bg-muted text-foreground border border-border",
@@ -138,8 +139,9 @@ export default function Navbar() {
           <Link
             href="/projects"
             aria-label={t("projects")}
+            aria-current={isProjects ? "page" : undefined}
             className={cn(
-              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 cursor-default",
+              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
               isProjects
                 ? "bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111]"
                 : "bg-card hover:bg-muted text-foreground border border-border",
@@ -152,8 +154,9 @@ export default function Navbar() {
           <Link
             href="/contact"
             aria-label={t("contact")}
+            aria-current={isContact ? "page" : undefined}
             className={cn(
-              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 cursor-default",
+              "size-10 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
               isContact
                 ? "bg-[#111111] text-[#ffffff] dark:bg-[#ffffff] dark:text-[#111111]"
                 : "bg-card hover:bg-muted text-foreground border border-border",
@@ -168,8 +171,8 @@ export default function Navbar() {
             download="Eyad_Othman_Frontend.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t("cv")}
-            className="size-10 rounded-xl flex items-center justify-center bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 cursor-default"
+            aria-label={`${t("cv")} (PDF)`}
+            className="size-10 rounded-xl flex items-center justify-center bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <Download className="size-4.5" />
           </a>
@@ -185,7 +188,7 @@ export default function Navbar() {
             type="button"
             onClick={() => router.replace(pathname, { locale: otherLocale })}
             aria-label={t("switchLang")}
-            className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 cursor-default"
+            className="h-10 px-2.5 rounded-xl flex items-center justify-center gap-1 bg-card hover:bg-muted text-foreground border border-border transition-all duration-200 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <Globe className="size-4" />
             <span className="text-[11px] tracking-tight">{t("langBadge")}</span>

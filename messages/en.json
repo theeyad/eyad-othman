@@ -61,7 +61,9 @@
     "visitLiveSite": "Visit live site",
     "githubCode": "GitHub Code",
     "previousImage": "Previous image",
-    "nextImage": "Next image"
+    "nextImage": "Next image",
+    "filterByCategory": "Filter projects by category",
+    "pagination": "Pagination Navigation"
   },
   "ContactPage": {
     "title": "Let's Work Together",
@@ -117,7 +119,10 @@
     "invalidCredentials": "Invalid email or password.",
     "invalidEmail": "Please enter a valid email address.",
     "passwordMinLength": "Invalid email or password.",
-    "unauthorized": "You are not authorized to access this portal."
+    "unauthorized": "You are not authorized to access this portal.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "backToPortfolio": "Back to portfolio"
   },
   "Admin": {
     "dashboardTitle": "Admin Dashboard",

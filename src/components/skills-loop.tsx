@@ -131,13 +131,11 @@ export function SkillsLoop() {
   return (
     <div
       className="group relative w-full overflow-hidden py-4 select-none mask-[linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)]"
-      role="region"
-      aria-label="Skills & Technologies"
       onMouseEnter={() => transitionPlaybackRate(0, 800)}
       onMouseLeave={() => transitionPlaybackRate(1, 900)}
     >
       <div ref={trackRef} className="flex w-max gap-4 animate-logoloop">
-        {/* Track 1 */}
+        {/* Track 1 (Primary list read once by assistive tech) */}
         <div className="flex shrink-0 items-center gap-4">
           {SKILLS.map((skill) => (
             <div
@@ -153,8 +151,12 @@ export function SkillsLoop() {
           ))}
         </div>
 
-        {/* Track 2 (Duplicated for seamless infinite ticker) */}
-        <div className="flex shrink-0 items-center gap-4" aria-hidden="true">
+        {/* Track 2 (Duplicated for seamless infinite ticker - completely inert for screen readers) */}
+        <div
+          className="flex shrink-0 items-center gap-4"
+          aria-hidden="true"
+          inert
+        >
           {SKILLS.map((skill) => (
             <div
               key={`track2-${skill.name}`}

@@ -61,7 +61,9 @@
     "visitLiveSite": "زيارة الموقع الحي",
     "githubCode": "الكود المصدري",
     "previousImage": "الصورة السابقة",
-    "nextImage": "الصورة التالية"
+    "nextImage": "الصورة التالية",
+    "filterByCategory": "تصفية المشاريع حسب الفئة",
+    "pagination": "التنقل بين الصفحات"
   },
   "ContactPage": {
     "title": "لنعمل معًا",
@@ -117,7 +119,10 @@
     "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
     "invalidEmail": "يرجى إدخال بريد إلكتروني صالح.",
     "passwordMinLength": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-    "unauthorized": "غير مصرح لك بالوصول إلى هذه الصفحة."
+    "unauthorized": "غير مصرح لك بالوصول إلى هذه الصفحة.",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "backToPortfolio": "العودة إلى معرض الأعمال"
   },
   "Admin": {
     "dashboardTitle": "لوحة التحكم",

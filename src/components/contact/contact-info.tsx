@@ -29,16 +29,18 @@ export function ContactInfo({ isAvailable, isAr }: ContactInfoProps) {
 
       <div className="space-y-1">
         <h2
+          tabIndex={0}
           className={cn(
-            "text-xl sm:text-2xl uppercase tracking-tight text-foreground",
+            "text-xl sm:text-2xl uppercase tracking-tight text-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg w-fit",
             isAr ? "font-cairo font-bold" : "font-bebas tracking-normal",
           )}
         >
           {t("directChannels")}
         </h2>
         <p
+          tabIndex={0}
           className={cn(
-            "text-xs sm:text-sm text-muted-foreground",
+            "text-xs sm:text-sm text-muted-foreground cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-lg",
             isAr ? "font-cairo" : "font-manrope",
           )}
         >
@@ -53,10 +55,11 @@ export function ContactInfo({ isAvailable, isAr }: ContactInfoProps) {
           href={SOCIAL_LINKS.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between rounded-2xl border border-border bg-card p-4 sm:p-5 transition-colors hover:border-foreground/40 cursor-default"
+          aria-label={`${t("chatOnWhatsapp")}: +${SOCIAL_LINKS.whatsapp.split("wa.me/")[1]} (opens in new tab)`}
+          className="group flex items-center justify-between rounded-2xl border border-border bg-card p-4 sm:p-5 transition-colors hover:border-foreground/40 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
         >
           <div className="flex items-center gap-3.5">
-            <div className="flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground shrink-0">
+            <div aria-hidden="true" className="flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground shrink-0">
               <WhatsAppIcon className="size-5" />
             </div>
             <div className="space-y-0.5">
@@ -73,7 +76,7 @@ export function ContactInfo({ isAvailable, isAr }: ContactInfoProps) {
               </p>
             </div>
           </div>
-          <ArrowUpRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:group-hover:-translate-x-0.5" />
+          <ArrowUpRight aria-hidden="true" className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:group-hover:-translate-x-0.5" />
         </a>
 
         {/* Telegram Direct */}
@@ -81,10 +84,11 @@ export function ContactInfo({ isAvailable, isAr }: ContactInfoProps) {
           href={SOCIAL_LINKS.telegram}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between rounded-2xl border border-border bg-card p-4 sm:p-5 transition-colors hover:border-foreground/40 cursor-default"
+          aria-label={`${t("telegramTitle")}: @${SOCIAL_LINKS.telegram.split("t.me/")[1]} (opens in new tab)`}
+          className="group flex items-center justify-between rounded-2xl border border-border bg-card p-4 sm:p-5 transition-colors hover:border-foreground/40 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
         >
           <div className="flex items-center gap-3.5">
-            <div className="flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground shrink-0">
+            <div aria-hidden="true" className="flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground shrink-0">
               <TelegramIconInContact className="size-5" />
             </div>
             <div className="space-y-0.5">
@@ -101,16 +105,17 @@ export function ContactInfo({ isAvailable, isAr }: ContactInfoProps) {
               </p>
             </div>
           </div>
-          <ArrowUpRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:group-hover:-translate-x-0.5" />
+          <ArrowUpRight aria-hidden="true" className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:group-hover:-translate-x-0.5" />
         </a>
 
         {/* Email Direct */}
         <a
           href={SOCIAL_LINKS.email}
-          className="group flex items-center justify-between rounded-2xl border border-border bg-card p-4 sm:p-5 transition-colors hover:border-foreground/40 cursor-default"
+          aria-label={`${t("emailTitle")}: ${SOCIAL_LINKS.email.split(":")[1]}`}
+          className="group flex items-center justify-between rounded-2xl border border-border bg-card p-4 sm:p-5 transition-colors hover:border-foreground/40 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
         >
           <div className="flex items-center gap-3.5">
-            <div className="flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground shrink-0">
+            <div aria-hidden="true" className="flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground shrink-0">
               <GmailIcon className="size-5" />
             </div>
             <div className="space-y-0.5">
@@ -127,7 +132,7 @@ export function ContactInfo({ isAvailable, isAr }: ContactInfoProps) {
               </p>
             </div>
           </div>
-          <ArrowUpRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:group-hover:-translate-x-0.5" />
+          <ArrowUpRight aria-hidden="true" className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:group-hover:-translate-x-0.5" />
         </a>
       </div>
     </aside>

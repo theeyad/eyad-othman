@@ -54,6 +54,7 @@ export function ProjectImageSlider({
     <div
       className="relative aspect-video w-full rounded-2xl sm:rounded-3xl border border-border bg-card overflow-hidden my-10 sm:my-12 select-none group"
       role="region"
+      aria-roledescription="carousel"
       aria-label={title}
     >
       {/* Active Image */}
@@ -78,9 +79,9 @@ export function ProjectImageSlider({
             className="absolute inset-y-1/2 -translate-y-1/2 inset-s-3 sm:inset-s-4 size-10 sm:size-11 rounded-full border border-white/20 bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-all duration-200 hover:bg-black/85 hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             {isAr ? (
-              <ChevronRight className="size-5" />
+              <ChevronRight aria-hidden="true" className="size-5" />
             ) : (
-              <ChevronLeft className="size-5" />
+              <ChevronLeft aria-hidden="true" className="size-5" />
             )}
           </button>
 
@@ -92,9 +93,9 @@ export function ProjectImageSlider({
             className="absolute inset-y-1/2 -translate-y-1/2 inset-e-3 sm:inset-e-4 size-10 sm:size-11 rounded-full border border-white/20 bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-all duration-200 hover:bg-black/85 hover:scale-105 active:scale-95 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             {isAr ? (
-              <ChevronLeft className="size-5" />
+              <ChevronLeft aria-hidden="true" className="size-5" />
             ) : (
-              <ChevronRight className="size-5" />
+              <ChevronRight aria-hidden="true" className="size-5" />
             )}
           </button>
 
@@ -107,9 +108,10 @@ export function ProjectImageSlider({
                   key={idx}
                   type="button"
                   onClick={() => setCurrentIndex(idx)}
-                  aria-label={`Slide ${idx + 1}`}
+                  aria-label={`Slide ${idx + 1} of ${total}`}
+                  aria-current={currentIndex === idx ? "true" : undefined}
                   className={cn(
-                    "size-2 rounded-full transition-all duration-200 cursor-default",
+                    "size-2 rounded-full transition-all duration-200 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white",
                     currentIndex === idx
                       ? "w-5 bg-white"
                       : "bg-white/40 hover:bg-white/70"

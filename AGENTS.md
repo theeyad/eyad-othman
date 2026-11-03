@@ -150,7 +150,7 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
 - [x] **Phase 17: Contact Form in Contact Page**
   - RHF and Zod with connection to Telegram Bot API to send me a message with the form data.
 
-- [ ] **Phase 18: a11y**
+- [x] **Phase 18: a11y**
   - Make sure we apply a11y, all h1-h6, cards, all links and buttons have aria-label and have a clear readable aria-labelledby and are keyboard-navigable.
   - skills cards in Home page should not be keyboard-navigable, only the h2 saying {t("skills")}.
 

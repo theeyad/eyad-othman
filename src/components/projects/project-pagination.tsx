@@ -30,7 +30,7 @@ export function ProjectPagination({
 
   return (
     <nav
-      aria-label="Pagination Navigation"
+      aria-label={t("pagination")}
       className="mt-14 sm:mt-16 flex items-center justify-center gap-2"
     >
       {/* Previous Button */}
@@ -39,14 +39,14 @@ export function ProjectPagination({
           href={getPageUrl(currentPage - 1)}
           aria-label={t("previous")}
           className={cn(
-            "inline-flex items-center justify-center size-9 rounded-full border border-border bg-card text-foreground transition-colors hover:bg-foreground hover:text-background cursor-default",
+            "inline-flex items-center justify-center size-9 rounded-full border border-border bg-card text-foreground transition-colors hover:bg-foreground hover:text-background cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
             isAr ? "font-cairo" : "font-manrope",
           )}
         >
           {isAr ? (
-            <ArrowRight className="size-4" />
+            <ArrowRight aria-hidden="true" className="size-4" />
           ) : (
-            <ArrowLeft className="size-4" />
+            <ArrowLeft aria-hidden="true" className="size-4" />
           )}
         </Link>
       ) : (
@@ -55,9 +55,9 @@ export function ProjectPagination({
           className="inline-flex items-center justify-center size-9 rounded-full border border-border/40 bg-card/40 text-muted-foreground/40 cursor-default"
         >
           {isAr ? (
-            <ArrowRight className="size-4" />
+            <ArrowRight aria-hidden="true" className="size-4" />
           ) : (
-            <ArrowLeft className="size-4" />
+            <ArrowLeft aria-hidden="true" className="size-4" />
           )}
         </span>
       )}
@@ -71,7 +71,7 @@ export function ProjectPagination({
             href={getPageUrl(pageNum)}
             aria-current={isCurrent ? "page" : undefined}
             className={cn(
-              "inline-flex items-center justify-center size-9 rounded-full text-xs font-semibold transition-colors cursor-default",
+              "inline-flex items-center justify-center size-9 rounded-full text-xs font-semibold transition-colors cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
               isCurrent
                 ? "bg-foreground text-background"
                 : "border border-border bg-card text-muted-foreground hover:text-foreground",
@@ -89,14 +89,14 @@ export function ProjectPagination({
           href={getPageUrl(currentPage + 1)}
           aria-label={t("next")}
           className={cn(
-            "inline-flex items-center justify-center size-9 rounded-full border border-border bg-card text-foreground transition-colors hover:bg-foreground hover:text-background cursor-default",
+            "inline-flex items-center justify-center size-9 rounded-full border border-border bg-card text-foreground transition-colors hover:bg-foreground hover:text-background cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
             isAr ? "font-cairo" : "font-manrope",
           )}
         >
           {isAr ? (
-            <ArrowLeft className="size-4" />
+            <ArrowLeft aria-hidden="true" className="size-4" />
           ) : (
-            <ArrowRight className="size-4" />
+            <ArrowRight aria-hidden="true" className="size-4" />
           )}
         </Link>
       ) : (
@@ -105,9 +105,9 @@ export function ProjectPagination({
           className="inline-flex items-center justify-center size-9 rounded-full border border-border/40 bg-card/40 text-muted-foreground/40 cursor-default"
         >
           {isAr ? (
-            <ArrowLeft className="size-4" />
+            <ArrowLeft aria-hidden="true" className="size-4" />
           ) : (
-            <ArrowRight className="size-4" />
+            <ArrowRight aria-hidden="true" className="size-4" />
           )}
         </span>
       )}

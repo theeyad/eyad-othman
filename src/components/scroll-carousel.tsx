@@ -195,6 +195,7 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
     const renderProjectCards = (
       items: ProjectWithImages[],
       refs: React.RefObject<HTMLDivElement[]>,
+      isDuplicate = false,
     ) =>
       items.map((project, index) => {
         const title = isAr ? project.title_ar : project.title;
@@ -206,7 +207,7 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
 
         return (
           <div
-            key={`${project.slug}-${index}`}
+            key={`${project.slug}-${index}${isDuplicate ? "-dup" : ""}`}
             ref={(el: HTMLDivElement | null) => {
               if (el) refs.current[index] = el;
             }}
@@ -214,9 +215,12 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
           >
             <Link
               href={`/projects/${project.slug}`}
+              aria-label={isDuplicate ? undefined : `${title} - ${category}`}
+              aria-hidden={isDuplicate ? "true" : undefined}
+              tabIndex={isDuplicate ? -1 : undefined}
               className={cn(
                 "group relative block h-87.5 sm:h-95 xl:h-65 2xl:h-68.75 rounded-3xl border border-border bg-card overflow-hidden",
-                "transition-all duration-300 hover:border-foreground/30 cursor-default",
+                "transition-all duration-300 hover:border-foreground/30 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
               )}
             >
               {/* Background Project Image */}
@@ -266,19 +270,24 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
             {renderProjectCards(projects, cardRefs)}
           </div>
 
-          {/* Row 2 (Desktop alternate scroll) */}
+          {/* Row 2 (Desktop alternate scroll - decorative duplicate) */}
           {projectsRow2.length > 1 && (
             <div
               ref={scrollContainerRef2}
+              aria-hidden="true"
+              inert
               className="hidden xl:flex flex-row gap-3 items-center px-0"
             >
-              {renderProjectCards(projectsRow2, cardRefs2)}
+              {renderProjectCards(projectsRow2, cardRefs2, true)}
             </div>
           )}
 
           {/* Progress Bar (Desktop only) */}
           {isDesktop && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-64 h-1.5 bg-border rounded-full overflow-hidden z-20">
+            <div
+              aria-hidden="true"
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 w-64 h-1.5 bg-border rounded-full overflow-hidden z-20"
+            >
               <div
                 ref={progressBarRef}
                 className="h-full bg-foreground rounded-full transition-all duration-75"
