@@ -24,7 +24,7 @@ export default async function HomePage() {
   const resumeUrl = profile?.resume_url || "/Eyad_Othman_Frontend.pdf";
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] flex flex-col items-center px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-28 pb-24 bg-background text-foreground">
+    <main className="min-h-[calc(100vh-5rem)] flex flex-col items-center px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="w-full max-w-6xl mx-auto">
         {/* 1. Hero Section */}
         <HeroSection profile={profile} isAr={isAr} />

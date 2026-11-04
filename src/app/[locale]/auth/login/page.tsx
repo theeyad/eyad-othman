@@ -49,10 +49,10 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] flex flex-col justify-center px-10 sm:px-10 pt-28 pb-24 bg-background text-foreground">
+    <main className="flex flex-col px-10 sm:px-10 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="w-full lg:ms-10">
         {/* Back Link to Portfolio */}
-        <div className="mb-6">
+        <div className="mb-2 md:mb-6">
           <Link
             href="/"
             aria-label={t("backToPortfolio")}
@@ -76,7 +76,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Container */}
-        <div className="p-7 sm:p-9 cursor-default">
+        <div className="p-5 sm:p-9 cursor-default">
           {/* Header */}
           <div className="text-start space-y-2 mb-8">
             <h1
@@ -191,9 +191,9 @@ export default function LoginPage() {
                   className="absolute inset-y-0 inset-e-0 flex items-center pe-3.5 text-muted-foreground hover:text-foreground transition-colors cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground rounded"
                 >
                   {showPassword ? (
-                    <EyeOff aria-hidden="true" className="size-4" />
-                  ) : (
                     <Eye aria-hidden="true" className="size-4" />
+                  ) : (
+                    <EyeOff aria-hidden="true" className="size-4" />
                   )}
                 </button>
               </div>

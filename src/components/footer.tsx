@@ -8,7 +8,7 @@ export default async function Footer() {
   const isAr = locale === "ar";
 
   return (
-    <footer className="w-full py-8 border-t border-border mt-auto flex items-center justify-center text-center">
+    <footer className="w-full pt-8 pb-22 md:py-8 border-t border-border mt-auto flex items-center justify-center text-center">
       <p
         className={cn(
           "text-xs sm:text-sm text-muted-foreground cursor-default",

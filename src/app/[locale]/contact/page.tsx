@@ -26,7 +26,7 @@ export default async function ContactPage() {
   const isAvailable = profile?.available_for_work ?? true;
 
   return (
-    <main className="min-h-screen px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-20 md:pt-28 pb-24 bg-background text-foreground">
+    <main className="min-h-screen px-6 sm:px-10 lg:ps-28 lg:pe-28 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="mx-auto max-w-6xl">
         {/* Editorial Header */}
         <div className="text-start mb-12 sm:mb-16">

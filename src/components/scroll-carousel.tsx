@@ -260,7 +260,7 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
       >
         <div
           ref={containerRef}
-          className="relative overflow-hidden md:h-screen md:min-h-175 pt-28 pb-16 flex flex-col justify-center gap-2 z-10"
+          className="relative overflow-hidden md:h-screen md:min-h-175 pt-4 sm:pt-6 md:pt-28 pb-6 md:pb-16 flex flex-col justify-center gap-2 z-10"
         >
           {/* Row 1 (Desktop + Mobile) */}
           <div

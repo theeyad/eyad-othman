@@ -1,1 +1,1 @@
-export const ITEMS_PER_PAGE_PROJECTS = 9;
+export const ITEMS_PER_PAGE_PROJECTS = 6;

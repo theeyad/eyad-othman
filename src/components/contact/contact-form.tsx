@@ -71,7 +71,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
   ] as const;
 
   return (
-    <div className="rounded-3xl border border-border bg-card p-7 sm:p-9 space-y-8 text-start cursor-default">
+    <div className="rounded-3xl border border-border bg-card p-5 sm:p-7 md:p-9 space-y-8 text-start cursor-default">
       {/* Header */}
       <div className="space-y-1.5 pb-2 border-b-3 border-border">
         <h2
