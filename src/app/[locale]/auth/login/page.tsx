@@ -49,10 +49,10 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex flex-col px-4 sm:px-8 md:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
+    <main className="flex flex-1 flex-col justify-center px-4 sm:px-8 md:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="w-full lg:ms-10">
         {/* Back Link to Portfolio */}
-        <div className="mb-2 md:mb-6">
+        <div className="mb-4 md:mb-6">
           <Link
             href="/"
             aria-label={t("backToPortfolio")}
