@@ -36,10 +36,39 @@ export async function generateMetadata({
 
   const title = isAr ? project.title_ar : project.title;
   const description = isAr ? project.description_ar : project.description;
+  const primaryImage =
+    project.project_images?.find((img) => img.is_primary)?.url ||
+    project.project_images?.[0]?.url ||
+    "/me.webp";
 
   return {
-    title: isAr ? `${title} — مشاريع إياد عثمان` : `${title} — Eyad Othman`,
+    title,
     description,
+    alternates: {
+      canonical: `/${locale}/projects/${slug}`,
+      languages: {
+        en: `/en/projects/${slug}`,
+        ar: `/ar/projects/${slug}`,
+        "x-default": `/en/projects/${slug}`,
+      },
+    },
+    openGraph: {
+      title: isAr ? `${title} | إياد عثمان محمد` : `${title} | Eyad Othman Muhammad`,
+      description,
+      url: `/${locale}/projects/${slug}`,
+      images: [
+        {
+          url: primaryImage,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: isAr ? `${title} | إياد عثمان محمد` : `${title} | Eyad Othman Muhammad`,
+      description,
+      images: [primaryImage],
+    },
   };
 }
 

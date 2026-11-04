@@ -15,11 +15,27 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const isAr = locale === "ar";
 
+  const title = isAr ? "المشاريع" : "Projects";
+  const description = isAr
+    ? "معرض لأحدث المشاريع والتطبيقات التي قمت بتطويرها."
+    : "A showcase of projects and web applications developed by me.";
+
   return {
-    title: isAr ? "المشاريع — إياد عثمان" : "Projects — Eyad Othman",
-    description: isAr
-      ? "معرض لأحدث مشاريع وتطبيقات الواجهات الأمامية التي قام إياد عثمان بتطويرها."
-      : "A showcase of frontend projects and web applications developed by Eyad Othman.",
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/projects`,
+      languages: {
+        en: "/en/projects",
+        ar: "/ar/projects",
+        "x-default": "/en/projects",
+      },
+    },
+    openGraph: {
+      title: isAr ? `${title} | إياد عثمان محمد` : `${title} | Eyad Othman Muhammad`,
+      description,
+      url: `/${locale}/projects`,
+    },
   };
 }
 

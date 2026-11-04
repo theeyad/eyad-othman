@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { getLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { ProfileForm } from "@/components/admin/profile-form";
 import type { EditProfilePageProps } from "@/lib/types";

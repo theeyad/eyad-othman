@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ExperienceForm } from "@/components/admin/experience-form";

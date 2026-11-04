@@ -11,6 +11,7 @@ import Navbar from "@/components/navbar";
 import { SocialDock } from "@/components/social-dock";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
+import { SITE_URL } from "@/lib/consts";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -42,13 +43,91 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const isAr = locale === "ar";
 
+  const defaultTitle = isAr
+    ? "إياد عثمان محمد"
+    : "Eyad Othman Muhammad";
+
+  const description = isAr
+    ? "رجلٌ تعلم، ويتعلم، وسيتعلم دائمًا..."
+    : "A man who learned, is learning, and will always learn...";
+
   return {
-    title: isAr
-      ? "إياد عثمان محمد"
-      : "Eyad Othman Muhammad",
-    description: isAr
-      ? "رجلٌ تعلم، ويتعلم، وسيتعلم دائمًا... مطور واجهات أمامية"
-      : "A man who learned, is learning, and will always learn... Frontend Developer",
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: defaultTitle,
+      template: isAr ? "%s | إياد عثمان محمد" : "%s | Eyad Othman Muhammad",
+    },
+    description,
+    keywords: isAr
+      ? [
+          "إياد عثمان",
+          "مطور واجهات أمامية",
+          "مهندس برمجيات",
+          "مطور ويب",
+          "ريأكت",
+          "نكست جي اس",
+          "تايلويند",
+          "تايب سكريبت",
+          "بورتفوليو",
+          "معرض أعمال",
+        ]
+      : [
+          "Eyad Othman",
+          "Frontend Developer",
+          "Software Engineer",
+          "React Developer",
+          "Next.js Developer",
+          "TypeScript",
+          "Tailwind CSS",
+          "Web Developer",
+          "Portfolio",
+        ],
+    authors: [{ name: "Eyad Othman", url: "https://github.com/theeyad" }],
+    creator: "Eyad Othman",
+    publisher: "Eyad Othman",
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        en: "/en",
+        ar: "/ar",
+        "x-default": "/en",
+      },
+    },
+    openGraph: {
+      type: "website",
+      locale: isAr ? "ar_EG" : "en_US",
+      alternateLocale: isAr ? "en_US" : "ar_EG",
+      url: `/${locale}`,
+      siteName: isAr ? "إياد عثمان محمد" : "Eyad Othman Muhammad",
+      title: defaultTitle,
+      description,
+      images: [
+        {
+          url: "/me.webp",
+          width: 1200,
+          height: 630,
+          alt: isAr ? "إياد عثمان محمد" : "Eyad Othman Muhammad",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: defaultTitle,
+      description,
+      images: ["/me.webp"],
+      creator: "@theeyad",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     icons: {
       icon: [
         { url: "/favicon.ico" },

@@ -9,11 +9,27 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const isAr = locale === "ar";
 
+  const title = isAr ? "تواصل معي" : "Contact";
+  const description = isAr
+    ? "تواصل معي للمشاريع الحرة، الاستشارات، وفرص العمل."
+    : "Get in touch with me for freelance projects, collaborations, and opportunities.";
+
   return {
-    title: isAr ? "تواصل معي — إياد عثمان" : "Contact — Eyad Othman",
-    description: isAr
-      ? "تواصل مع إياد عثمان للمشاريع الحرة، الاستشارات، وفرص العمل."
-      : "Get in touch with Eyad Othman for freelance projects, collaborations, and opportunities.",
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/contact`,
+      languages: {
+        en: "/en/contact",
+        ar: "/ar/contact",
+        "x-default": "/en/contact",
+      },
+    },
+    openGraph: {
+      title: isAr ? `${title} | إياد عثمان محمد` : `${title} | Eyad Othman Muhammad`,
+      description,
+      url: `/${locale}/contact`,
+    },
   };
 }
 

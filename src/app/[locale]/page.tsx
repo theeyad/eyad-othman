@@ -1,4 +1,5 @@
 import { getLocale } from "next-intl/server";
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { SkillsLoopSection } from "@/components/skills-loop-section";
 import Experience from "@/components/experience";
@@ -9,6 +10,38 @@ import {
   getExperiences,
   getFeaturedProjects,
 } from "@/lib/supabase/queries";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  const title = isAr
+    ? "إياد عثمان محمد"
+    : "Eyad Othman Muhammad";
+  const description = isAr
+    ? "موقع إياد عثمان محمد الشخصي."
+    : "Portfolio of Eyad Othman Muhammad.";
+
+  return {
+    title: {
+      absolute: title,
+    },
+    description,
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        en: "/en",
+        ar: "/ar",
+        "x-default": "/en",
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/${locale}`,
+    },
+  };
+}
 
 export default async function HomePage() {
   const locale = await getLocale();
