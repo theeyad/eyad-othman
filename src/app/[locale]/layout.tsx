@@ -128,6 +128,10 @@ export async function generateMetadata(): Promise<Metadata> {
         "max-snippet": -1,
       },
     },
+    verification: {
+      google:
+        process.env.GOOGLE_SITE_VERIFICATION!,
+    },
     icons: {
       icon: [
         { url: "/favicon.ico" },
