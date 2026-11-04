@@ -119,7 +119,7 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
                 aria-label={
                   isEmail ? t("email") : `${chip.name} (opens in new tab)`
                 }
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4.5 py-2.5 text-xs font-medium text-foreground transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-3.5 sm:px-4.5 py-2 sm:py-2.5 text-xs font-medium text-foreground transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground"
               >
                 <span aria-hidden="true" className="flex items-center">
                   {chip.icon}
@@ -132,11 +132,11 @@ export async function HeroSection({ profile, isAr }: HeroSectionProps) {
       </div>
 
       <div className="md:col-span-6 flex justify-center -order-1 md:order-0 md:justify-end">
-        <div className="relative w-full max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-[2.5rem] overflow-hidden bg-card border border-border">
+        <div className="relative w-full max-w-67.5 xs:max-w-75 sm:max-w-85 md:max-w-95 aspect-4/5 rounded-3xl sm:rounded-[2.5rem] overflow-hidden bg-card border border-border">
           <Link
             href="/auth/login"
             aria-label={t("title")}
-            className="block cursor-default size-full relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-[2.5rem]"
+            className="block cursor-default size-full relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground rounded-3xl sm:rounded-[2.5rem]"
           >
             <Image
               src={avatarUrl}

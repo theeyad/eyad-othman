@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { MAX_MOBILE_SLIDER_DOTS } from "@/lib/consts";
 import type { ProjectImageSliderProps } from "@/lib/types";
 
 export function ProjectImageSlider({
@@ -99,10 +100,22 @@ export function ProjectImageSlider({
             )}
           </button>
 
-          {/* Bottom Indicators & Counter */}
-          <div className="absolute bottom-4 inset-x-0 flex items-center justify-between px-4 sm:px-6 pointer-events-none">
+          {/* Top Counter Badge */}
+          <div className="absolute top-3 sm:top-4 inset-e-3 sm:inset-e-4 z-10 pointer-events-auto bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 text-xs font-medium text-white tracking-wider">
+            <span>{currentIndex + 1}</span>
+            <span className="mx-1 text-white/50">/</span>
+            <span>{total}</span>
+          </div>
+
+          {/* Bottom Indicators */}
+          <div className="absolute bottom-3 sm:bottom-4 inset-s-3 sm:inset-s-4 z-10 pointer-events-none">
             {/* Pill Dots */}
-            <div className="flex items-center gap-1.5 pointer-events-auto bg-black/50 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-white/10">
+            <div
+              className={cn(
+                total > MAX_MOBILE_SLIDER_DOTS ? "hidden sm:flex" : "flex",
+                "items-center gap-1.5 pointer-events-auto bg-black/50 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-white/10"
+              )}
+            >
               {images.map((_, idx) => (
                 <button
                   key={idx}
@@ -118,13 +131,6 @@ export function ProjectImageSlider({
                   )}
                 />
               ))}
-            </div>
-
-            {/* Counter Badge */}
-            <div className="pointer-events-auto bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 text-xs font-medium text-white tracking-wider">
-              <span>{currentIndex + 1}</span>
-              <span className="mx-1 text-white/50">/</span>
-              <span>{total}</span>
             </div>
           </div>
         </>

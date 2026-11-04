@@ -49,7 +49,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex flex-col px-10 sm:px-10 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
+    <main className="flex flex-col px-4 sm:px-8 md:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="w-full lg:ms-10">
         {/* Back Link to Portfolio */}
         <div className="mb-2 md:mb-6">
@@ -76,7 +76,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Container */}
-        <div className="p-5 sm:p-9 cursor-default">
+        <div className="cursor-default">
           {/* Header */}
           <div className="text-start space-y-2 mb-8">
             <h1
@@ -138,7 +138,7 @@ export default function LoginPage() {
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? "email-error" : undefined}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.email ? "border-b-destructive" : "border-b-border",
                     isAr ? "pe-10 font-cairo" : "pe-10 font-manrope",
                   )}
@@ -179,7 +179,7 @@ export default function LoginPage() {
                   aria-invalid={!!errors.password}
                   aria-describedby={errors.password ? "password-error" : undefined}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus-border-b-foreground cursor-default",
                     errors.password ? "border-b-destructive" : "border-b-border",
                     isAr ? "pe-10 font-cairo" : "pe-10 font-manrope",
                   )}

@@ -124,7 +124,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
   };
 
   return (
-    <main className="min-h-screen px-6 sm:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
+    <main className="min-h-screen px-4 sm:px-8 md:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="w-full max-w-6xl mx-auto space-y-8">
         {/* Direction-Aware Back Link */}
         <div>
@@ -207,7 +207,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   disabled={isLoading}
                   {...register("title")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.title ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -234,7 +234,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   dir="rtl"
                   {...register("title_ar")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
                     errors.title_ar ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -260,7 +260,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   disabled={isLoading}
                   {...register("slug")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.slug ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -285,7 +285,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   placeholder="0"
                   disabled={isLoading}
                   {...register("display_order", { valueAsNumber: true })}
-                  className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
+                  className="w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
                 />
               </div>
             </div>
@@ -313,7 +313,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   disabled={isLoading}
                   {...register("category")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.category ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -340,7 +340,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   dir="rtl"
                   {...register("category_ar")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
                     errors.category_ar ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -375,7 +375,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   disabled={isLoading}
                   {...register("description")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none",
                     errors.description ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -402,7 +402,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   dir="rtl"
                   {...register("description_ar")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none font-cairo",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none font-cairo",
                     errors.description_ar ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -428,7 +428,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   disabled={isLoading}
                   {...register("long_description")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none",
                     errors.long_description ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -455,7 +455,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   dir="rtl"
                   {...register("long_description_ar")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none font-cairo",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none font-cairo",
                     errors.long_description_ar ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -490,7 +490,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                   disabled={isLoading}
                   {...register("tech_stack")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.tech_stack ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -516,7 +516,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                     placeholder={t("highlightsEnPlaceholder")}
                     disabled={isLoading}
                     {...register("highlights")}
-                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
+                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
                   />
                 </div>
 
@@ -535,7 +535,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                     disabled={isLoading}
                     dir="rtl"
                     {...register("highlights_ar")}
-                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo"
+                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo"
                   />
                 </div>
               </div>
@@ -555,7 +555,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                     placeholder="https://example.com"
                     disabled={isLoading}
                     {...register("live_url")}
-                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
+                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
                   />
                 </div>
 
@@ -573,7 +573,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
                     placeholder="https://github.com/theeyad/example"
                     disabled={isLoading}
                     {...register("github_url")}
-                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
+                    className="w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
                   />
                 </div>
               </div>

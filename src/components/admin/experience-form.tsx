@@ -75,7 +75,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
   };
 
   return (
-    <main className="min-h-screen px-6 sm:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
+    <main className="min-h-screen px-4 sm:px-8 md:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="w-full max-w-6xl mx-auto space-y-8">
         {/* Direction-Aware Back Link */}
         <div>
@@ -158,7 +158,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   disabled={isLoading}
                   {...register("role")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.role ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -185,7 +185,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   dir="rtl"
                   {...register("role_ar")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
                     errors.role_ar ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -211,7 +211,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   disabled={isLoading}
                   {...register("company")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.company ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -236,7 +236,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   placeholder="https://example.com"
                   disabled={isLoading}
                   {...register("company_url")}
-                  className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
+                  className="w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
                 />
               </div>
             </div>
@@ -264,7 +264,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   disabled={isLoading}
                   {...register("type")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.type ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -291,7 +291,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   dir="rtl"
                   {...register("type_ar")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default font-cairo",
                     errors.type_ar ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -316,7 +316,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   disabled={isLoading}
                   {...register("start_date")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     errors.start_date ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -341,7 +341,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   disabled={isLoading || isCurrent}
                   {...register("end_date")}
                   className={cn(
-                    "w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+                    "w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground transition-colors focus:outline-none focus:border-b-foreground cursor-default",
                     isCurrent && "opacity-40 pointer-events-none"
                   )}
                 />
@@ -385,7 +385,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   placeholder="0"
                   disabled={isLoading}
                   {...register("display_order", { valueAsNumber: true })}
-                  className="w-full border-b border-b-border bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
+                  className="w-full border-b border-b-border bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default"
                 />
               </div>
             </div>
@@ -413,7 +413,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   disabled={isLoading}
                   {...register("description")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none",
                     errors.description ? "border-b-destructive" : "border-b-border"
                   )}
                 />
@@ -440,7 +440,7 @@ export function ExperienceForm({ initialData }: ExperienceFormProps) {
                   dir="rtl"
                   {...register("description_ar")}
                   className={cn(
-                    "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none font-cairo",
+                    "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none font-cairo",
                     errors.description_ar ? "border-b-destructive" : "border-b-border"
                   )}
                 />

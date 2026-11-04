@@ -154,7 +154,7 @@ IMPORTANT NOTE: NEVER READ `.env` FILES, `.env.local`, `.env.production`, OR ANY
   - Make sure we apply a11y, all h1-h6, cards, all links and buttons have aria-label and have a clear readable aria-labelledby and are keyboard-navigable.
   - skills cards in Home page should not be keyboard-navigable, only the h2 saying {t("skills")}.
 
-- [ ] **Phase 19: Mobile Responsive**
+- [x] **Phase 19: Mobile Responsive**
   - Make sure the whole portfolio is responsive for mobile devices.
 
 - [ ] **Phase 20: Final Polish**

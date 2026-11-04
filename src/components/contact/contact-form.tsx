@@ -131,7 +131,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
             className={cn(
-              "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
+              "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default",
               errors.name ? "border-b-destructive" : "border-b-border",
               isAr ? "font-cairo" : "font-manrope",
             )}
@@ -165,7 +165,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
             className={cn(
-              "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default text-start",
+              "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default text-start",
               errors.email ? "border-b-destructive" : "border-b-border",
               isAr ? "font-cairo" : "font-manrope",
             )}
@@ -199,7 +199,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
                   aria-invalid={!!errors.subject}
                   aria-describedby={errors.subject ? "subject-error" : undefined}
                   className={cn(
-                    "w-full rounded-none border-0 border-b bg-transparent px-4 py-3 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:border-b-foreground focus-visible:ring-0 cursor-default",
+                    "w-full rounded-none border-0 border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:border-b-foreground focus-visible:ring-0 cursor-default",
                     errors.subject ? "border-b-destructive" : "border-b-border",
                     isAr ? "font-cairo" : "font-manrope",
                   )}
@@ -253,7 +253,7 @@ export function ContactForm({ isAr }: ContactFormProps) {
             aria-invalid={!!errors.message}
             aria-describedby={errors.message ? "message-error" : undefined}
             className={cn(
-              "w-full border-b bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus:border-b-foreground cursor-default resize-none leading-relaxed min-h-28",
+              "w-full border-b bg-transparent px-4 py-3 text-base md:text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:outline-none focus-border-b-foreground cursor-default resize-none leading-relaxed min-h-28",
               errors.message ? "border-b-destructive" : "border-b-border",
               isAr ? "font-cairo" : "font-manrope",
             )}

@@ -195,7 +195,7 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
     const renderProjectCards = (
       items: ProjectWithImages[],
       refs: React.RefObject<HTMLDivElement[]>,
-      isDuplicate = false,
+      rowKey = "row1",
     ) =>
       items.map((project, index) => {
         const title = isAr ? project.title_ar : project.title;
@@ -207,7 +207,7 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
 
         return (
           <div
-            key={`${project.slug}-${index}${isDuplicate ? "-dup" : ""}`}
+            key={`${rowKey}-${project.slug}-${index}`}
             ref={(el: HTMLDivElement | null) => {
               if (el) refs.current[index] = el;
             }}
@@ -215,9 +215,7 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
           >
             <Link
               href={`/projects/${project.slug}`}
-              aria-label={isDuplicate ? undefined : `${title} - ${category}`}
-              aria-hidden={isDuplicate ? "true" : undefined}
-              tabIndex={isDuplicate ? -1 : undefined}
+              aria-label={`${title} - ${category}`}
               className={cn(
                 "group relative block h-87.5 sm:h-95 xl:h-65 2xl:h-68.75 rounded-3xl border border-border bg-card overflow-hidden",
                 "transition-all duration-300 hover:border-foreground/30 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
@@ -267,18 +265,16 @@ export const ScrollCarousel = forwardRef<HTMLDivElement, ScrollCarouselProps>(
             ref={scrollContainerRef}
             className="flex flex-col md:flex-row gap-3 items-center px-4 md:px-0"
           >
-            {renderProjectCards(projects, cardRefs)}
+            {renderProjectCards(projects, cardRefs, "row1")}
           </div>
 
-          {/* Row 2 (Desktop alternate scroll - decorative duplicate) */}
+          {/* Row 2 (Desktop alternate scroll - navigatable & interactive) */}
           {projectsRow2.length > 1 && (
             <div
               ref={scrollContainerRef2}
-              aria-hidden="true"
-              inert
               className="hidden xl:flex flex-row gap-3 items-center px-0"
             >
-              {renderProjectCards(projectsRow2, cardRefs2, true)}
+              {renderProjectCards(projectsRow2, cardRefs2, "row2")}
             </div>
           )}
 

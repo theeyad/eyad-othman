@@ -172,7 +172,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
   };
 
   return (
-    <main className="min-h-screen px-6 sm:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
+    <main className="min-h-screen px-4 sm:px-8 md:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
       <div className="w-full max-w-4xl mx-auto space-y-10">
         {/* Top Back Navigation */}
         <div>
@@ -198,7 +198,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
         </div>
 
         {/* Editorial Form Container */}
-        <div className="rounded-3xl border border-border bg-card p-5 sm:p-9 space-y-10 cursor-default">
+        <div className="rounded-3xl border border-border bg-card p-3 sm:p-9 space-y-10 cursor-default">
           {/* Header */}
           <div className="space-y-1.5 pb-2 border-b-3 border-border text-start">
             <h1
