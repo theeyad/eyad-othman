@@ -173,7 +173,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
 
   return (
     <main className="min-h-screen px-4 sm:px-8 md:px-10 lg:ps-20 lg:pe-20 pt-12 md:pt-28 pb-12 md:pb-24 bg-background text-foreground">
-      <div className="w-full max-w-4xl mx-auto space-y-10">
+      <div className="w-full max-w-6xl mx-auto space-y-10">
         {/* Top Back Navigation */}
         <div>
           <Link
@@ -348,7 +348,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
 
               {/* Current Document Viewer */}
               {currentResumeUrl && (
-                <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-background/50">
+                <div className="flex items-center flex-wrap gap-2 justify-between p-4 rounded-xl border border-border bg-background/50">
                   <div className="flex items-center gap-3">
                     <div
                       aria-hidden="true"
