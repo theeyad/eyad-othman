@@ -48,8 +48,8 @@ export async function generateMetadata(): Promise<Metadata> {
     : "Eyad Othman";
 
   const description = isAr
-    ? "رجلٌ تعلم، ويتعلم، وسيتعلم دائمًا..."
-    : "A man who learned, is learning, and will always learn...";
+    ? "موقع إياد عثمان — مطور واجهات أمامية. رجلٌ تعلم، ويتعلم، وسيتعلم دائمًا... تصفح أحدث المشاريع البرمجية، سجل الخبرات، والمهارات."
+    : "Portfolio of Eyad Othman — Frontend Developer. A man who learned, is learning, and will always learn... Explore featured projects, experience, and skills.";
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -60,28 +60,28 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     keywords: isAr
       ? [
-          "إياد عثمان",
-          "مطور واجهات أمامية",
-          "مهندس برمجيات",
-          "مطور ويب",
-          "ريأكت",
-          "نكست جي اس",
-          "تايلويند",
-          "تايب سكريبت",
-          "بورتفوليو",
-          "معرض أعمال",
-        ]
+        "إياد عثمان",
+        "مطور واجهات أمامية",
+        "مهندس برمجيات",
+        "مطور ويب",
+        "ريأكت",
+        "نكست جي اس",
+        "تايلويند",
+        "تايب سكريبت",
+        "بورتفوليو",
+        "معرض أعمال",
+      ]
       : [
-          "Eyad Othman",
-          "Frontend Developer",
-          "Software Engineer",
-          "React Developer",
-          "Next.js Developer",
-          "TypeScript",
-          "Tailwind CSS",
-          "Web Developer",
-          "Portfolio",
-        ],
+        "Eyad Othman",
+        "Frontend Developer",
+        "Software Engineer",
+        "React Developer",
+        "Next.js Developer",
+        "TypeScript",
+        "Tailwind CSS",
+        "Web Developer",
+        "Portfolio",
+      ],
     authors: [{ name: "Eyad Othman", url: "https://github.com/theeyad" }],
     creator: "Eyad Othman",
     publisher: "Eyad Othman",
@@ -135,6 +135,7 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: [
         { url: "/favicon.ico" },
+        { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
         { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
         { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       ],

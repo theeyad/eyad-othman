@@ -18,9 +18,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = isAr
     ? "إياد عثمان"
     : "Eyad Othman";
+
   const description = isAr
-    ? "موقع إياد عثمان الشخصي."
-    : "Portfolio of Eyad Othman.";
+    ? "موقع إياد عثمان — مطور واجهات أمامية. رجلٌ تعلم، ويتعلم، وسيتعلم دائمًا... تصفح أحدث المشاريع البرمجية، سجل الخبرات، والمهارات."
+    : "Portfolio of Eyad Othman — Frontend Developer. A man who learned, is learning, and will always learn... Explore featured projects, experience, and skills.";
 
   return {
     title: {
