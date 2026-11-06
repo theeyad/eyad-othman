@@ -53,7 +53,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: isAr ? `${title} | إياد عثمان محمد` : `${title} | Eyad Othman Muhammad`,
+      title: isAr ? `${title} | إياد عثمان` : `${title} | Eyad Othman`,
       description,
       url: `/${locale}/projects/${slug}`,
       images: [
@@ -65,7 +65,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: isAr ? `${title} | إياد عثمان محمد` : `${title} | Eyad Othman Muhammad`,
+      title: isAr ? `${title} | إياد عثمان` : `${title} | Eyad Othman`,
       description,
       images: [primaryImage],
     },

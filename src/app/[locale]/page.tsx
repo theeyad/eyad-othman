@@ -16,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const isAr = locale === "ar";
 
   const title = isAr
-    ? "إياد عثمان محمد"
-    : "Eyad Othman Muhammad";
+    ? "إياد عثمان"
+    : "Eyad Othman";
   const description = isAr
-    ? "موقع إياد عثمان محمد الشخصي."
-    : "Portfolio of Eyad Othman Muhammad.";
+    ? "موقع إياد عثمان الشخصي."
+    : "Portfolio of Eyad Othman.";
 
   return {
     title: {

@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: isAr ? `${title} | إياد عثمان محمد` : `${title} | Eyad Othman Muhammad`,
+      title: isAr ? `${title} | إياد عثمان` : `${title} | Eyad Othman`,
       description,
       url: `/${locale}/projects`,
     },

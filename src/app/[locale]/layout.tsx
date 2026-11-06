@@ -44,8 +44,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const isAr = locale === "ar";
 
   const defaultTitle = isAr
-    ? "إياد عثمان محمد"
-    : "Eyad Othman Muhammad";
+    ? "إياد عثمان"
+    : "Eyad Othman";
 
   const description = isAr
     ? "رجلٌ تعلم، ويتعلم، وسيتعلم دائمًا..."
@@ -55,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(SITE_URL),
     title: {
       default: defaultTitle,
-      template: isAr ? "%s | إياد عثمان محمد" : "%s | Eyad Othman Muhammad",
+      template: isAr ? "%s | إياد عثمان" : "%s | Eyad Othman",
     },
     description,
     keywords: isAr
@@ -98,7 +98,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: isAr ? "ar_EG" : "en_US",
       alternateLocale: isAr ? "en_US" : "ar_EG",
       url: `/${locale}`,
-      siteName: isAr ? "إياد عثمان محمد" : "Eyad Othman Muhammad",
+      siteName: isAr ? "إياد عثمان" : "Eyad Othman",
       title: defaultTitle,
       description,
       images: [
@@ -106,7 +106,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "/me.webp",
           width: 1200,
           height: 630,
-          alt: isAr ? "إياد عثمان محمد" : "Eyad Othman Muhammad",
+          alt: isAr ? "إياد عثمان" : "Eyad Othman",
         },
       ],
     },
